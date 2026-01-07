@@ -1,7 +1,0 @@
-<svg width="120" height="56" viewBox="0 0 240 112" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="4" y="10" rx="42" width="232" height="92" fill="#291e47" stroke="#f4b43d" stroke-width="7"/>
-<text x="42" y="78" font-family="Segoe UI, Arial, sans-serif" font-size="66" font-weight="800" fill="#f4b43d" letter-spacing="-7">P</text>
-<text x="90" y="78" font-family="Segoe UI, Arial, sans-serif" font-size="54" font-weight="800" fill="#fff" letter-spacing="-5">boost</text>
-<circle cx="30" cy="36" r="12" fill="#e0801a"/>
-<circle cx="210" cy="76" r="12" fill="#e0801a"/>
-</svg>
