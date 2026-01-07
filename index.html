@@ -7,8 +7,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff0000; --primary-glow: rgba(255, 0, 0, 0.5); --bg-dark: #0b0b0d; --card-bg: rgba(22, 22, 26, 0.95); --text-main: #e1e1e6; }
-
+        :root {
+            --primary: #ff0000;
+            --primary-glow: rgba(255, 0, 0, 0.5);
+            --bg-dark: #0b0b0d;
+            --card-bg: rgba(22, 22, 26, 0.95);
+            --text-main: #e1e1e6;
+        }
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
@@ -17,34 +22,131 @@
             min-height: 100vh;
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
-            transition: background-image 0.6s ease-in-out;
+            transition: background-image 0.5s cubic-bezier(.48,-0.01,.43,.96);
         }
-
-        .bg-bf6 { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://wallpaperaccess.com/full/6119335.jpg'); }
-        .bg-fell { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://wallpapercave.com/wp/wp4012028.jpg'); }
-        .bg-wow { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80'); }
-
-        header { background: rgba(0, 0, 0, 0.9); padding: 25px; text-align: center; border-bottom: 2px solid var(--primary); box-shadow: 0 0 25px var(--primary-glow); }
-        .logo { font-family: 'Orbitron'; font-size: 2rem; color: var(--primary); letter-spacing: 5px; text-shadow: 0 0 15px var(--primary-glow); font-weight: 900; }
-
-        .game-nav { display: flex; gap: 20px; justify-content: center; padding: 40px 20px; }
-        .game-card { background: rgba(0,0,0,0.6); border: 1px solid #444; padding: 15px 35px; border-radius: 12px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.9rem; color: #888; transition: 0.4s; backdrop-filter: blur(5px); }
-        .game-card.active { border-color: var(--primary); color: white; box-shadow: 0 0 20px var(--primary-glow); transform: translateY(-5px); background: rgba(255,0,0,0.1); }
-
-        .main-container { max-width: 1300px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 420px; gap: 40px; }
+        /* GAME BACKGROUNDS - best effort, thematic, clear images */
+        .bg-bf6 {
+            background-image:
+              linear-gradient(rgba(10,21,41,0.67), rgba(36,31,52, 0.70)),
+              url('https://www.10wallpaper.com/wallpaper/1366x768/2509/Battlefield_6_Soldier_2025_Video_Game_Poster_5K_1366x768.jpg');
+        }
+        .bg-fell {
+            background-image:
+              linear-gradient(rgba(30,13,41,0.72), rgba(10,15,33,0.85)),
+              url('https://www-static.chiefrebel.com/wp-content/uploads/2024/08/Fellowship-KeyArt-withLogo.png?media=1689770145');
+        }
+        .bg-wow {
+            background-image:
+              linear-gradient(rgba(60,33,9,0.7), rgba(46, 19, 3, 0.82)),
+              url('https://www.10wallpaper.com/wallpaper/1366x768/1609/World_of_warcraft_characters-2016_Game_Posters_HD_Wallpaper_1366x768.jpg');
+        }
+        .bg-poe2 {
+            background-image:
+              linear-gradient(rgba(20,13,8,0.75), rgba(33,22,14,0.84)),
+              url('https://gaming-cdn.com/images/products/5813/616x353/path-of-exile-2-pc-steam-cover.jpg?v=1753427678');
+        }
+        header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            text-align: center;
+            border-bottom: 2px solid var(--primary);
+            box-shadow: 0 0 25px var(--primary-glow);
+        }
+        .logo {
+            font-family: 'Orbitron';
+            font-size: 2rem;
+            color: var(--primary);
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px var(--primary-glow);
+            font-weight: 900;
+        }
+        .game-nav {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        .game-card {
+            background: rgba(0,0,0,0.6);
+            border: 1px solid #444;
+            padding: 15px 35px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: 'Orbitron';
+            font-size: 0.9rem;
+            color: #888;
+            transition: 0.4s;
+            backdrop-filter: blur(5px);
+        }
+        .game-card.active {
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 20px var(--primary-glow);
+            transform: translateY(-5px);
+            background: rgba(255,0,0,0.1);
+        }
+        .main-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 40px;
+        }
         @media (max-width: 1100px) { .main-container { grid-template-columns: 1fr; } }
-
-        .config-card { background: var(--card-bg); border-radius: 16px; padding: 30px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 30px; }
-        h2 { font-family: 'Orbitron'; font-size: 1rem; color: var(--primary); border-left: 4px solid var(--primary); padding-left: 15px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
-
-        .service-desc { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 8px; font-size: 0.85rem; color: #aaa; border-left: 2px solid #555; margin-bottom: 15px; }
-
-        /* ESTILOS DE BOTONES PILOTED/SELFPLAY */
-        .mode-selector { display: flex; gap: 10px; margin-bottom: 20px; }
-        .mode-btn { flex: 1; padding: 12px; border: 1px solid #333; background: #000; color: #777; border-radius: 8px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.75rem; transition: 0.3s; text-align: center; }
-        .mode-btn.active { border-color: var(--primary); color: white; background: rgba(255,0,0,0.1); box-shadow: 0 0 10px var(--primary-glow); }
-
+        .config-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-family: 'Orbitron';
+            font-size: 1rem;
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .service-desc {
+            background: rgba(0,0,0,0.4);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #aaa;
+            border-left: 2px solid #555;
+            margin-bottom: 15px;
+        }
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .mode-btn {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #333;
+            background: #000;
+            color: #777;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Orbitron';
+            font-size: 0.75rem;
+            transition: 0.3s;
+            text-align: center;
+        }
+        .mode-btn.active {
+            border-color: var(--primary);
+            color: white;
+            background: rgba(255,0,0,0.1);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
         .safe-bar {
             background: rgba(20, 20, 25, 0.8);
             border: 1px solid rgba(255, 0, 0, 0.2);
@@ -59,23 +161,161 @@
         .safe-bar i { color: var(--primary); font-size: 1.2rem; }
         .safe-text { font-size: 0.85rem; color: #ddd; line-height: 1.4; }
         .safe-text strong { color: #fff; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
-
-        .eta-box { color: #f1c40f; font-size: 1rem; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border: 1px dashed rgba(241, 196, 15, 0.4); padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.5); }
-
+        .eta-box {
+            color: #f1c40f;
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px dashed rgba(241, 196, 15, 0.4);
+            padding: 15px;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.5);
+        }
         .input-group { margin-bottom: 25px; }
-        label { display: block; font-size: 0.7rem; color: #999; margin-bottom: 10px; text-transform: uppercase; font-weight: 900; }
-        select, input { width: 100%; background: #000; border: 1px solid #333; color: white; padding: 14px; border-radius: 8px; font-size: 0.95rem; outline: none; }
-
-        .summary-card { background: rgba(28, 28, 33, 0.98); border-radius: 20px; padding: 35px; border: 1px solid var(--primary); position: sticky; top: 20px; }
-        .price-val { font-family: 'Orbitron'; font-size: 3.5rem; color: white; display: block; text-align: center; margin: 15px 0; text-shadow: 0 0 20px var(--primary-glow); }
-
-        .role-notice { color: #ff4444; font-size: 0.75rem; margin-top: 5px; display: none; font-weight: bold; }
-
-        .payment-info { background: #050505; padding: 20px; border-radius: 12px; margin-top: 25px; border-left: 5px solid var(--primary); }
-        .pay-label { font-size: 0.75rem; color: #777; text-transform: uppercase; margin-bottom: 6px; display: block; }
-        .pay-address { font-family: 'Orbitron', monospace; color: #fff; font-size: 0.9rem; display: block; margin-bottom: 18px; word-break: break-all; }
-
-        .btn-checkout { background: var(--primary); color: white; width: 100%; padding: 22px; border: none; border-radius: 10px; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 25px; font-size: 1rem; }
+        label {
+            display: block;
+            font-size: 0.7rem;
+            color: #999;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            font-weight: 900;
+        }
+        select, input {
+            width: 100%;
+            background: #000;
+            border: 1px solid #333;
+            color: white;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+        }
+        .summary-card {
+            background: rgba(28, 28, 33, 0.98);
+            border-radius: 20px;
+            padding: 35px;
+            border: 1px solid var(--primary);
+            position: sticky;
+            top: 20px;
+        }
+        .price-val {
+            font-family: 'Orbitron';
+            font-size: 3.5rem;
+            color: white;
+            display: block;
+            text-align: center;
+            margin: 15px 0;
+            text-shadow: 0 0 20px var(--primary-glow);
+        }
+        .role-notice {
+            color: #ff4444;
+            font-size: 0.75rem;
+            margin-top: 5px;
+            display: none;
+            font-weight: bold;
+        }
+        .payment-info {
+            background: #050505;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border-left: 5px solid var(--primary);
+        }
+        .pay-label {
+            font-size: 0.75rem;
+            color: #777;
+            text-transform: uppercase;
+            margin-bottom: 6px;
+            display: block;
+        }
+        .pay-address {
+            font-family: 'Orbitron', monospace;
+            color: #fff;
+            font-size: 0.9rem;
+            display: block;
+            margin-bottom: 18px;
+            word-break: break-all;
+        }
+        .btn-checkout {
+            background: var(--primary);
+            color: white;
+            width: 100%;
+            padding: 22px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Orbitron';
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-top: 25px;
+            font-size: 1rem;
+        }
+        #discord-fab {
+            position: fixed;
+            left: 24px;
+            bottom: 18px;
+            z-index: 10001;
+            background: #5865F2;
+            color: #fff;
+            font-family: 'Orbitron', Arial, sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: none;
+            border-radius: 45px;
+            box-shadow: 0 4px 25px 0 rgba(88,101,242,0.27), 0 1.5px 7px 0 #0003;
+            padding: 13px 22px;
+            font-size: 1.11rem;
+            text-decoration: none;
+            font-weight: 700;
+            letter-spacing: 1px;
+            transition: background 0.16s, box-shadow 0.21s, transform 0.12s;
+        }
+        #discord-fab:hover {
+            background: #404eed;
+            color: #fff;
+            box-shadow: 0 8px 32px 0 rgba(88,101,242,0.39), 0 3px 16px 0 #0006;
+            transform: scale(1.048);
+        }
+        #discord-fab .fab { font-size: 1.42em; }
+        @media (max-width: 600px) {
+            #discord-fab { left: 7px; bottom: 7px; padding: 11px 14px; font-size: .98rem;}
+            #discord-fab .fab { font-size: 1.09em; }
+        }
+        #wa-chat-fab {
+            position: fixed;
+            z-index: 10000;
+            right: 22px;
+            bottom: 26px;
+            background: #25d366;
+            color: #fff;
+            font-family: 'Orbitron', Arial, sans-serif;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            border: none;
+            border-radius: 50px;
+            box-shadow: 0 4px 25px 0 rgba(37, 211, 102, 0.33), 0 1.5px 7px 0 #0004;
+            padding: 14px 24px 14px 18px;
+            font-size: 1.07rem;
+            text-decoration: none;
+            transition: background 0.15s, box-shadow 0.21s, transform 0.13s;
+        }
+        #wa-chat-fab:hover {
+            background: #20ba5a;
+            color: #fff;
+            box-shadow: 0 8px 32px 0 rgba(37,211,102,0.45), 0 3px 16px 0 #0006;
+            transform: scale(1.045);
+        }
+        #wa-chat-fab .fab { font-size: 1.4em; }
+        @media (max-width: 600px) {
+            #wa-chat-fab { right: 8px; bottom: 8px; padding: 12px 18px 12px 13px; font-size: .98rem;}
+            #wa-chat-fab .fab { font-size: 1.16em; }
+        }
     </style>
 </head>
 <body class="bg-bf6">
@@ -86,6 +326,7 @@
     <div id="tab-bf6" class="game-card active" onclick="switchTab('bf6')"><i class="fas fa-crosshairs"></i> BATTLEFIELD 6</div>
     <div id="tab-fell" class="game-card" onclick="switchTab('fell')"><i class="fas fa-dragon"></i> FELLOWSHIP</div>
     <div id="tab-wow" class="game-card" onclick="switchTab('wow')"><i class="fas fa-hat-wizard"></i> WOW BOOSTS</div>
+    <div id="tab-poe2" class="game-card" onclick="switchTab('poe2')"><i class="fas fa-skull-crossbones"></i> PATH OF EXILE 2</div>
 </div>
 
 <div class="main-container">
@@ -179,9 +420,7 @@
                             <option value="gold">Gold Selling</option>
                         </select>
                     </div>
-                    <div id="wow-service-extra">
-                        <!-- Will dynamically fill based on service -->
-                  </div>
+                    <div id="wow-service-extra"></div>
                 </div>
                 <div id="wowClassicSection" style="display:none;">
                     <div class="service-desc">Classic Boost services and gold. <br><a href="AAA" target="_blank" style="color:#ffb52c"> <b></b> </a></div>
@@ -204,10 +443,44 @@
             </div>
             <!-- END WOW TAB -->
 
+            <!-- Path of Exile 2 SERVICES TAB -->
+            <div id="form-poe2" style="display:none;">
+                <div class="input-group">
+                    <label>Service</label>
+                    <select id="poe2_service" onchange="calcTotal()">
+                        <option value="level">Leveling 1-80 ($29.99)</option>
+                        <option value="act1-10">Acts 1-10 Campaign Full Completion ($27.99)</option>
+                        <option value="boss">Uber Boss Carries (each) ($10.99)</option>
+                        <option value="curr">Currency Boost 1000c ($11.99)</option>
+                        <option value="lab">Labyrinth Full Unlock ($6.99)</option>
+                        <option value="trial">Ascendancy Trials Pack ($4.99)</option>
+                    </select>
+                </div>
+                <div class="service-desc">
+                    <b>Fast, hand-played, and safe services for PoE2.</b><br>
+                    Prices matched to major sellers (Overgear, L40, etc). <br>
+                    <span style="color:#fc0">Contact us for custom requests, bulk orders or questions!</span>
+                </div>
+                <div class="input-group" id="poe2_input_group_boss" style="display:none;">
+                    <label>Number of Uber Boss Carries</label>
+                    <input type="number" id="poe2_boss_count" value="1" min="1" max="10" oninput="calcTotal()">
+                </div>
+                <div class="input-group" id="poe2_input_group_curr" style="display:none;">
+                    <label>Amount x1000c</label>
+                    <input type="number" id="poe2_curr_qty" value="1" min="1" max="20" oninput="calcTotal()">
+                </div>
+                <div class="safe-bar">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="safe-text">
+                        <strong>Security & Efficiency:</strong> Only hand-play. No bots/hacks. Orders discreet and safe.
+                    </div>
+                </div>
+            </div>
+            <!-- END Path of Exile 2 TAB -->
+
             <div class="eta-box" style="margin-top:25px;"><i class="fas fa-bolt"></i> ESTIMATED DELIVERY: <span id="display_eta">...</span></div>
         </div>
     </div>
-
     <div class="summary-side">
         <div class="summary-card">
             <h2 style="border:none; text-align:center; padding:0;">SUMMARY</h2>
@@ -230,6 +503,15 @@
     </div>
 </div>
 
+<!-- Discord Invite FAB -->
+<a href="https://discord.gg/8zkvN4qNfq" id="discord-fab" target="_blank" title="Join us on Discord!">
+  <i class="fab fa-discord"></i> Join Discord
+</a>
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/584125151298" id="wa-chat-fab" target="_blank" title="Chat with us on WhatsApp">
+  <i class="fab fa-whatsapp"></i> Live Chat
+</a>
+
 <script>
 let currentTab = 'bf6';
 let discount = 1.0;
@@ -237,14 +519,7 @@ let serviceMode = 'Piloted';
 
 // WoW Retail pricing in USD
 const wow_mplus_prices = {
-    7: 2.5,
-    8: 3,
-    9: 3.5,
-    10: 5,
-    12: 7,
-    15: 16,
-    17: 60,
-    20: 100
+    7: 2.5, 8: 3, 9: 3.5, 10: 5, 12: 7, 15: 16, 17: 60, 20: 100
 };
 const wow_leveling_all = 14; // 1-80
 const wow_leveling_7080 = 6; // 70-80
@@ -254,6 +529,16 @@ const wow_pvp_conquest = 90;
 const wow_pve_hero = 50;
 const wow_pve_714 = 90;
 const wow_gold_100k = 5.5;
+
+// Path of Exile 2 services pricing (USD)
+const poe2_prices = {
+    level: 29.99,
+    "act1-10": 27.99,
+    boss: 10.99,
+    curr: 11.99,
+    lab: 6.99,
+    trial: 4.99
+};
 
 function setMode(mode) {
     serviceMode = mode;
@@ -266,15 +551,18 @@ function switchTab(tab) {
     document.getElementById('tab-bf6').classList.toggle('active', tab === 'bf6');
     document.getElementById('tab-fell').classList.toggle('active', tab === 'fell');
     document.getElementById('tab-wow').classList.toggle('active', tab === 'wow');
+    document.getElementById('tab-poe2').classList.toggle('active', tab === 'poe2');
     document.getElementById('form-bf6').style.display = (tab === 'bf6') ? 'block' : 'none';
     document.getElementById('form-fell').style.display = (tab === 'fell') ? 'block' : 'none';
     document.getElementById('form-wow').style.display = (tab === 'wow') ? 'block' : 'none';
-    document.body.className = (tab === 'bf6') ? 'bg-bf6' : (tab === 'fell' ? 'bg-fell' : 'bg-wow');
+    document.getElementById('form-poe2').style.display = (tab === 'poe2') ? 'block' : 'none';
+    document.body.className = (tab === 'bf6') ? 'bg-bf6' :
+        (tab === 'fell' ? 'bg-fell' : (tab === 'wow' ? 'bg-wow' : 'bg-poe2'));
     if(tab === 'fell') updateFellUI();
     else if(tab === 'wow') { updateWoWUI(); }
+    else if(tab === 'poe2') updatePoe2UI();
     else calcTotal();
 }
-
 function updateWoWUI() {
     const ver = document.getElementById('wow_ver').value;
     document.getElementById('wowRetailSection').style.display = (ver === "retail") ? "block" : "none";
@@ -282,7 +570,6 @@ function updateWoWUI() {
     if(ver === "retail") updateWoWServiceUI();
     calcTotal();
 }
-
 function updateWoWServiceUI() {
     const s = document.getElementById('wow_service').value;
     let html = '';
@@ -342,6 +629,13 @@ function updateFellUI() {
         notice.style.display = "none";
         div.innerHTML = `<div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;"><div><label>From</label><input type="number" id="f_from" value="0" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="f_to" value="330" oninput="calcTotal()"></div></div>`;
     }
+    calcTotal();
+}
+
+function updatePoe2UI() {
+    // Hide/show extra inputs
+    document.getElementById('poe2_input_group_boss').style.display = (document.getElementById('poe2_service').value === 'boss') ? 'block' : 'none';
+    document.getElementById('poe2_input_group_curr').style.display = (document.getElementById('poe2_service').value === 'curr') ? 'block' : 'none';
     calcTotal();
 }
 
@@ -428,12 +722,28 @@ function calcTotal() {
             eta = "See chat for price & ETA";
             base = 0;
         }
+    } else if(currentTab === "poe2") {
+        let s = document.getElementById('poe2_service').value;
+        if(s === "boss") {
+            let cnt = parseInt(document.getElementById('poe2_boss_count')?.value || "1");
+            base = poe2_prices["boss"] * cnt;
+            eta = cnt === 1 ? "30-90 min" : "3-8h (bulk fastest pos.)";
+        } else if(s === "curr") {
+            let qty = parseInt(document.getElementById('poe2_curr_qty')?.value || "1");
+            base = poe2_prices["curr"] * qty;
+            eta = (qty <= 3) ? "10-60 min." : "1-3h";
+        } else {
+            base = poe2_prices[s] || 0;
+            if(s === "level") eta = "1-2 Days";
+            else if(s === "act1-10") eta = "6-13 hrs";
+            else if(s === "lab") eta = "2-5 hrs";
+            else if(s === "trial") eta = "1-3 hrs";
+        }
     }
     if (document.getElementById('opt_express').checked) base *= 1.2;
     document.getElementById('display_price').innerText = (base * discount).toFixed(2);
     document.getElementById('display_eta').innerText = eta;
 }
-
 function sendOrder() {
     const price = document.getElementById('display_price').innerText;
     let modeInfo = '';
@@ -446,51 +756,23 @@ function sendOrder() {
         } else {
             serviceInfo = document.getElementById('classic_service').options[document.getElementById('classic_service').selectedIndex].text;
         }
+    } else if(currentTab === "poe2") {
+        let s = document.getElementById('poe2_service').options[document.getElementById('poe2_service').selectedIndex].text;
+        serviceInfo = s;
+        let cnt = "";
+        if(document.getElementById('poe2_boss_count') && document.getElementById('poe2_service').value==="boss")
+            cnt = " x"+document.getElementById('poe2_boss_count').value;
+        if(document.getElementById('poe2_curr_qty') && document.getElementById('poe2_service').value==="curr")
+            cnt = " x"+document.getElementById('poe2_curr_qty').value + "k";
+        serviceInfo += cnt;
     }
     window.open(`https://t.me/ErnismarSF?text=I would like to order a boost for ${currentTab.toUpperCase()}${modeInfo}${serviceInfo?' (' + serviceInfo+')':''} ($${price})`);
 }
-
-window.onload = () => switchTab('bf6');
+window.onload = () => {
+    switchTab('bf6');
+    document.getElementById('poe2_service').addEventListener('change', updatePoe2UI);
+    updatePoe2UI();
+}
 </script>
-<!-- Add this right before the closing </body> tag of your HTML: -->
-
-<!-- WhatsApp FAB -->
-<a href="https://wa.me/584125151298" id="wa-chat-fab" target="_blank" title="Chat with us on WhatsApp">
-  <i class="fab fa-whatsapp"></i> Live Chat
-</a>
-
-<style>
-#wa-chat-fab {
-    position: fixed;
-    z-index: 10000;
-    right: 22px;
-    bottom: 26px;
-    background: #25d366;
-    color: #fff;
-    font-family: 'Orbitron', Arial, sans-serif;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    border: none;
-    border-radius: 50px;
-    box-shadow: 0 4px 25px 0 rgba(37, 211, 102, 0.33), 0 1.5px 7px 0 #0004;
-    padding: 14px 24px 14px 18px;
-    font-size: 1.07rem;
-    text-decoration: none;
-    transition: background 0.15s, box-shadow 0.21s, transform 0.13s;
-}
-#wa-chat-fab:hover {
-    background: #20ba5a;
-    color: #fff;
-    box-shadow: 0 8px 32px 0 rgba(37,211,102,0.45), 0 3px 16px 0 #0006;
-    transform: scale(1.045);
-}
-#wa-chat-fab .fab { font-size: 1.4em; }
-@media (max-width: 600px) {
-    #wa-chat-fab { right: 8px; bottom: 8px; padding: 12px 18px 12px 13px; font-size: .98rem;}
-    #wa-chat-fab .fab { font-size: 1.16em; }
-}
-</style>
 </body>
 </html>
