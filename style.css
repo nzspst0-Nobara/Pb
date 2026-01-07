@@ -1,0 +1,146 @@
+/* Epiccarry-inspired: dark blues, purples, gold/orange accents */
+:root {
+    --bg-dark: #101821;
+    --bg-gradient: linear-gradient(135deg, #202a44 0%, #311b52 100%);
+    --primary: #f4b43d;
+    --primary-dark: #e0801a;
+    --accent: #4e53a4;
+    --text: #ececf1;
+    --subtitle: #f5e1ac;
+    --card: #21274a;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--card);
+    padding: 12px 32px;
+    box-shadow: 0 2px 8px #0004;
+}
+
+.logo {
+    height: 48px;
+}
+
+nav a {
+    color: var(--primary);
+    margin-left: 22px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s;
+}
+nav a:hover { color: var(--primary-dark); }
+
+.hero {
+    text-align: center;
+    padding: 72px 16px 36px;
+    background: linear-gradient(180deg, #291e47 0%, #0c1727 100%);
+}
+.hero-content h1 {
+    font-size: 3em;
+    color: var(--primary);
+    margin: 0;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+.hero-content .subtitle {
+    color: var(--subtitle);
+    font-size: 1.2em;
+    margin-top: 18px;
+}
+
+.boosts {
+    max-width: 1050px;
+    margin: 0 auto;
+    padding: 48px 16px;
+}
+.boost-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: center;
+}
+.boost-card {
+    background: var(--card);
+    box-shadow: 0 2px 12px #0005;
+    border-radius: 14px;
+    padding: 32px 26px;
+    width: 260px;
+    min-height: 200px;
+    transition: transform 0.14s;
+}
+.boost-card:hover { transform: translateY(-7px) scale(1.03); }
+.boost-card h3 { color: var(--primary); margin-bottom: 8px; }
+.boost-card .price { font-size: 2em; color: var(--text); margin-top: 12px; }
+.buy-btn {
+    background: var(--primary);
+    border: none;
+    color: #1e253c;
+    font-weight: 700;
+    font-size: 1.1em;
+    padding: 10px 26px;
+    border-radius: 7px;
+    margin-top: 18px;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+.buy-btn:hover { background: var(--primary-dark); color: #fff; }
+
+.payment-methods { margin-top: 44px; text-align: center; }
+.payment-methods img { height: 40px; margin: 0 12px 0 0; vertical-align: middle; }
+.token-label {
+    background: #222a45;
+    color: #f4b43d;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 0 8px;
+    font-size: 0.97em;
+    border: 1px solid #61461c;
+}
+.classic {
+    background: #1a2237e6;
+    padding: 44px 16px 44px 16px;
+    margin-top: 44px;
+    text-align: center;
+}
+.classic .contact-icons a {
+    display: inline-block;
+    margin: 0 12px;
+    vertical-align: middle;
+}
+.classic .icon { height: 44px; transition: transform 0.18s; }
+.classic .icon:hover { transform: scale(1.16); }
+
+.contact {
+    padding: 40px 16px 22px 16px;
+    text-align: center;
+}
+.contact ul { list-style: none; padding: 0; }
+.contact li { font-size: 1.1em; margin: 10px 0; }
+.contact a { color: var(--primary); }
+.contact a:hover { color: var(--primary-dark); }
+
+footer {
+    background: #181e37;
+    padding: 18px;
+    text-align: center;
+    color: #ccc;
+    font-size: 0.98em;
+    margin-top: 55px;
+}
+
+@media (max-width: 900px) {
+    .boost-list { flex-direction: column; align-items: center; }
+    .boost-card { width: 97vw; max-width: 370px; }
+}
