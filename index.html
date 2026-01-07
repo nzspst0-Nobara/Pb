@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boostin Premium Service</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #ff0000; --primary-glow: rgba(255, 0, 0, 0.5); --bg-dark: #0b0b0d; --card-bg: rgba(22, 22, 26, 0.95); --text-main: #e1e1e6; }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background-image 0.6s ease-in-out;
+        }
+
+        .bg-bf6 { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://wallpaperaccess.com/full/6119335.jpg'); }
+        .bg-fell { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://wallpapercave.com/wp/wp4012028.jpg'); }
+        .bg-wow { background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80'); }
+
+        header { background: rgba(0, 0, 0, 0.9); padding: 25px; text-align: center; border-bottom: 2px solid var(--primary); box-shadow: 0 0 25px var(--primary-glow); }
+        .logo { font-family: 'Orbitron'; font-size: 2rem; color: var(--primary); letter-spacing: 5px; text-shadow: 0 0 15px var(--primary-glow); font-weight: 900; }
+
+        .game-nav { display: flex; gap: 20px; justify-content: center; padding: 40px 20px; }
+        .game-card { background: rgba(0,0,0,0.6); border: 1px solid #444; padding: 15px 35px; border-radius: 12px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.9rem; color: #888; transition: 0.4s; backdrop-filter: blur(5px); }
+        .game-card.active { border-color: var(--primary); color: white; box-shadow: 0 0 20px var(--primary-glow); transform: translateY(-5px); background: rgba(255,0,0,0.1); }
+
+        .main-container { max-width: 1300px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 1fr 420px; gap: 40px; }
+        @media (max-width: 1100px) { .main-container { grid-template-columns: 1fr; } }
+
+        .config-card { background: var(--card-bg); border-radius: 16px; padding: 30px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 30px; }
+        h2 { font-family: 'Orbitron'; font-size: 1rem; color: var(--primary); border-left: 4px solid var(--primary); padding-left: 15px; margin-bottom: 25px; display: flex; align-items: center; gap: 12px; }
+
+        .service-desc { background: rgba(0,0,0,0.4); padding: 15px; border-radius: 8px; font-size: 0.85rem; color: #aaa; border-left: 2px solid #555; margin-bottom: 15px; }
+
+        /* ESTILOS DE BOTONES PILOTED/SELFPLAY */
+        .mode-selector { display: flex; gap: 10px; margin-bottom: 20px; }
+        .mode-btn { flex: 1; padding: 12px; border: 1px solid #333; background: #000; color: #777; border-radius: 8px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.75rem; transition: 0.3s; text-align: center; }
+        .mode-btn.active { border-color: var(--primary); color: white; background: rgba(255,0,0,0.1); box-shadow: 0 0 10px var(--primary-glow); }
+
+        .safe-bar {
+            background: rgba(20, 20, 25, 0.8);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            border-left: 4px solid var(--primary);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .safe-bar i { color: var(--primary); font-size: 1.2rem; }
+        .safe-text { font-size: 0.85rem; color: #ddd; line-height: 1.4; }
+        .safe-text strong { color: #fff; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
+
+        .eta-box { color: #f1c40f; font-size: 1rem; font-weight: bold; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; border: 1px dashed rgba(241, 196, 15, 0.4); padding: 15px; border-radius: 10px; background: rgba(0,0,0,0.5); }
+
+        .input-group { margin-bottom: 25px; }
+        label { display: block; font-size: 0.7rem; color: #999; margin-bottom: 10px; text-transform: uppercase; font-weight: 900; }
+        select, input { width: 100%; background: #000; border: 1px solid #333; color: white; padding: 14px; border-radius: 8px; font-size: 0.95rem; outline: none; }
+
+        .summary-card { background: rgba(28, 28, 33, 0.98); border-radius: 20px; padding: 35px; border: 1px solid var(--primary); position: sticky; top: 20px; }
+        .price-val { font-family: 'Orbitron'; font-size: 3.5rem; color: white; display: block; text-align: center; margin: 15px 0; text-shadow: 0 0 20px var(--primary-glow); }
+
+        .role-notice { color: #ff4444; font-size: 0.75rem; margin-top: 5px; display: none; font-weight: bold; }
+
+        .payment-info { background: #050505; padding: 20px; border-radius: 12px; margin-top: 25px; border-left: 5px solid var(--primary); }
+        .pay-label { font-size: 0.75rem; color: #777; text-transform: uppercase; margin-bottom: 6px; display: block; }
+        .pay-address { font-family: 'Orbitron', monospace; color: #fff; font-size: 0.9rem; display: block; margin-bottom: 18px; word-break: break-all; }
+
+        .btn-checkout { background: var(--primary); color: white; width: 100%; padding: 22px; border: none; border-radius: 10px; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; text-transform: uppercase; margin-top: 25px; font-size: 1rem; }
+    </style>
+</head>
+<body class="bg-bf6">
+
+<header><div class="logo">Get Your Boost Today</div></header>
+
+<div class="game-nav">
+    <div id="tab-bf6" class="game-card active" onclick="switchTab('bf6')"><i class="fas fa-crosshairs"></i> BATTLEFIELD 6</div>
+    <div id="tab-fell" class="game-card" onclick="switchTab('fell')"><i class="fas fa-dragon"></i> FELLOWSHIP</div>
+    <div id="tab-wow" class="game-card" onclick="switchTab('wow')"><i class="fas fa-hat-wizard"></i> WOW BOOSTS</div>
+</div>
+
+<div class="main-container">
+    <div class="config-side">
+        <div class="config-card">
+            <h2><i class="fas fa-sliders-h"></i> CONFIGURATION</h2>
+
+            <div id="form-bf6">
+                <div class="input-group">
+                    <label>Selected Service</label>
+                    <select id="bf_service" onchange="calcTotal()">
+                        <option value="leveling">Account Power Leveling (1-500)</option>
+                        <option value="battlepass">Battle Pass Tier Progression</option>
+                    </select>
+                </div>
+                <div class="service-desc">Safe XP farming. 100% manual gameplay. No cheats or exploits used.</div>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div><label>Current Level</label><input type="number" id="bf_from" value="1" oninput="calcTotal()"></div>
+                    <div><label>Target Level</label><input type="number" id="bf_to" value="50" oninput="calcTotal()"></div>
+                </div>
+
+                <div class="safe-bar">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="safe-text">
+                        <strong>Security & Efficiency:</strong> No hacks, bots, or third-party software. We include <strong>VPN</strong> usage for maximum security on every order.
+                    </div>
+                </div>
+            </div>
+
+            <div id="form-fell" style="display:none;">
+                <div class="input-group">
+                    <label>Hero Selection</label>
+                    <select id="hero_select" onchange="calcTotal()">
+                        <option value="1">Ardeos (DPS)</option><option value="1">Tariq (DPS)</option>
+                        <option value="1">Mara (DPS)</option><option value="1">Jotunn (DPS)</option>
+                        <option value="1">Garen (DPS)</option>
+                        <option value="1.3">Helena (Tank) +30% Capstone Fee</option>
+                        <option value="1.3">Meiko (Tank) +30% Capstone Fee</option>
+                        <option value="1.3">Sylvie (Healer) +30% Capstone Fee</option>
+                        <option value="1.3">Vigour (Healer) +30% Capstone Fee</option>
+                    </select>
+                    <div id="role_fee_notice" class="role-notice">* A 30% role fee is applied ONLY to Capstone Dungeons.</div>
+                </div>
+                <div class="input-group">
+                    <label>Boosting Category</label>
+                    <select id="fell_type" onchange="updateFellUI()">
+                        <option value="bis">BIS Gear Full Farm</option>
+                        <option value="rating">Hero Dungeon Rating</option>
+                        <option value="gear">Overall Gear iLvl</option>
+                        <option value="capstone">Capstone Dungeons</option>
+                    </select>
+                </div>
+                <div class="service-desc">Professional carry teams for high-end content. Secure and efficient.</div>
+                <div id="dynamic_fell"></div>
+
+                <label>Service Mode</label>
+                <div class="mode-selector">
+                    <div id="mode-piloted" class="mode-btn active" onclick="setMode('Piloted')"><i class="fas fa-user-cog"></i> PILOTED</div>
+                    <div id="mode-selfplay" class="mode-btn" onclick="setMode('Self-play')"><i class="fas fa-gamepad"></i> SELF-PLAY</div>
+                </div>
+
+                <div class="safe-bar">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="safe-text">
+                        <strong>Security & Efficiency:</strong> No hacks, bots, or third-party software. We include <strong>VPN</strong> usage for maximum security on every order.
+                    </div>
+                </div>
+            </div>
+
+            <!-- WOW BOOST TAB -->
+            <div id="form-wow" style="display:none;">
+                <div class="input-group">
+                    <label>Game Version</label>
+                    <select id="wow_ver" onchange="updateWoWUI()">
+                        <option value="retail">World of Warcraft Retail</option>
+                        <option value="classic">WoW Classic</option>
+                    </select>
+                </div>
+                <div id="wowRetailSection">
+                    <div class="input-group">
+                        <label>Service</label>
+                        <select id="wow_service" onchange="updateWoWServiceUI()">
+                            <option value="mplus">Mythic+ Carry</option>
+                            <option value="mplus-bundle">Mythic+ Bundle (3+1 runs)</option>
+                            <option value="leveling">Leveling 1-80</option>
+                            <option value="raidbundle">Raid Bundle (Heroic & Normal)</option>
+                            <option value="pvp-honor">Full PvP Gear (Honor)</option>
+                            <option value="pvp-conquest">Full PvP Gear (Conquest)</option>
+                            <option value="pve-hero">Full PvE Gear (Hero 701)</option>
+                            <option value="pve-full714">Full PvE Gear (714)</option>
+                            <option value="gold">Gold Selling</option>
+                        </select>
+                    </div>
+                    <div id="wow-service-extra">
+                        <!-- Will dynamically fill based on service -->
+                  </div>
+                </div>
+                <div id="wowClassicSection" style="display:none;">
+                    <div class="service-desc">Classic Boost services and gold. <br><a href="AAA" target="_blank" style="color:#ffb52c"> <b></b> </a></div>
+                    <div class="input-group">
+                        <label>Classic Service</label>
+                        <select id="classic_service">
+                            <option value="leveling">Leveling Boost (price varies, ask chat)</option>
+                            <option value="dungeons">Dungeon Carries</option>
+                            <option value="raids">Raid Carries</option>
+                            <option value="gold">Gold Selling</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="safe-bar">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="safe-text">
+                        <strong>Security & Efficiency:</strong> Only hand-play, no bots/hacks, VPN on request, 100% safe.
+                    </div>
+                </div>
+            </div>
+            <!-- END WOW TAB -->
+
+            <div class="eta-box" style="margin-top:25px;"><i class="fas fa-bolt"></i> ESTIMATED DELIVERY: <span id="display_eta">...</span></div>
+        </div>
+    </div>
+
+    <div class="summary-side">
+        <div class="summary-card">
+            <h2 style="border:none; text-align:center; padding:0;">SUMMARY</h2>
+            <span class="price-val">$<span id="display_price">0.00</span></span>
+            <div class="input-group">
+                <label>Promo Code</label>
+                <div style="display:flex; gap:8px;"><input type="text" id="coupon_input"><button onclick="applyCoupon()" style="background:#333; color:white; border:none; border-radius:8px; cursor:pointer; font-family:Orbitron; padding: 0 15px;">APPLY</button></div>
+            </div>
+            <div class="addon-item"><span>EXPRESS START (+20%)</span><input type="checkbox" id="opt_express" onchange="calcTotal()"></div>
+            <button class="btn-checkout" onclick="sendOrder()">Confirm Order</button>
+            <div class="payment-info">
+                <span class="pay-label">Binance ID</span><span class="pay-address">57258743</span>
+                <span class="pay-label">PayPal</span>
+<a href="https://paypal.me/Ernis822" target="_blank" style="display:inline-block;background:#0070ba;color:#fff;font-family:Orbitron,sans-serif;padding:11px 20px;border-radius:8px;text-decoration:none;font-weight:900;letter-spacing:1px;margin-bottom:12px;">Pay with PayPal</a>
+                <span class="pay-label">USDT (TRC20)</span><span class="pay-address">TM4FT4teRVU1jz4jc4AVtSwS1mxtscJjmY</span>
+                <span class="pay-label">USDT (BEP20)</span><span class="pay-address">0xb15cfb38101cfe038a5542d01e8d428b617d2b6e</span>
+                <span class="pay-label">Bitcoin (BTC)</span><span class="pay-address">1631rqwSgtEM1NbXWRhyFvWYgwhscnTdYc</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentTab = 'bf6';
+let discount = 1.0;
+let serviceMode = 'Piloted';
+
+// WoW Retail pricing in USD
+const wow_mplus_prices = {
+    7: 2.5,
+    8: 3,
+    9: 3.5,
+    10: 5,
+    12: 7,
+    15: 16,
+    17: 60,
+    20: 100
+};
+const wow_leveling_all = 14; // 1-80
+const wow_leveling_7080 = 6; // 70-80
+const wow_raid_bundle = 10;
+const wow_pvp_honor = 40;
+const wow_pvp_conquest = 90;
+const wow_pve_hero = 50;
+const wow_pve_714 = 90;
+const wow_gold_100k = 5.5;
+
+function setMode(mode) {
+    serviceMode = mode;
+    document.getElementById('mode-piloted').classList.toggle('active', mode === 'Piloted');
+    document.getElementById('mode-selfplay').classList.toggle('active', mode === 'Self-play');
+}
+
+function switchTab(tab) {
+    currentTab = tab;
+    document.getElementById('tab-bf6').classList.toggle('active', tab === 'bf6');
+    document.getElementById('tab-fell').classList.toggle('active', tab === 'fell');
+    document.getElementById('tab-wow').classList.toggle('active', tab === 'wow');
+    document.getElementById('form-bf6').style.display = (tab === 'bf6') ? 'block' : 'none';
+    document.getElementById('form-fell').style.display = (tab === 'fell') ? 'block' : 'none';
+    document.getElementById('form-wow').style.display = (tab === 'wow') ? 'block' : 'none';
+    document.body.className = (tab === 'bf6') ? 'bg-bf6' : (tab === 'fell' ? 'bg-fell' : 'bg-wow');
+    if(tab === 'fell') updateFellUI();
+    else if(tab === 'wow') { updateWoWUI(); }
+    else calcTotal();
+}
+
+function updateWoWUI() {
+    const ver = document.getElementById('wow_ver').value;
+    document.getElementById('wowRetailSection').style.display = (ver === "retail") ? "block" : "none";
+    document.getElementById('wowClassicSection').style.display = (ver === "classic") ? "block" : "none";
+    if(ver === "retail") updateWoWServiceUI();
+    calcTotal();
+}
+
+function updateWoWServiceUI() {
+    const s = document.getElementById('wow_service').value;
+    let html = '';
+    if(s === 'mplus' || s === 'mplus-bundle') {
+        html = `
+            <label>Choose Keystone Level</label>
+            <select id="wow_mplus_level" onchange="calcTotal()">
+                <option value="7">Mythic+7 ($2.5)</option>
+                <option value="8">Mythic+8 ($3)</option>
+                <option value="9">Mythic+9 ($3.5)</option>
+                <option value="10">Mythic+10 ($5)</option>
+                <option value="12">Mythic+12 ($7)</option>
+                <option value="15">Mythic+15 ($16)</option>
+                <option value="17">Mythic+17 ($60)</option>
+                <option value="20">Mythic+20 ($100)</option>
+            </select>
+        `;
+        if(s === 'mplus') {
+            html += `<div class="input-group"><label>How many runs?</label>
+                <input type="number" id="wow_mplus_runs" min="1" value="1" oninput="calcTotal()"></div>`;
+        } else if(s === 'mplus-bundle') {
+            html += `<div class="service-desc" style="margin-top:8px;">Buy 3 Mythic+ runs, get the 4th free (same keystone level, pay for 3 only)</div>`;
+        }
+    }
+    else if(s === "leveling") {
+        html = `
+            <div class="input-group">
+                <label>Current Level</label>
+                <input type="number" id="wow_lev_from" value="1" min="1" max="80" oninput="calcTotal()">
+            </div>
+            <div class="input-group">
+                <label>Target Level</label>
+                <input type="number" id="wow_lev_to" value="80" min="2" max="80" oninput="calcTotal()">
+            </div>
+            <small>(1-80 = $14, 70-80 = $6 computed automatically)</small>
+        `;
+    } else if(s === 'gold') {
+        html = `
+            <div class="input-group">
+                <label>Amount of Gold (100,000 = $5.5, 3m+ allowed)</label>
+                <input type="number" id="wow_gold_amt" value="100000" step="100000" min="100000" max="10000000" oninput="calcTotal()">
+            </div>
+        `;
+    }
+    document.getElementById('wow-service-extra').innerHTML = html;
+    calcTotal();
+}
+
+function updateFellUI() {
+    const type = document.getElementById('fell_type').value;
+    const div = document.getElementById('dynamic_fell');
+    const notice = document.getElementById('role_fee_notice');
+    if (type === 'capstone') {
+        notice.style.display = "block";
+        div.innerHTML = `<label>Dungeon</label><select id="cap_rank" onchange="calcTotal()"><option value="2.89">Cithrel's Fall ($2.89)</option><option value="3.71">Heart of Tuzari ($3.71)</option><option value="3.71">Wraithtide Vault ($3.71)</option><option value="7.56">Ransack of Drakheim ($7.56)</option></select>`;
+    } else {
+        notice.style.display = "none";
+        div.innerHTML = `<div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;"><div><label>From</label><input type="number" id="f_from" value="0" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="f_to" value="330" oninput="calcTotal()"></div></div>`;
+    }
+    calcTotal();
+}
+
+function applyCoupon() {
+    if(document.getElementById('coupon_input').value.toUpperCase() === "DIABLAC10") { discount = 0.9; alert("10% Discount Applied"); }
+    calcTotal();
+}
+
+function calcTotal() {
+    let base = 0; let eta = "...";
+    if (currentTab === 'bf6') {
+        let f = parseInt(document.getElementById('bf_from').value) || 0;
+        let t = parseInt(document.getElementById('bf_to').value) || 0;
+        if (document.getElementById('bf_service').value === "leveling") {
+            for (let i = f; i < t; i++) base += (i < 50) ? 1.45 : (i < 200 ? 3.10 : 5.20);
+            eta = (t <= 50) ? "3-5 Days" : "59-79 Days";
+        } else { base = (t-f) * 3.09; eta = "5-7 Days"; }
+    } else if (currentTab === 'fell') {
+        const type = document.getElementById('fell_type').value;
+        const mult = parseFloat(document.getElementById('hero_select').value);
+        if (type === "bis") { base = 341.53; eta = "3-5 Days"; }
+        else if (type === "capstone") {
+            base = (parseFloat(document.getElementById('cap_rank').value) || 0) * mult;
+            eta = "29-59 Minutes";
+        } else {
+            let t = parseInt(document.getElementById('f_to').value) || 0;
+            let f = parseInt(document.getElementById('f_from').value) || 0;
+            base = (type === "rating" ? (t-f)*0.026 : (t-f)*0.48);
+            eta = (t <= 330) ? "3-5 Days" : "7 Days+";
+        }
+    } else if (currentTab === 'wow') {
+        if(document.getElementById('wow_ver').value === "retail") {
+            const s = document.getElementById('wow_service').value;
+            if(s === "mplus") {
+                let lvl = parseInt(document.getElementById('wow_mplus_level').value);
+                let runs = parseInt(document.getElementById('wow_mplus_runs').value) || 1;
+                base = (wow_mplus_prices[lvl] || 0) * runs;
+                eta = "Typically 1-3h per run";
+            } else if(s === "mplus-bundle") {
+                let lvl = parseInt(document.getElementById('wow_mplus_level').value);
+                base = (wow_mplus_prices[lvl] || 0) * 3;
+                eta = "Buy 3 runs, get 4th free! (total 4 runs, 1-3h per run)";
+            } else if(s === "leveling") {
+                let from = parseInt(document.getElementById('wow_lev_from').value) || 1;
+                let to = parseInt(document.getElementById('wow_lev_to').value) || 80;
+                if (from < 1) from = 1;
+                if (to > 80) to = 80;
+                if (from >= to) { base = 0; eta = ""; }
+                else if (from >= 70) { base = wow_leveling_7080; eta = "1-2 Days"; }
+                else if (from === 1 && to === 80) { base = wow_leveling_all; eta = "1-5 Days"; }
+                else if (to > 70 && from < 70) {
+                    let earlySpan = Math.max(0, Math.min(70, to)-from);
+                    let endSpan = Math.max(0, to-70);
+                    base = (earlySpan/69)*8 + endSpan*(wow_leveling_7080/10);
+                    base = Math.round(base + (endSpan ? wow_leveling_7080 : 0));
+                    eta = "Varies (ask in chat)";
+                } else {
+                    base = Math.round(((to-from)/79)*wow_leveling_all*100)/100;
+                    eta = "Check in chat";
+                }
+            } else if(s === "raidbundle") {
+                base = wow_raid_bundle;
+                eta = "1-3 Days";
+            } else if(s === "pvp-honor") {
+                base = wow_pvp_honor;
+                eta = "1-2 Days";
+            } else if(s === "pvp-conquest") {
+                base = wow_pvp_conquest;
+                eta = "2-4 Days";
+            } else if(s === "pve-hero") {
+                base = wow_pve_hero;
+                eta = "2-4 Days";
+            } else if(s === "pve-full714") {
+                base = wow_pve_714;
+                eta = "3-6 Days";
+            } else if(s === "gold") {
+                let amt = parseInt(document.getElementById('wow_gold_amt').value) || 100000;
+                if (amt < 100000) amt = 100000;
+                let sets = Math.ceil(amt / 100000);
+                base = sets * wow_gold_100k;
+                eta = "~Instant delivery up to 3m, contact for more";
+            }
+        } else {
+            eta = "See chat for price & ETA";
+            base = 0;
+        }
+    }
+    if (document.getElementById('opt_express').checked) base *= 1.2;
+    document.getElementById('display_price').innerText = (base * discount).toFixed(2);
+    document.getElementById('display_eta').innerText = eta;
+}
+
+function sendOrder() {
+    const price = document.getElementById('display_price').innerText;
+    let modeInfo = '';
+    let serviceInfo = '';
+    if (currentTab === 'fell') modeInfo = ` [Mode: ${serviceMode}]`;
+    else if(currentTab === 'wow') {
+        let v = document.getElementById('wow_ver').value;
+        if(v === 'retail') {
+            serviceInfo = document.getElementById('wow_service').options[document.getElementById('wow_service').selectedIndex].text;
+        } else {
+            serviceInfo = document.getElementById('classic_service').options[document.getElementById('classic_service').selectedIndex].text;
+        }
+    }
+    window.open(`https://t.me/ErnismarSF?text=I would like to order a boost for ${currentTab.toUpperCase()}${modeInfo}${serviceInfo?' (' + serviceInfo+')':''} ($${price})`);
+}
+
+window.onload = () => switchTab('bf6');
+</script>
+<!-- Add this right before the closing </body> tag of your HTML: -->
+
+<!-- WhatsApp FAB -->
+<a href="https://wa.me/584125151298" id="wa-chat-fab" target="_blank" title="Chat with us on WhatsApp">
+  <i class="fab fa-whatsapp"></i> Live Chat
+</a>
+
+<style>
+#wa-chat-fab {
+    position: fixed;
+    z-index: 10000;
+    right: 22px;
+    bottom: 26px;
+    background: #25d366;
+    color: #fff;
+    font-family: 'Orbitron', Arial, sans-serif;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    border: none;
+    border-radius: 50px;
+    box-shadow: 0 4px 25px 0 rgba(37, 211, 102, 0.33), 0 1.5px 7px 0 #0004;
+    padding: 14px 24px 14px 18px;
+    font-size: 1.07rem;
+    text-decoration: none;
+    transition: background 0.15s, box-shadow 0.21s, transform 0.13s;
+}
+#wa-chat-fab:hover {
+    background: #20ba5a;
+    color: #fff;
+    box-shadow: 0 8px 32px 0 rgba(37,211,102,0.45), 0 3px 16px 0 #0006;
+    transform: scale(1.045);
+}
+#wa-chat-fab .fab { font-size: 1.4em; }
+@media (max-width: 600px) {
+    #wa-chat-fab { right: 8px; bottom: 8px; padding: 12px 18px 12px 13px; font-size: .98rem;}
+    #wa-chat-fab .fab { font-size: 1.16em; }
+}
+</style>
+</body>
+</html>
