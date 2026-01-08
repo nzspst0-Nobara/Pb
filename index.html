@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boostin Premium Service</title>
+    <title>Boosting Premium Service</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
@@ -448,12 +448,12 @@
                 <div class="input-group">
                     <label>Service</label>
                     <select id="poe2_service" onchange="calcTotal()">
-                        <option value="level">Leveling 1-80 ($29.99)</option>
-                        <option value="act1-10">Acts 1-10 Campaign Full Completion ($27.99)</option>
-                        <option value="boss">Uber Boss Carries (each) ($10.99)</option>
-                        <option value="curr">Currency Boost 1000c ($11.99)</option>
-                        <option value="lab">Labyrinth Full Unlock ($6.99)</option>
-                        <option value="trial">Ascendancy Trials Pack ($4.99)</option>
+                        <option value="level">Leveling 1-80</option>
+                        <option value="act1-10">Acts 1-10 Campaign Full Completion</option>
+                        <option value="boss">Uber Boss Carries (each)</option>
+                        <option value="curr">Divine (1)</option>
+                        <option value="lab">Labyrinth Full Unlock</option>
+                        <option value="trial">Ascendancy Trials Pack</option>
                     </select>
                 </div>
                 <div class="service-desc">
@@ -489,15 +489,17 @@
                 <label>Promo Code</label>
                 <div style="display:flex; gap:8px;"><input type="text" id="coupon_input"><button onclick="applyCoupon()" style="background:#333; color:white; border:none; border-radius:8px; cursor:pointer; font-family:Orbitron; padding: 0 15px;">APPLY</button></div>
             </div>
-            <div class="addon-item"><span>EXPRESS START (+20%)</span><input type="checkbox" id="opt_express" onchange="calcTotal()"></div>
+            <div class="addon-item"><span>EXPRESS START (+20%) Always confirm your order before doing any payment</span><input type="checkbox" id="opt_express" onchange="calcTotal()"></div>
             <button class="btn-checkout" onclick="sendOrder()">Confirm Order</button>
             <div class="payment-info">
-                <span class="pay-label">Binance ID</span><span class="pay-address">57258743</span>
-                <span class="pay-label">PayPal</span>
-<a href="https://paypal.me/Ernis822" target="_blank" style="display:inline-block;background:#0070ba;color:#fff;font-family:Orbitron,sans-serif;padding:11px 20px;border-radius:8px;text-decoration:none;font-weight:900;letter-spacing:1px;margin-bottom:12px;">Pay with PayPal</a>
-                <span class="pay-label">USDT (TRC20)</span><span class="pay-address">TM4FT4teRVU1jz4jc4AVtSwS1mxtscJjmY</span>
-                <span class="pay-label">USDT (BEP20)</span><span class="pay-address">0xb15cfb38101cfe038a5542d01e8d428b617d2b6e</span>
-                <span class="pay-label">Bitcoin (BTC)</span><span class="pay-address">1631rqwSgtEM1NbXWRhyFvWYgwhscnTdYc</span>
+<div>
+  <style>.pp-FR89NJWW4YZZC{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}</style>
+  <form action="https://www.paypal.com/ncp/payment/FR89NJWW4YZZC" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
+    <input class="pp-FR89NJWW4YZZC" type="submit" value="Buy Now" />
+    <img src=https://www.paypalobjects.com/images/Debit_Credit.svg alt="cards" />
+    <section style="font-size: 0.75rem;"> Powered by <img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
+  </form>
+</div>
             </div>
         </div>
     </div>
@@ -535,7 +537,7 @@ const poe2_prices = {
     level: 29.99,
     "act1-10": 27.99,
     boss: 10.99,
-    curr: 11.99,
+    curr: 0.06,
     lab: 6.99,
     trial: 4.99
 };
@@ -577,14 +579,14 @@ function updateWoWServiceUI() {
         html = `
             <label>Choose Keystone Level</label>
             <select id="wow_mplus_level" onchange="calcTotal()">
-                <option value="7">Mythic+7 ($2.5)</option>
-                <option value="8">Mythic+8 ($3)</option>
-                <option value="9">Mythic+9 ($3.5)</option>
-                <option value="10">Mythic+10 ($5)</option>
-                <option value="12">Mythic+12 ($7)</option>
-                <option value="15">Mythic+15 ($16)</option>
-                <option value="17">Mythic+17 ($60)</option>
-                <option value="20">Mythic+20 ($100)</option>
+                <option value="7">Mythic+7</option>
+                <option value="8">Mythic+8</option>
+                <option value="9">Mythic+9</option>
+                <option value="10">Mythic+10</option>
+                <option value="12">Mythic+12</option>
+                <option value="15">Mythic+15</option>
+                <option value="17">Mythic+17</option>
+                <option value="20">Mythic+20</option>
             </select>
         `;
         if(s === 'mplus') {
@@ -624,7 +626,7 @@ function updateFellUI() {
     const notice = document.getElementById('role_fee_notice');
     if (type === 'capstone') {
         notice.style.display = "block";
-        div.innerHTML = `<label>Dungeon</label><select id="cap_rank" onchange="calcTotal()"><option value="2.89">Cithrel's Fall ($2.89)</option><option value="3.71">Heart of Tuzari ($3.71)</option><option value="3.71">Wraithtide Vault ($3.71)</option><option value="7.56">Ransack of Drakheim ($7.56)</option></select>`;
+        div.innerHTML = `<label>Dungeon</label><select id="cap_rank" onchange="calcTotal()"><option value="2.89">Cithrel's Fall</option><option value="3.71">Heart of Tuzari</option><option value="3.71">Wraithtide Vault</option><option value="7.56">Ransack of Drakheim</option></select>`;
     } else {
         notice.style.display = "none";
         div.innerHTML = `<div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;"><div><label>From</label><input type="number" id="f_from" value="0" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="f_to" value="330" oninput="calcTotal()"></div></div>`;
@@ -640,10 +642,10 @@ function updatePoe2UI() {
 }
 
 function applyCoupon() {
-    if(document.getElementById('coupon_input').value.toUpperCase() === "DIABLAC10") { discount = 0.9; alert("10% Discount Applied"); }
+    if(document.getElementById('coupon_input').value.toUpperCase() === "PBOOST1454") { discount = 0.9; alert("10% Discount Applied"); }
     calcTotal();
 }
-
+// BF6 And Fellowship Price in (USD)
 function calcTotal() {
     let base = 0; let eta = "...";
     if (currentTab === 'bf6') {
@@ -776,3 +778,4 @@ window.onload = () => {
 </script>
 </body>
 </html>
+
