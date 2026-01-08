@@ -8,11 +8,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #ff0000;
-            --primary-glow: rgba(255, 0, 0, 0.5);
-            --bg-dark: #0b0b0d;
-            --card-bg: rgba(22, 22, 26, 0.95);
+            /* Paleta Overgear: Naranja Dorado y Grises Profundos */
+            --primary: #ffb52c; /* Naranja/Dorado característico de Overgear */
+            --primary-glow: rgba(255, 181, 44, 0.3);
+            --bg-dark: #0f1012; /* Fondo casi negro pero neutro */
+            --card-bg: #18191b; /* Gris carbón para las tarjetas */
             --text-main: #e1e1e6;
+        }
+
+        /* Ajuste de botones para mantener la coherencia neutra */
+        .game-card.active {
+            border-color: var(--primary);
+            color: white;
+            box-shadow: 0 0 15px var(--primary-glow);
+            background: rgba(255, 181, 44, 0.05); /* Sutil toque ámbar */
+        }
+
+        .mode-btn.active {
+            border-color: var(--primary);
+            color: white;
+            background: rgba(255, 181, 44, 0.1);
+            box-shadow: 0 0 10px var(--primary-glow);
+        }
+
+        .btn-checkout {
+            background: var(--primary);
+            color: #000; /* Texto oscuro sobre fondo brillante para legibilidad */
+            transition: 0.3s;
+        }
+
+        .btn-checkout:hover {
+            background: #e5a227;
+            box-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        /* Bordes y acentos neutros */
+        header {
+            background: #000;
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .safe-bar {
+            border: 1px solid rgba(255, 181, 44, 0.2);
+            border-left: 4px solid var(--primary);
+            background: #1c1d1f;
         }
         body {
             background-color: var(--bg-dark);
@@ -62,30 +101,57 @@
             text-shadow: 0 0 15px var(--primary-glow);
             font-weight: 900;
         }
+        /* Botones de Navegación más grandes con soporte de imagen */
         .game-nav {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            padding: 40px 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            padding: 30px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
+
         .game-card {
-            background: rgba(0,0,0,0.6);
-            border: 1px solid #444;
-            padding: 15px 35px;
+            position: relative;
+            height: 120px; /* Altura más grande */
+            display: flex;
+            align-items: flex-end; /* Texto en la parte inferior */
+            justify-content: center;
+            padding: 15px;
+            background-color: #1a1b1e;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #333;
             border-radius: 12px;
             cursor: pointer;
-            font-family: 'Orbitron';
-            font-size: 0.9rem;
-            color: #888;
-            transition: 0.4s;
-            backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: white;
+            z-index: 1;
         }
+
+        /* Capa oscura para que el texto siempre sea legible sobre la imagen */
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
+            z-index: -1;
+            transition: 0.3s;
+        }
+
+        .game-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
         .game-card.active {
             border-color: var(--primary);
-            color: white;
             box-shadow: 0 0 20px var(--primary-glow);
-            transform: translateY(-5px);
-            background: rgba(255,0,0,0.1);
         }
         .main-container {
             max-width: 1300px;
@@ -316,19 +382,164 @@
             #wa-chat-fab { right: 8px; bottom: 8px; padding: 12px 18px 12px 13px; font-size: .98rem;}
             #wa-chat-fab .fab { font-size: 1.16em; }
         }
+/* --- ADAPTACIÓN MÓVIL CON MENÚ DESPLEGABLE --- */
+@media (max-width: 768px) {
+.game-nav {
+        grid-template-columns: 1fr 1fr !important;
+        height: auto !important; /* Desactiva el menú desplegable si prefieres ver las imágenes */
+    }
+    .game-card {
+        height: 100px;
+        font-size: 0.8rem;
+    }
+/* Ajustes generales de contenedor */
+    .main-container {
+        grid-template-columns: 1fr !important;
+        padding: 15px;
+        gap: 20px;
+    }
+
+    /* Convertir la navegación en un menú desplegable táctil */
+    .game-nav {
+        flex-direction: column;
+        gap: 0;
+        padding: 10px 20px;
+        height: 50px; /* Altura del botón cerrado */
+        overflow: hidden;
+        background: rgba(0, 0, 0, 0.9);
+        border: 1px solid var(--primary);
+        border-radius: 8px;
+        margin: 20px;
+        transition: height 0.3s ease;
+        position: relative;
+        z-index: 100;
+    }
+
+    /* Indicador visual de que es un menú (Flecha) */
+    .game-nav::after {
+        content: '▼';
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        color: var(--primary);
+        font-size: 0.8rem;
+    }
+
+    /* Cuando el usuario toca el área, el menú se expande */
+    .game-nav:active, .game-nav:focus-within {
+        height: 260px; /* Ajusta según la cantidad de juegos */
+    }
+
+    .game-card {
+        width: 100%;
+        box-sizing: border-box;
+        border: none !important;
+        background: transparent !important;
+        padding: 15px;
+        border-radius: 0;
+        border-bottom: 1px solid #222 !important;
+        text-align: left;
+    }
+
+    /* El juego activo siempre sube al principio para servir de "título" */
+    .game-card.active {
+        order: -1;
+        color: var(--primary);
+        box-shadow: none !important;
+    }
+
+    /* Ajustes de inputs para facilitar el toque */
+    select, input {
+        font-size: 16px !important; /* Evita zoom en iOS */
+        padding: 15px !important;
+    }
+
+    .summary-card {
+        position: relative;
+        top: 0;
+    }
+
+    .price-val {
+        font-size: 2.5rem;
+    }
+
+    /* Reubicación de botones flotantes para no estorbar */
+    #discord-fab, #wa-chat-fab {
+        bottom: 10px;
+        font-size: 0.8rem;
+        padding: 10px 15px;
+    }
+}
+/* Ajustes del Header para Logo y Buscador */
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1300px;
+            margin: 0 auto;
+            gap: 20px;
+        }
+
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 500px;
+        }
+
+        #service-search {
+            width: 100%;
+            background: #18191b; /* Color neutro estilo Overgear */
+            border: 1px solid #333;
+            padding: 10px 15px 10px 40px;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        #service-search:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 10px var(--primary-glow);
+            outline: none;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+        }
+
+        /* Ajuste para móvil */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .search-container {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body class="bg-bf6">
 
-<header><div class="logo">Get Your Boost Today</div></header>
-
+<header>
+    <div class="header-container">
+        <div class="logo">PBOOST</div>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="service-search" placeholder="Search services (e.g. Leveling, Gold, PoE2...)" onkeyup="filterServices()">
+        </div>
+    </div>
+</header>
 <div class="game-nav">
-    <div id="tab-bf6" class="game-card active" onclick="switchTab('bf6')"><i class="fas fa-crosshairs"></i> BATTLEFIELD 6</div>
-    <div id="tab-fell" class="game-card" onclick="switchTab('fell')"><i class="fas fa-dragon"></i> FELLOWSHIP</div>
-    <div id="tab-wow" class="game-card" onclick="switchTab('wow')"><i class="fas fa-hat-wizard"></i> WOW BOOSTS</div>
-    <div id="tab-poe2" class="game-card" onclick="switchTab('poe2')"><i class="fas fa-skull-crossbones"></i> PATH OF EXILE 2</div>
+    <div id="tab-bf6" class="game-card active" onclick="switchTab('bf6')" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDdnj6XkgWcA6ObWAN07099mDKYBYcSPj7VA&s');"><i class="fas fa-crosshairs"></i> Battlefield 6</div>
+    <div id="tab-fell" class="game-card" onclick="switchTab('fell')" style="background-image: url('https://www.allkeyshop.com/blog/wp-content/uploads/FELLOWSHIP-2025-Early-Access-Allkeyshop-Deals-2025-Oct_Banner.webp');"><i class="fas fa-dragon"></i> FELLOWSHIP</div>
+    <div id="tab-wow" class="game-card" onclick="switchTab('wow')" style="background-image: url('https://battlenet.gr/wp-content/uploads/2025/08/wow-midnight-battlenet-gaming-stations-internet-cafe.jpg');"><i class="fas fa-hat-wizard"></i> WOW BOOSTS</div>
+    <div id="tab-poe2" class="game-card" onclick="switchTab('poe2')" style="background-image: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2694490/7a67002ef9c07ecce9506caf5f74f2109d96c195/capsule_616x353.jpg?t=1763507667');"><i class="fas fa-skull-crossbones"></i> PATH OF EXILE 2</div>
 </div>
-
 <div class="main-container">
     <div class="config-side">
         <div class="config-card">
@@ -515,6 +726,17 @@
 </a>
 
 <script>
+function filterServices() {
+    let input = document.getElementById('service-search').value.toLowerCase();
+    let tabs = ['bf6', 'fell', 'wow', 'poe2'];
+
+    // Si el usuario busca un juego específico, cambia de pestaña automáticamente
+    tabs.forEach(tab => {
+        if (input.includes(tab) || (tab === 'wow' && input.includes('warcraft'))) {
+            switchTab(tab);
+        }
+    });
+}
 let currentTab = 'bf6';
 let discount = 1.0;
 let serviceMode = 'Piloted';
@@ -778,4 +1000,5 @@ window.onload = () => {
 </script>
 </body>
 </html>
+
 
