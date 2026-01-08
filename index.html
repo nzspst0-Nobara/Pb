@@ -603,8 +603,8 @@
 
                 <label>Service Mode</label>
                 <div class="mode-selector">
-                    <div id="mode-piloted" class="mode-btn active" onclick="setMode('Piloted')"><i class="fas fa-user-cog"></i> PILOTED</div>
-                    <div id="mode-selfplay" class="mode-btn" onclick="setMode('Self-play')"><i class="fas fa-gamepad"></i> SELF-PLAY</div>
+                    <div id="fell-mode-piloted" class="mode-btn active" onclick="setMode('Piloted')"><i class="fas fa-user-cog"></i> PILOTED (+15%)</div>
+                    <div id="fell-mode-selfplay" class="mode-btn" onclick="setMode('Self-play')"><i class="fas fa-gamepad"></i> SELF-PLAY</div>
                 </div>
 
                 <div class="safe-bar">
@@ -615,7 +615,6 @@
                 </div>
             </div>
 
-            <!-- WOW BOOST TAB -->
             <div id="form-wow" style="display:none;">
                 <div class="input-group">
                     <label>Game Version</label>
@@ -630,6 +629,8 @@
                         <select id="wow_service" onchange="updateWoWServiceUI()">
                             <option value="mplus">Mythic+ Carry</option>
                             <option value="mplus-bundle">Mythic+ Bundle (3+1 runs)</option>
+                            <option value="ksm">Keystone Master</option>
+                            <option value="ksl">Keystone Legend</option>
                             <option value="leveling">Leveling 1-80</option>
                             <option value="raidbundle">Raid Bundle (Heroic & Normal)</option>
                             <option value="pvp-honor">Full PvP Gear (Honor)</option>
@@ -642,17 +643,24 @@
                     <div id="wow-service-extra"></div>
                 </div>
                 <div id="wowClassicSection" style="display:none;">
-                    <div class="service-desc">Classic Boost services and gold. <br><a href="AAA" target="_blank" style="color:#ffb52c"> <b></b> </a></div>
+                    <div class="service-desc">Classic Boost services and gold.</div>
                     <div class="input-group">
                         <label>Classic Service</label>
                         <select id="classic_service">
-                            <option value="leveling">Leveling Boost (price varies, ask chat)</option>
+                            <option value="leveling">Leveling Boost</option>
                             <option value="dungeons">Dungeon Carries</option>
                             <option value="raids">Raid Carries</option>
                             <option value="gold">Gold Selling</option>
                         </select>
                     </div>
                 </div>
+
+                <label>Service Mode</label>
+                <div class="mode-selector">
+                    <div id="wow-mode-piloted" class="mode-btn active" onclick="setMode('Piloted')"><i class="fas fa-user-cog"></i> PILOTED (+15%)</div>
+                    <div id="wow-mode-selfplay" class="mode-btn" onclick="setMode('Self-play')"><i class="fas fa-gamepad"></i> SELF-PLAY</div>
+                </div>
+
                 <div class="safe-bar">
                     <i class="fas fa-shield-alt"></i>
                     <div class="safe-text">
@@ -660,13 +668,10 @@
                     </div>
                 </div>
             </div>
-            <!-- END WOW TAB -->
-
-            <!-- Path of Exile 2 SERVICES TAB -->
             <div id="form-poe2" style="display:none;">
                 <div class="input-group">
                     <label>Service</label>
-                    <select id="poe2_service" onchange="calcTotal()">
+                    <select id="poe2_service" onchange="updatePoe2UI()">
                         <option value="level">Leveling 1-80</option>
                         <option value="act1-10">Acts 1-10 Campaign Full Completion</option>
                         <option value="boss">Uber Boss Carries (each)</option>
@@ -687,6 +692,13 @@
                     <label>Amount x1000c</label>
                     <input type="number" id="poe2_curr_qty" value="1" min="1" max="20" oninput="calcTotal()">
                 </div>
+
+                <label>Service Mode</label>
+                <div class="mode-selector">
+                    <div id="poe-mode-piloted" class="mode-btn active" onclick="setMode('Piloted')"><i class="fas fa-user-cog"></i> PILOTED (+15%)</div>
+                    <div id="poe-mode-selfplay" class="mode-btn" onclick="setMode('Self-play')"><i class="fas fa-gamepad"></i> SELF-PLAY</div>
+                </div>
+
                 <div class="safe-bar">
                     <i class="fas fa-shield-alt"></i>
                     <div class="safe-text">
@@ -694,8 +706,6 @@
                     </div>
                 </div>
             </div>
-            <!-- END Path of Exile 2 TAB -->
-
             <div class="eta-box" style="margin-top:25px;"><i class="fas fa-bolt"></i> ESTIMATED DELIVERY: <span id="display_eta">...</span></div>
         </div>
     </div>
@@ -724,11 +734,9 @@
     </div>
 </div>
 
-<!-- Discord Invite FAB -->
 <a href="https://discord.gg/8zkvN4qNfq" id="discord-fab" target="_blank" title="Join us on Discord!">
   <i class="fab fa-discord"></i> Join Discord
 </a>
-<!-- WhatsApp FAB -->
 <a href="https://wa.me/584125151298" id="wa-chat-fab" target="_blank" title="Chat with us on WhatsApp">
   <i class="fab fa-whatsapp"></i> Live Chat
 </a>
@@ -737,24 +745,25 @@
 function filterServices() {
     let input = document.getElementById('service-search').value.toLowerCase();
     let tabs = ['bf6', 'fell', 'wow', 'poe2'];
-
-    // Si el usuario busca un juego específico, cambia de pestaña automáticamente
     tabs.forEach(tab => {
         if (input.includes(tab) || (tab === 'wow' && input.includes('warcraft'))) {
             switchTab(tab);
         }
     });
 }
+
 let currentTab = 'bf6';
 let discount = 1.0;
 let serviceMode = 'Piloted';
 
-// WoW Retail pricing in USD
+// WoW Retail pricing
 const wow_mplus_prices = {
     7: 2.5, 8: 3, 9: 3.5, 10: 5, 12: 7, 15: 16, 17: 60, 20: 100
 };
-const wow_leveling_all = 14; // 1-80
-const wow_leveling_7080 = 6; // 70-80
+const wow_ksm_price = 20;
+const wow_ksl_price = 40;
+const wow_leveling_all = 14;
+const wow_leveling_7080 = 6;
 const wow_raid_bundle = 10;
 const wow_pvp_honor = 40;
 const wow_pvp_conquest = 90;
@@ -762,7 +771,7 @@ const wow_pve_hero = 50;
 const wow_pve_714 = 90;
 const wow_gold_100k = 5.5;
 
-// Path of Exile 2 services pricing (USD)
+// Path of Exile 2 services pricing
 const poe2_prices = {
     level: 29.99,
     "act1-10": 27.99,
@@ -774,8 +783,15 @@ const poe2_prices = {
 
 function setMode(mode) {
     serviceMode = mode;
-    document.getElementById('mode-piloted').classList.toggle('active', mode === 'Piloted');
-    document.getElementById('mode-selfplay').classList.toggle('active', mode === 'Self-play');
+    // Update all mode button UI
+    const prefixes = ['fell', 'wow', 'poe'];
+    prefixes.forEach(p => {
+        const pBtn = document.getElementById(`${p}-mode-piloted`);
+        const sBtn = document.getElementById(`${p}-mode-selfplay`);
+        if(pBtn) pBtn.classList.toggle('active', mode === 'Piloted');
+        if(sBtn) sBtn.classList.toggle('active', mode === 'Self-play');
+    });
+    calcTotal();
 }
 
 function switchTab(tab) {
@@ -790,11 +806,13 @@ function switchTab(tab) {
     document.getElementById('form-poe2').style.display = (tab === 'poe2') ? 'block' : 'none';
     document.body.className = (tab === 'bf6') ? 'bg-bf6' :
         (tab === 'fell' ? 'bg-fell' : (tab === 'wow' ? 'bg-wow' : 'bg-poe2'));
+
     if(tab === 'fell') updateFellUI();
-    else if(tab === 'wow') { updateWoWUI(); }
+    else if(tab === 'wow') updateWoWUI();
     else if(tab === 'poe2') updatePoe2UI();
     else calcTotal();
 }
+
 function updateWoWUI() {
     const ver = document.getElementById('wow_ver').value;
     document.getElementById('wowRetailSection').style.display = (ver === "retail") ? "block" : "none";
@@ -802,9 +820,14 @@ function updateWoWUI() {
     if(ver === "retail") updateWoWServiceUI();
     calcTotal();
 }
+
 function updateWoWServiceUI() {
     const s = document.getElementById('wow_service').value;
     let html = '';
+
+    // Services that support Loot Traders
+    const supportsLoot = ['mplus', 'mplus-bundle', 'ksm', 'ksl'];
+
     if(s === 'mplus' || s === 'mplus-bundle') {
         html = `
             <label>Choose Keystone Level</label>
@@ -822,11 +845,24 @@ function updateWoWServiceUI() {
         if(s === 'mplus') {
             html += `<div class="input-group"><label>How many runs?</label>
                 <input type="number" id="wow_mplus_runs" min="1" value="1" oninput="calcTotal()"></div>`;
-        } else if(s === 'mplus-bundle') {
-            html += `<div class="service-desc" style="margin-top:8px;">Buy 3 Mythic+ runs, get the 4th free (same keystone level, pay for 3 only)</div>`;
         }
     }
-    else if(s === "leveling") {
+
+    if(supportsLoot.includes(s)) {
+        html += `
+            <div class="input-group">
+                <label>Loot Traders</label>
+                <select id="wow_loot_traders" onchange="calcTotal()">
+                    <option value="1">1 Loot Trader (Free)</option>
+                    <option value="1">2 Loot Traders (Free)</option>
+                    <option value="1.05">3 Loot Traders (+5% fee)</option>
+                    <option value="1.08">4 Loot Traders (+8% fee)</option>
+                </select>
+            </div>
+        `;
+    }
+
+    if(s === "leveling") {
         html = `
             <div class="input-group">
                 <label>Current Level</label>
@@ -836,12 +872,11 @@ function updateWoWServiceUI() {
                 <label>Target Level</label>
                 <input type="number" id="wow_lev_to" value="80" min="2" max="80" oninput="calcTotal()">
             </div>
-            <small>(1-80 = $14, 70-80 = $6 computed automatically)</small>
         `;
     } else if(s === 'gold') {
         html = `
             <div class="input-group">
-                <label>Amount of Gold (100,000 = $5.5, 3m+ allowed)</label>
+                <label>Amount of Gold</label>
                 <input type="number" id="wow_gold_amt" value="100000" step="100000" min="100000" max="10000000" oninput="calcTotal()">
             </div>
         `;
@@ -865,9 +900,9 @@ function updateFellUI() {
 }
 
 function updatePoe2UI() {
-    // Hide/show extra inputs
-    document.getElementById('poe2_input_group_boss').style.display = (document.getElementById('poe2_service').value === 'boss') ? 'block' : 'none';
-    document.getElementById('poe2_input_group_curr').style.display = (document.getElementById('poe2_service').value === 'curr') ? 'block' : 'none';
+    const s = document.getElementById('poe2_service').value;
+    document.getElementById('poe2_input_group_boss').style.display = (s === 'boss') ? 'block' : 'none';
+    document.getElementById('poe2_input_group_curr').style.display = (s === 'curr') ? 'block' : 'none';
     calcTotal();
 }
 
@@ -875,7 +910,7 @@ function applyCoupon() {
     if(document.getElementById('coupon_input').value.toUpperCase() === "PBOOST1454") { discount = 0.9; alert("10% Discount Applied"); }
     calcTotal();
 }
-// BF6 And Fellowship Price in (USD)
+
 function calcTotal() {
     let base = 0; let eta = "...";
     if (currentTab === 'bf6') {
@@ -901,109 +936,88 @@ function calcTotal() {
     } else if (currentTab === 'wow') {
         if(document.getElementById('wow_ver').value === "retail") {
             const s = document.getElementById('wow_service').value;
+            const lootMult = parseFloat(document.getElementById('wow_loot_traders')?.value || 1);
+
             if(s === "mplus") {
                 let lvl = parseInt(document.getElementById('wow_mplus_level').value);
                 let runs = parseInt(document.getElementById('wow_mplus_runs').value) || 1;
-                base = (wow_mplus_prices[lvl] || 0) * runs;
-                eta = "Typically 1-3h per run";
+                base = (wow_mplus_prices[lvl] || 0) * runs * lootMult;
+                eta = "1-3h per run";
             } else if(s === "mplus-bundle") {
                 let lvl = parseInt(document.getElementById('wow_mplus_level').value);
-                base = (wow_mplus_prices[lvl] || 0) * 3;
-                eta = "Buy 3 runs, get 4th free! (total 4 runs, 1-3h per run)";
+                base = (wow_mplus_prices[lvl] || 0) * 3 * lootMult;
+                eta = "4 runs total, 1-3h per run";
+            } else if(s === "ksm") {
+                base = wow_ksm_price * lootMult;
+                eta = "1-2 Days";
+            } else if(s === "ksl") {
+                base = wow_ksl_price * lootMult;
+                eta = "2-4 Days";
             } else if(s === "leveling") {
                 let from = parseInt(document.getElementById('wow_lev_from').value) || 1;
                 let to = parseInt(document.getElementById('wow_lev_to').value) || 80;
-                if (from < 1) from = 1;
-                if (to > 80) to = 80;
-                if (from >= to) { base = 0; eta = ""; }
-                else if (from >= 70) { base = wow_leveling_7080; eta = "1-2 Days"; }
-                else if (from === 1 && to === 80) { base = wow_leveling_all; eta = "1-5 Days"; }
-                else if (to > 70 && from < 70) {
-                    let earlySpan = Math.max(0, Math.min(70, to)-from);
-                    let endSpan = Math.max(0, to-70);
-                    base = (earlySpan/69)*8 + endSpan*(wow_leveling_7080/10);
-                    base = Math.round(base + (endSpan ? wow_leveling_7080 : 0));
-                    eta = "Varies (ask in chat)";
-                } else {
-                    base = Math.round(((to-from)/79)*wow_leveling_all*100)/100;
-                    eta = "Check in chat";
-                }
-            } else if(s === "raidbundle") {
-                base = wow_raid_bundle;
-                eta = "1-3 Days";
-            } else if(s === "pvp-honor") {
-                base = wow_pvp_honor;
-                eta = "1-2 Days";
-            } else if(s === "pvp-conquest") {
-                base = wow_pvp_conquest;
-                eta = "2-4 Days";
-            } else if(s === "pve-hero") {
-                base = wow_pve_hero;
-                eta = "2-4 Days";
-            } else if(s === "pve-full714") {
-                base = wow_pve_714;
-                eta = "3-6 Days";
-            } else if(s === "gold") {
+                if (from < 1) from = 1; if (to > 80) to = 80;
+                if (from >= to) base = 0;
+                else if (from >= 70) base = wow_leveling_7080;
+                else if (from === 1 && to === 80) base = wow_leveling_all;
+                else base = Math.round(((to-from)/79)*wow_leveling_all*100)/100;
+                eta = "1-5 Days";
+            } else if(s === "raidbundle") { base = wow_raid_bundle; eta = "1-3 Days"; }
+            else if(s === "pvp-honor") { base = wow_pvp_honor; eta = "1-2 Days"; }
+            else if(s === "pvp-conquest") { base = wow_pvp_conquest; eta = "2-4 Days"; }
+            else if(s === "pve-hero") { base = wow_pve_hero; eta = "2-4 Days"; }
+            else if(s === "pve-full714") { base = wow_pve_714; eta = "3-6 Days"; }
+            else if(s === "gold") {
                 let amt = parseInt(document.getElementById('wow_gold_amt').value) || 100000;
-                if (amt < 100000) amt = 100000;
-                let sets = Math.ceil(amt / 100000);
-                base = sets * wow_gold_100k;
-                eta = "~Instant delivery up to 3m, contact for more";
+                base = Math.ceil(amt / 100000) * wow_gold_100k;
+                eta = "~Instant delivery";
             }
-        } else {
-            eta = "See chat for price & ETA";
-            base = 0;
-        }
+        } else { base = 0; eta = "Ask in chat"; }
     } else if(currentTab === "poe2") {
         let s = document.getElementById('poe2_service').value;
         if(s === "boss") {
             let cnt = parseInt(document.getElementById('poe2_boss_count')?.value || "1");
             base = poe2_prices["boss"] * cnt;
-            eta = cnt === 1 ? "30-90 min" : "3-8h (bulk fastest pos.)";
+            eta = "30-90 min per boss";
         } else if(s === "curr") {
             let qty = parseInt(document.getElementById('poe2_curr_qty')?.value || "1");
             base = poe2_prices["curr"] * qty;
-            eta = (qty <= 3) ? "10-60 min." : "1-3h";
+            eta = "10-60 min";
         } else {
             base = poe2_prices[s] || 0;
-            if(s === "level") eta = "1-2 Days";
-            else if(s === "act1-10") eta = "6-13 hrs";
-            else if(s === "lab") eta = "2-5 hrs";
-            else if(s === "trial") eta = "1-3 hrs";
+            eta = "Varies (1-2 days)";
         }
     }
+
+    // Cargo del 15% por modo PILOTED
+    if (serviceMode === 'Piloted') {
+        base *= 1.15;
+    }
+
     if (document.getElementById('opt_express').checked) base *= 1.2;
     document.getElementById('display_price').innerText = (base * discount).toFixed(2);
     document.getElementById('display_eta').innerText = eta;
 }
+
 function sendOrder() {
     const price = document.getElementById('display_price').innerText;
-    let modeInfo = '';
+    let modeInfo = (['fell', 'wow', 'poe2', 'bf6'].includes(currentTab)) ? ` [Mode: ${serviceMode}]` : '';
     let serviceInfo = '';
-    if (currentTab === 'fell') modeInfo = ` [Mode: ${serviceMode}]`;
-    else if(currentTab === 'wow') {
+
+    if(currentTab === 'wow') {
         let v = document.getElementById('wow_ver').value;
-        if(v === 'retail') {
-            serviceInfo = document.getElementById('wow_service').options[document.getElementById('wow_service').selectedIndex].text;
-        } else {
-            serviceInfo = document.getElementById('classic_service').options[document.getElementById('classic_service').selectedIndex].text;
-        }
+        serviceInfo = (v === 'retail') ? document.getElementById('wow_service').options[document.getElementById('wow_service').selectedIndex].text : "Classic Service";
+        const loot = document.getElementById('wow_loot_traders');
+        if(loot) serviceInfo += " + " + loot.options[loot.selectedIndex].text;
     } else if(currentTab === "poe2") {
-        let s = document.getElementById('poe2_service').options[document.getElementById('poe2_service').selectedIndex].text;
-        serviceInfo = s;
-        let cnt = "";
-        if(document.getElementById('poe2_boss_count') && document.getElementById('poe2_service').value==="boss")
-            cnt = " x"+document.getElementById('poe2_boss_count').value;
-        if(document.getElementById('poe2_curr_qty') && document.getElementById('poe2_service').value==="curr")
-            cnt = " x"+document.getElementById('poe2_curr_qty').value + "k";
-        serviceInfo += cnt;
+        serviceInfo = document.getElementById('poe2_service').options[document.getElementById('poe2_service').selectedIndex].text;
     }
+
     window.open(`https://t.me/ErnismarSF?text=I would like to order a boost for ${currentTab.toUpperCase()}${modeInfo}${serviceInfo?' (' + serviceInfo+')':''} ($${price})`);
 }
+
 window.onload = () => {
     switchTab('bf6');
-    document.getElementById('poe2_service').addEventListener('change', updatePoe2UI);
-    updatePoe2UI();
 }
 </script>
 </body>
