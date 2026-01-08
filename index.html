@@ -8,51 +8,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Paleta Overgear: Naranja Dorado y Grises Profundos */
-            --primary: #ffb52c; /* Naranja/Dorado característico de Overgear */
+            --primary: #ffb52c;
             --primary-glow: rgba(255, 181, 44, 0.3);
-            --bg-dark: #0f1012; /* Fondo casi negro pero neutro */
-            --card-bg: #18191b; /* Gris carbón para las tarjetas */
+            --bg-dark: #0f1012;
+            --card-bg: #18191b;
             --text-main: #e1e1e6;
+            --success: #25d366;
         }
 
-        /* Ajuste de botones para mantener la coherencia neutra */
-        .game-card.active {
-            border-color: var(--primary);
-            color: white;
-            box-shadow: 0 0 15px var(--primary-glow);
-            background: rgba(255, 181, 44, 0.05); /* Sutil toque ámbar */
-        }
-
-        .mode-btn.active {
-            border-color: var(--primary);
-            color: white;
-            background: rgba(255, 181, 44, 0.1);
-            box-shadow: 0 0 10px var(--primary-glow);
-        }
-
-        .btn-checkout {
-            background: var(--primary);
-            color: #000; /* Texto oscuro sobre fondo brillante para legibilidad */
-            transition: 0.3s;
-        }
-
-        .btn-checkout:hover {
-            background: #e5a227;
-            box-shadow: 0 0 20px var(--primary-glow);
-        }
-
-        /* Bordes y acentos neutros */
-        header {
-            background: #000;
-            border-bottom: 2px solid var(--primary);
-        }
-
-        .safe-bar {
-            border: 1px solid rgba(255, 181, 44, 0.2);
-            border-left: 4px solid var(--primary);
-            background: #1c1d1f;
-        }
         body {
             background-color: var(--bg-dark);
             color: var(--text-main);
@@ -63,414 +26,22 @@
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            transition: background-image 0.5s cubic-bezier(.48,-0.01,.43,.96);
+            transition: background-image 0.5s ease;
         }
-        /* GAME BACKGROUNDS - best effort, thematic, clear images */
-        .bg-bf6 {
-            background-image:
-              linear-gradient(rgba(10,21,41,0.67), rgba(36,31,52, 0.70)),
-              url('https://www.10wallpaper.com/wallpaper/1366x768/2509/Battlefield_6_Soldier_2025_Video_Game_Poster_5K_1366x768.jpg');
-        }
-        .bg-fell {
-            background-image:
-              linear-gradient(rgba(30,13,41,0.72), rgba(10,15,33,0.85)),
-              url('https://www-static.chiefrebel.com/wp-content/uploads/2024/08/Fellowship-KeyArt-withLogo.png?media=1689770145');
-        }
-        .bg-wow {
-            background-image:
-              linear-gradient(rgba(60,33,9,0.7), rgba(46, 19, 3, 0.82)),
-              url('https://www.10wallpaper.com/wallpaper/1366x768/1609/World_of_warcraft_characters-2016_Game_Posters_HD_Wallpaper_1366x768.jpg');
-        }
-        .bg-poe2 {
-            background-image:
-              linear-gradient(rgba(20,13,8,0.75), rgba(33,22,14,0.84)),
-              url('https://gaming-cdn.com/images/products/5813/616x353/path-of-exile-2-pc-steam-cover.jpg?v=1753427678');
-        }
+
+        /* Backgrounds */
+        .bg-bf6 { background-image: linear-gradient(rgba(10,21,41,0.7), rgba(15,15,20,0.9)), url('https://www.10wallpaper.com/wallpaper/1366x768/2509/Battlefield_6_Soldier_2025_Video_Game_Poster_5K_1366x768.jpg'); }
+        .bg-fell { background-image: linear-gradient(rgba(30,13,41,0.7), rgba(10,15,33,0.9)), url('https://www-static.chiefrebel.com/wp-content/uploads/2024/08/Fellowship-KeyArt-withLogo.png?media=1689770145'); }
+        .bg-wow { background-image: linear-gradient(rgba(40,20,5,0.7), rgba(15,10,5,0.9)), url('https://www.10wallpaper.com/wallpaper/1366x768/1609/World_of_warcraft_characters-2016_Game_Posters_HD_Wallpaper_1366x768.jpg'); }
+        .bg-poe2 { background-image: linear-gradient(rgba(20,13,8,0.7), rgba(10,5,5,0.9)), url('https://gaming-cdn.com/images/products/5813/616x353/path-of-exile-2-pc-steam-cover.jpg?v=1753427678'); }
+
         header {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 25px;
-            text-align: center;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px;
             border-bottom: 2px solid var(--primary);
             box-shadow: 0 0 25px var(--primary-glow);
         }
-        .logo {
-            font-family: 'Orbitron';
-            font-size: 2rem;
-            color: var(--primary);
-            letter-spacing: 5px;
-            text-shadow: 0 0 15px var(--primary-glow);
-            font-weight: 900;
-        }
-        /* Botones de Navegación más grandes con soporte de imagen */
-        .game-nav {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
-            padding: 30px 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
 
-        .game-card {
-            position: relative;
-            height: 120px; /* Altura más grande */
-            display: flex;
-            align-items: flex-end; /* Texto en la parte inferior */
-            justify-content: center;
-            padding: 15px;
-            background-color: #1a1b1e;
-            background-size: cover;
-            background-position: center;
-            border: 1px solid #333;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            overflow: hidden;
-            font-family: 'Orbitron', sans-serif;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: white;
-            z-index: 1;
-        }
-
-        /* Capa oscura para que el texto siempre sea legible sobre la imagen */
-        .game-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
-            z-index: -1;
-            transition: 0.3s;
-        }
-
-        .game-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
-
-        .game-card.active {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px var(--primary-glow);
-        }
-        .main-container {
-            max-width: 1300px;
-            margin: 0 auto;
-            padding: 20px;
-            display: grid;
-            grid-template-columns: 1fr 420px;
-            gap: 40px;
-        }
-        @media (max-width: 1100px) { .main-container { grid-template-columns: 1fr; } }
-        .config-card {
-            background: var(--card-bg);
-            border-radius: 16px;
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 30px;
-        }
-        h2 {
-            font-family: 'Orbitron';
-            font-size: 1rem;
-            color: var(--primary);
-            border-left: 4px solid var(--primary);
-            padding-left: 15px;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .service-desc {
-            background: rgba(0,0,0,0.4);
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: #aaa;
-            border-left: 2px solid #555;
-            margin-bottom: 15px;
-        }
-        .mode-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .mode-btn {
-            flex: 1;
-            padding: 12px;
-            border: 1px solid #333;
-            background: #000;
-            color: #777;
-            border-radius: 8px;
-            cursor: pointer;
-            font-family: 'Orbitron';
-            font-size: 0.75rem;
-            transition: 0.3s;
-            text-align: center;
-        }
-        .mode-btn.active {
-            border-color: var(--primary);
-            color: white;
-            background: rgba(255,0,0,0.1);
-            box-shadow: 0 0 10px var(--primary-glow);
-        }
-        .safe-bar {
-            background: rgba(20, 20, 25, 0.8);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            border-left: 4px solid var(--primary);
-            padding: 15px 20px;
-            border-radius: 8px;
-            margin-top: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        .safe-bar i { color: var(--primary); font-size: 1.2rem; }
-        .safe-text { font-size: 0.85rem; color: #ddd; line-height: 1.4; }
-        .safe-text strong { color: #fff; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
-        .eta-box {
-            color: #f1c40f;
-            font-size: 1rem;
-            font-weight: bold;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: 1px dashed rgba(241, 196, 15, 0.4);
-            padding: 15px;
-            border-radius: 10px;
-            background: rgba(0,0,0,0.5);
-        }
-        .input-group { margin-bottom: 25px; }
-        label {
-            display: block;
-            font-size: 0.7rem;
-            color: #999;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            font-weight: 900;
-        }
-        select, input {
-            width: 100%;
-            background: #000;
-            border: 1px solid #333;
-            color: white;
-            padding: 14px;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            outline: none;
-        }
-        .summary-card {
-            background: rgba(28, 28, 33, 0.98);
-            border-radius: 20px;
-            padding: 35px;
-            border: 1px solid var(--primary);
-            position: sticky;
-            top: 20px;
-        }
-        .price-val {
-            font-family: 'Orbitron';
-            font-size: 3.5rem;
-            color: white;
-            display: block;
-            text-align: center;
-            margin: 15px 0;
-            text-shadow: 0 0 20px var(--primary-glow);
-        }
-        .role-notice {
-            color: #ff4444;
-            font-size: 0.75rem;
-            margin-top: 5px;
-            display: none;
-            font-weight: bold;
-        }
-        .payment-info {
-            background: #050505;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 25px;
-            border-left: 5px solid var(--primary);
-        }
-        .pay-label {
-            font-size: 0.75rem;
-            color: #777;
-            text-transform: uppercase;
-            margin-bottom: 6px;
-            display: block;
-        }
-        .pay-address {
-            font-family: 'Orbitron', monospace;
-            color: #fff;
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 18px;
-            word-break: break-all;
-        }
-        .btn-checkout {
-            background: var(--primary);
-            color: white;
-            width: 100%;
-            padding: 22px;
-            border: none;
-            border-radius: 10px;
-            font-family: 'Orbitron';
-            font-weight: 900;
-            cursor: pointer;
-            text-transform: uppercase;
-            margin-top: 25px;
-            font-size: 1rem;
-        }
-        #discord-fab {
-            position: fixed;
-            left: 24px;
-            bottom: 18px;
-            z-index: 10001;
-            background: #5865F2;
-            color: #fff;
-            font-family: 'Orbitron', Arial, sans-serif;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            border: none;
-            border-radius: 45px;
-            box-shadow: 0 4px 25px 0 rgba(88,101,242,0.27), 0 1.5px 7px 0 #0003;
-            padding: 13px 22px;
-            font-size: 1.11rem;
-            text-decoration: none;
-            font-weight: 700;
-            letter-spacing: 1px;
-            transition: background 0.16s, box-shadow 0.21s, transform 0.12s;
-        }
-        #discord-fab:hover {
-            background: #404eed;
-            color: #fff;
-            box-shadow: 0 8px 32px 0 rgba(88,101,242,0.39), 0 3px 16px 0 #0006;
-            transform: scale(1.048);
-        }
-        #discord-fab .fab { font-size: 1.42em; }
-        @media (max-width: 600px) {
-            #discord-fab { left: 7px; bottom: 7px; padding: 11px 14px; font-size: .98rem;}
-            #discord-fab .fab { font-size: 1.09em; }
-        }
-        #wa-chat-fab {
-            position: fixed;
-            z-index: 10000;
-            right: 22px;
-            bottom: 26px;
-            background: #25d366;
-            color: #fff;
-            font-family: 'Orbitron', Arial, sans-serif;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            border: none;
-            border-radius: 50px;
-            box-shadow: 0 4px 25px 0 rgba(37, 211, 102, 0.33), 0 1.5px 7px 0 #0004;
-            padding: 14px 24px 14px 18px;
-            font-size: 1.07rem;
-            text-decoration: none;
-            transition: background 0.15s, box-shadow 0.21s, transform 0.13s;
-        }
-        #wa-chat-fab:hover {
-            background: #20ba5a;
-            color: #fff;
-            box-shadow: 0 8px 32px 0 rgba(37,211,102,0.45), 0 3px 16px 0 #0006;
-            transform: scale(1.045);
-        }
-        #wa-chat-fab .fab { font-size: 1.4em; }
-        @media (max-width: 600px) {
-            #wa-chat-fab { right: 8px; bottom: 8px; padding: 12px 18px 12px 13px; font-size: .98rem;}
-            #wa-chat-fab .fab { font-size: 1.16em; }
-        }
-/* --- ADAPTACIÓN MÓVIL CON MENÚ DESPLEGABLE --- */
-@media (max-width: 768px) {
-.game-nav {
-        grid-template-columns: 1fr 1fr !important;
-        height: auto !important; /* Desactiva el menú desplegable si prefieres ver las imágenes */
-    }
-    .game-card {
-        height: 100px;
-        font-size: 0.8rem;
-    }
-/* Ajustes generales de contenedor */
-    .main-container {
-        grid-template-columns: 1fr !important;
-        padding: 15px;
-        gap: 20px;
-    }
-
-    /* Convertir la navegación en un menú desplegable táctil */
-    .game-nav {
-        flex-direction: column;
-        gap: 0;
-        padding: 10px 20px;
-        height: 50px; /* Altura del botón cerrado */
-        overflow: hidden;
-        background: rgba(0, 0, 0, 0.9);
-        border: 1px solid var(--primary);
-        border-radius: 8px;
-        margin: 20px;
-        transition: height 0.3s ease;
-        position: relative;
-        z-index: 100;
-    }
-
-    /* Indicador visual de que es un menú (Flecha) */
-    .game-nav::after {
-        content: '▼';
-        position: absolute;
-        right: 20px;
-        top: 15px;
-        color: var(--primary);
-        font-size: 0.8rem;
-    }
-
-    /* Cuando el usuario toca el área, el menú se expande */
-    .game-nav:active, .game-nav:focus-within {
-        height: 260px; /* Ajusta según la cantidad de juegos */
-    }
-
-    .game-card {
-        width: 100%;
-        box-sizing: border-box;
-        border: none !important;
-        background: transparent !important;
-        padding: 15px;
-        border-radius: 0;
-        border-bottom: 1px solid #222 !important;
-        text-align: left;
-    }
-
-    /* El juego activo siempre sube al principio para servir de "título" */
-    .game-card.active {
-        order: -1;
-        color: var(--primary);
-        box-shadow: none !important;
-    }
-
-    /* Ajustes de inputs para facilitar el toque */
-    select, input {
-        font-size: 16px !important; /* Evita zoom en iOS */
-        padding: 15px !important;
-    }
-
-    .summary-card {
-        position: relative;
-        top: 0;
-    }
-
-    .price-val {
-        font-size: 2.5rem;
-    }
-
-    /* Reubicación de botones flotantes para no estorbar */
-    #discord-fab, #wa-chat-fab {
-        bottom: 10px;
-        font-size: 0.8rem;
-        padding: 10px 15px;
-    }
-}
-/* Ajustes del Header para Logo y Buscador */
         .header-container {
             display: flex;
             align-items: center;
@@ -480,80 +51,239 @@
             gap: 20px;
         }
 
-        .search-container {
-            position: relative;
-            flex: 1;
-            max-width: 500px;
+        .logo {
+            font-family: 'Orbitron';
+            font-size: 1.8rem;
+            color: var(--primary);
+            letter-spacing: 4px;
+            font-weight: 900;
         }
 
+        .search-container { position: relative; flex: 1; max-width: 400px; }
         #service-search {
             width: 100%;
-            background: #18191b; /* Color neutro estilo Overgear */
+            background: #18191b;
             border: 1px solid #333;
             padding: 10px 15px 10px 40px;
             border-radius: 8px;
             color: white;
-            font-size: 0.9rem;
+        }
+        .search-icon { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: #666; }
+
+        /* Game Navigation */
+        .game-nav {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            padding: 25px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .game-card {
+            position: relative;
+            height: 100px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 12px;
+            background-color: #1a1b1e;
+            background-size: cover;
+            background-position: center;
+            border: 1px solid #333;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            overflow: hidden;
+            font-family: 'Orbitron';
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: white;
+            z-index: 1;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%);
+            z-index: -1;
+        }
+
+        .game-card.active {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+            transform: scale(1.05);
+        }
+
+        /* Layout */
+        .main-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 420px;
+            gap: 30px;
+        }
+
+        @media (max-width: 1100px) { .main-container { grid-template-columns: 1fr; } }
+
+        .config-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        h2 {
+            font-family: 'Orbitron';
+            font-size: 1rem;
+            color: var(--primary);
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+
+        .service-desc {
+            background: rgba(0,0,0,0.4);
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #aaa;
+            border-left: 2px solid #555;
+            margin-bottom: 20px;
+        }
+
+        /* Inputs & Buttons */
+        .input-group { margin-bottom: 20px; }
+        label { display: block; font-size: 0.7rem; color: #888; margin-bottom: 8px; text-transform: uppercase; font-weight: 800; }
+        select, input {
+            width: 100%;
+            background: #0b0c0d;
+            border: 1px solid #333;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            outline: none;
+            box-sizing: border-box;
+        }
+        select:focus, input:focus { border-color: var(--primary); }
+
+        .mode-selector { display: flex; gap: 10px; margin-bottom: 20px; }
+        .mode-btn {
+            flex: 1; padding: 12px; border: 1px solid #333; background: #000;
+            color: #777; border-radius: 8px; cursor: pointer; font-family: 'Orbitron';
+            font-size: 0.7rem; text-align: center; transition: 0.3s;
+        }
+        .mode-btn.active { border-color: var(--primary); color: white; background: rgba(255, 181, 44, 0.1); }
+
+        /* Summary Card Improvements */
+        .summary-card {
+            background: #1c1d1f;
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--primary);
+            position: sticky;
+            top: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .order-details {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 15px;
+            margin: 20px 0;
+            border: 1px solid #333;
+        }
+
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            color: #bbb;
+        }
+
+        .detail-item b { color: var(--text-main); }
+        .detail-item.total {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #444;
+            font-size: 1.1rem;
+        }
+
+        .price-val {
+            font-family: 'Orbitron';
+            font-size: 3rem;
+            color: #fff;
+            display: block;
+            text-align: center;
+            text-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        /* Modern PayPal Style */
+        .paypal-box {
+            margin-top: 20px;
+            background: #000;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: 0.3s;
+            border: 1px solid #333;
+        }
+        .paypal-box:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,209,64,0.3); }
+
+        .btn-checkout {
+            background: var(--primary);
+            color: #000;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            font-family: 'Orbitron';
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            margin-bottom: 10px;
             transition: 0.3s;
         }
+        .btn-checkout:hover { background: #e5a227; transform: scale(1.02); }
 
-        #service-search:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 10px var(--primary-glow);
-            outline: none;
-        }
+        /* Floating Buttons */
+        #discord-fab { position: fixed; left: 24px; bottom: 24px; z-index: 100; background: #5865F2; color: #000000; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-family: 'Orbitron'; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+        #wa-chat-fab { position: fixed; right: 24px; bottom: 24px; z-index: 100; background: #25d366; color: #000000; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-family: 'Orbitron'; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
 
-        .search-icon {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #666;
-        }
-
-        /* Ajuste para móvil */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 15px;
-            }
-            .search-container {
-                width: 100%;
-            }
-        }
-        /* Este es el contenedor que rodea al botón de PayPal */
-        .paypal-container {
-         display: flex;
-         justify-content: center; /* Centra horizontalmente */
-         align-items: center;     /* Centra verticalmente si es necesario */
-         width: 100%;
-         margin-top: 20px;        /* Espacio opcional arriba */
-         }
+        .role-notice { color: #ff4444; font-size: 0.75rem; margin-top: 5px; display: none; font-weight: bold; }
+        .safe-bar { background: rgba(255, 181, 44, 0.05); border-left: 4px solid var(--primary); padding: 12px; border-radius: 4px; margin-top: 15px; font-size: 0.8rem; display: flex; gap: 10px; align-items: center; }
+        .eta-box { color: #f1c40f; font-size: 0.9rem; font-weight: bold; margin-top: 20px; border: 1px dashed #f1c40f66; padding: 10px; border-radius: 8px; text-align: center; }
     </style>
 </head>
-<body class="bg-bf6">
+<body class="bg-wow">
 
 <header>
     <div class="header-container">
         <div class="logo">PBOOST</div>
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
-            <input type="text" id="service-search" placeholder="Search services (e.g. Leveling, Gold, PoE2...)" onkeyup="filterServices()">
+            <input type="text" id="service-search" placeholder="Search (e.g. Gold, M+...)" onkeyup="filterServices()">
         </div>
     </div>
 </header>
+
 <div class="game-nav">
-    <div id="tab-bf6" class="game-card active" onclick="switchTab('bf6')" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDdnj6XkgWcA6ObWAN07099mDKYBYcSPj7VA&s');"><i class="fas fa-crosshairs"></i> Battlefield 6</div>
-    <div id="tab-fell" class="game-card" onclick="switchTab('fell')" style="background-image: url('https://www.allkeyshop.com/blog/wp-content/uploads/FELLOWSHIP-2025-Early-Access-Allkeyshop-Deals-2025-Oct_Banner.webp');"><i class="fas fa-dragon"></i> FELLOWSHIP</div>
-    <div id="tab-wow" class="game-card" onclick="switchTab('wow')" style="background-image: url('https://battlenet.gr/wp-content/uploads/2025/08/wow-midnight-battlenet-gaming-stations-internet-cafe.jpg');"><i class="fas fa-hat-wizard"></i> WOW BOOSTS</div>
-    <div id="tab-poe2" class="game-card" onclick="switchTab('poe2')" style="background-image: url('https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/2694490/7a67002ef9c07ecce9506caf5f74f2109d96c195/capsule_616x353.jpg?t=1763507667');"><i class="fas fa-skull-crossbones"></i> PATH OF EXILE 2</div>
+    <div id="tab-wow" class="game-card" onclick="switchTab('wow')" style="background-image: url('https://i.ibb.co/1fQfdGGP/Wow.jpg');">WOW BOOSTS</div>
+    <div id="tab-fell" class="game-card" onclick="switchTab('fell')" style="background-image: url('https://i.ibb.co/bjLDrq8K/Fellowship.jpg');">FELLOWSHIP</div>
+    <div id="tab-poe2" class="game-card" onclick="switchTab('poe2')" style="background-image: url('https://i.ibb.co/zV5kqFMv/Poe.jpg');">PATH OF EXILE 2</div>
+    <div id="tab-bf6" class="game-card" onclick="switchTab('bf6')" style="background-image: url('https://i.ibb.co/v6vNt3cS/Bf6.jpg');">BATTLEFIELD 6</div>
 </div>
+
 <div class="main-container">
     <div class="config-side">
         <div class="config-card">
             <h2><i class="fas fa-sliders-h"></i> CONFIGURATION</h2>
 
-            <div id="form-bf6">
+            <div id="form-bf6" style="display:none;">
                 <div class="input-group">
                     <label>Selected Service</label>
                     <select id="bf_service" onchange="calcTotal()">
@@ -561,17 +291,9 @@
                         <option value="battlepass">Battle Pass Tier Progression</option>
                     </select>
                 </div>
-                <div class="service-desc">Safe XP farming. 100% manual gameplay. No cheats or exploits used.</div>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div><label>Current Level</label><input type="number" id="bf_from" value="1" oninput="calcTotal()"></div>
                     <div><label>Target Level</label><input type="number" id="bf_to" value="50" oninput="calcTotal()"></div>
-                </div>
-
-                <div class="safe-bar">
-                    <i class="fas fa-shield-alt"></i>
-                    <div class="safe-text">
-                        <strong>Security & Efficiency:</strong> No hacks, bots, or third-party software. We include <strong>VPN</strong> usage for maximum security on every order.
-                    </div>
                 </div>
             </div>
 
@@ -580,12 +302,8 @@
                     <label>Hero Selection</label>
                     <select id="hero_select" onchange="calcTotal()">
                         <option value="1">Ardeos (DPS)</option><option value="1">Tariq (DPS)</option>
-                        <option value="1">Mara (DPS)</option><option value="1">Jotunn (DPS)</option>
-                        <option value="1">Garen (DPS)</option>
-                        <option value="1.3">Helena (Tank) +30% Capstone Fee</option>
-                        <option value="1.3">Meiko (Tank) +30% Capstone Fee</option>
-                        <option value="1.3">Sylvie (Healer) +30% Capstone Fee</option>
-                        <option value="1.3">Vigour (Healer) +30% Capstone Fee</option>
+                        <option value="1.3">Helena (Tank) +30% fee</option>
+                        <option value="1.3">Sylvie (Healer) +30% fee</option>
                     </select>
                     <div id="role_fee_notice" class="role-notice">* A 30% role fee is applied ONLY to Capstone Dungeons.</div>
                 </div>
@@ -594,28 +312,18 @@
                     <select id="fell_type" onchange="updateFellUI()">
                         <option value="bis">BIS Gear Full Farm</option>
                         <option value="rating">Hero Dungeon Rating</option>
-                        <option value="gear">Overall Gear iLvl</option>
                         <option value="capstone">Capstone Dungeons</option>
                     </select>
                 </div>
-                <div class="service-desc">Professional carry teams for high-end content. Secure and efficient.</div>
                 <div id="dynamic_fell"></div>
-
                 <label>Service Mode</label>
                 <div class="mode-selector">
-                    <div id="fell-mode-piloted" class="mode-btn active" onclick="setMode('Piloted')"><i class="fas fa-user-cog"></i> PILOTED (+15%)</div>
-                    <div id="fell-mode-selfplay" class="mode-btn" onclick="setMode('Self-play')"><i class="fas fa-gamepad"></i> SELF-PLAY</div>
-                </div>
-
-                <div class="safe-bar">
-                    <i class="fas fa-shield-alt"></i>
-                    <div class="safe-text">
-                        <strong>Security & Efficiency:</strong> No hacks, bots, or third-party software. We include <strong>VPN</strong> usage for maximum security on every order.
-                    </div>
+                    <div id="fell-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
+                    <div id="fell-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
                 </div>
             </div>
 
-            <div id="form-wow" style="display:none;">
+            <div id="form-wow">
                 <div class="input-group">
                     <label>Game Version</label>
                     <select id="wow_ver" onchange="updateWoWUI()">
@@ -628,164 +336,112 @@
                         <label>Service</label>
                         <select id="wow_service" onchange="updateWoWServiceUI()">
                             <option value="mplus">Mythic+ Carry</option>
-                            <option value="mplus-bundle">Mythic+ Bundle (3+1 runs)</option>
                             <option value="ksm">Keystone Master</option>
-                            <option value="ksl">Keystone Legend</option>
                             <option value="leveling">Leveling 1-80</option>
-                            <option value="raidbundle">Raid Bundle (Heroic & Normal)</option>
-                            <option value="pvp-honor">Full PvP Gear (Honor)</option>
-                            <option value="pvp-conquest">Full PvP Gear (Conquest)</option>
-                            <option value="pve-hero">Full PvE Gear (Hero 701)</option>
-                            <option value="pve-full714">Full PvE Gear (714)</option>
                             <option value="gold">Gold Selling</option>
                         </select>
                     </div>
                     <div id="wow-service-extra"></div>
                 </div>
-                <div id="wowClassicSection" style="display:none;">
-                    <div class="service-desc">Classic Boost services and gold.</div>
-                    <div class="input-group">
-                        <label>Classic Service</label>
-                        <select id="classic_service">
-                            <option value="leveling">Leveling Boost</option>
-                            <option value="dungeons">Dungeon Carries</option>
-                            <option value="raids">Raid Carries</option>
-                            <option value="gold">Gold Selling</option>
-                        </select>
-                    </div>
-                </div>
-
                 <label>Service Mode</label>
                 <div class="mode-selector">
-                    <div id="wow-mode-piloted" class="mode-btn active" onclick="setMode('Piloted')"><i class="fas fa-user-cog"></i> PILOTED (+15%)</div>
-                    <div id="wow-mode-selfplay" class="mode-btn" onclick="setMode('Self-play')"><i class="fas fa-gamepad"></i> SELF-PLAY</div>
-                </div>
-
-                <div class="safe-bar">
-                    <i class="fas fa-shield-alt"></i>
-                    <div class="safe-text">
-                        <strong>Security & Efficiency:</strong> Only hand-play, no bots/hacks, VPN on request, 100% safe.
-                    </div>
+                    <div id="wow-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
+                    <div id="wow-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
                 </div>
             </div>
+
             <div id="form-poe2" style="display:none;">
                 <div class="input-group">
                     <label>Service</label>
                     <select id="poe2_service" onchange="updatePoe2UI()">
                         <option value="level">Leveling 1-80</option>
-                        <option value="act1-10">Acts 1-10 Campaign Full Completion</option>
-                        <option value="boss">Uber Boss Carries (each)</option>
+                        <option value="boss">Uber Boss Carries</option>
                         <option value="curr">Divine (1)</option>
-                        <option value="lab">Labyrinth Full Unlock</option>
-                        <option value="trial">Ascendancy Trials Pack</option>
                     </select>
                 </div>
-                <div class="service-desc">
-                    <b>Fast, hand-played, and safe services for PoE2.</b><br>
-                    <span style="color:#fc0">Contact us for custom requests, bulk orders or questions!</span>
-                </div>
                 <div class="input-group" id="poe2_input_group_boss" style="display:none;">
-                    <label>Number of Uber Boss Carries</label>
-                    <input type="number" id="poe2_boss_count" value="1" min="1" max="10" oninput="calcTotal()">
+                    <label>Number of Bosses</label>
+                    <input type="number" id="poe2_boss_count" value="1" min="1" oninput="calcTotal()">
                 </div>
-                <div class="input-group" id="poe2_input_group_curr" style="display:none;">
-                    <label>Amount x1000c</label>
-                    <input type="number" id="poe2_curr_qty" value="1" min="1" max="20" oninput="calcTotal()">
-                </div>
-
                 <label>Service Mode</label>
                 <div class="mode-selector">
-                    <div id="poe-mode-piloted" class="mode-btn active" onclick="setMode('Piloted')"><i class="fas fa-user-cog"></i> PILOTED (+15%)</div>
-                    <div id="poe-mode-selfplay" class="mode-btn" onclick="setMode('Self-play')"><i class="fas fa-gamepad"></i> SELF-PLAY</div>
-                </div>
-
-                <div class="safe-bar">
-                    <i class="fas fa-shield-alt"></i>
-                    <div class="safe-text">
-                        <strong>Security & Efficiency:</strong> Only hand-play. No bots/hacks. Orders discreet and safe.
-                    </div>
+                    <div id="poe-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
+                    <div id="poe-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
                 </div>
             </div>
-            <div class="eta-box" style="margin-top:25px;"><i class="fas fa-bolt"></i> ESTIMATED DELIVERY: <span id="display_eta">...</span></div>
+
+            <div class="safe-bar"><i class="fas fa-shield-alt"></i> Safe & Secure: 100% Hand-made. VPN included on Piloted.</div>
+            <div class="eta-box"><i class="fas fa-bolt"></i> DELIVERY: <span id="display_eta">...</span></div>
         </div>
     </div>
+
     <div class="summary-side">
         <div class="summary-card">
-            <h2 style="border:none; text-align:center; padding:0;">SUMMARY</h2>
-            <span class="price-val">$<span id="display_price">0.00</span></span>
-            <div class="input-group">
-                <label>Promo Code</label>
-                <div style="display:flex; gap:8px;"><input type="text" id="coupon_input"><button onclick="applyCoupon()" style="background:#333; color:white; border:none; border-radius:8px; cursor:pointer; font-family:Orbitron; padding: 0 15px;">APPLY</button></div>
+            <h2 style="border:none; text-align:center; padding:0; margin-bottom:10px;">YOUR ORDER</h2>
+
+            <div class="order-details" id="checkout-details">
+                <div class="detail-item"><span>Game:</span> <b id="detail-game">-</b></div>
+                <div class="detail-item"><span>Service:</span> <b id="detail-service">-</b></div>
+                <div class="detail-item"><span>Mode:</span> <b id="detail-mode">-</b></div>
+                <div class="detail-item"><span>Extra:</span> <b id="detail-extra">None</b></div>
+                <div class="detail-item total"><span>Final Price:</span> <b id="detail-price">$0.00</b></div>
             </div>
-            <div class="addon-item"><span>EXPRESS START (+20%) Always confirm your order before doing any payment</span><input type="checkbox" id="opt_express" onchange="calcTotal()"></div>
-            <button class="btn-checkout" onclick="sendOrder()">Confirm Order</button>
-            <div class="payment-info">
-            <div class="paypal-container">
-<div>
-  <style>.pp-FR89NJWW4YZZC{text-align:center;border:none;border-radius:0.25rem;min-width:11.625rem;padding:0 2rem;height:2.625rem;font-weight:bold;background-color:#FFD140;color:#000000;font-family:"Helvetica Neue",Arial,sans-serif;font-size:1rem;line-height:1.25rem;cursor:pointer;}</style>
-  <form action="https://www.paypal.com/ncp/payment/FR89NJWW4YZZC" method="post" target="_blank" style="display:inline-grid;justify-items:center;align-content:start;gap:0.5rem;">
-    <input class="pp-FR89NJWW4YZZC" type="submit" value="Buy Now" />
-    <img src=https://www.paypalobjects.com/images/Debit_Credit.svg alt="cards" />
-    <section style="font-size: 0.75rem;"><img src="https://www.paypalobjects.com/paypal-ui/logos/svg/paypal-wordmark-color.svg" alt="paypal" style="height:0.875rem;vertical-align:middle;"/></section>
-  </form>
-</div>
+
+            <div class="price-val">$<span id="display_price">0.00</span></div>
+
+            <div class="input-group" style="margin-top:20px;">
+                <label>Promo Code</label>
+                <div style="display:flex; gap:8px;"><input type="text" id="coupon_input" placeholder="CODE"><button onclick="applyCoupon()" style="background:#333; color:white; border:none; border-radius:8px; cursor:pointer; font-family:Orbitron; padding: 0 15px;">OK</button></div>
+            </div>
+
+            <div style="font-size:0.8rem; margin-bottom:15px; display:flex; align-items:center; gap:10px;">
+             <input type="checkbox" id="opt_express" onchange="calcTotal()" style="width:20px;">
+               <span>EXPRESS START (+20%)</span>
+           </div>
+
+              <div style="background: rgba(255, 181, 44, 0.1); border: 1px solid rgba(255, 181, 44, 0.3); padding: 10px; border-radius: 8px; font-size: 0.75rem; color: var(--primary); margin-bottom: 20px; text-align: center; font-weight: 600;">
+              <i class="fas fa-exclamation-triangle"></i> Please confirm with support before doing a payment
+           </div>
+
+             <button class="btn-checkout" onclick="sendOrder()">Confirm with Support</button>
+
+            <div class="paypal-box">
+                <form action="https://www.paypal.com/ncp/payment/FR89NJWW4YZZC" method="post" target="_blank" style="display:inline-grid;justify-items:center;width:100%;">
+                    <input type="submit" value="Pay with PayPal" style="background: #FFD140; border:none; padding:12px 30px; border-radius:10px; font-weight:900; cursor:pointer; width:100%; font-size:1.1rem; margin-bottom:5px; font-family:'Orbitron'; color: #000; text-transform: uppercase;"/>
+                    <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" style="height:20px;"/>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
-<a href="https://discord.gg/8zkvN4qNfq" id="discord-fab" target="_blank" title="Join us on Discord!">
-  <i class="fab fa-discord"></i> Join Discord
-</a>
-<a href="https://wa.me/584125151298" id="wa-chat-fab" target="_blank" title="Chat with us on WhatsApp">
-  <i class="fab fa-whatsapp"></i> Live Chat
-</a>
+<a href="https://discord.gg/8zkvN4qNfq" id="discord-fab" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+<a href="https://wa.me/584125151298" id="wa-chat-fab" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
 
 <script>
-function filterServices() {
-    let input = document.getElementById('service-search').value.toLowerCase();
-    let tabs = ['bf6', 'fell', 'wow', 'poe2'];
-    tabs.forEach(tab => {
-        if (input.includes(tab) || (tab === 'wow' && input.includes('warcraft'))) {
-            switchTab(tab);
-        }
-    });
-}
-
-let currentTab = 'bf6';
+let currentTab = 'wow';
 let discount = 1.0;
-let serviceMode = 'Piloted';
+let serviceMode = 'Self-play';
 
-// WoW Retail pricing
-const wow_mplus_prices = {
-    7: 2.5, 8: 3, 9: 3.5, 10: 5, 12: 7, 15: 16, 17: 60, 20: 100
-};
-const wow_ksm_price = 20;
-const wow_ksl_price = 40;
-const wow_leveling_all = 14;
-const wow_leveling_7080 = 6;
-const wow_raid_bundle = 10;
-const wow_pvp_honor = 40;
-const wow_pvp_conquest = 90;
-const wow_pve_hero = 50;
-const wow_pve_714 = 90;
-const wow_gold_100k = 5.5;
+const wow_mplus_prices = { 7: 2.5, 8: 3, 9: 3.5, 10: 5, 12: 7, 15: 16, 17: 60, 20: 100 };
+const poe2_prices = { level: 29.99, boss: 10.99, curr: 0.06 };
 
-// Path of Exile 2 services pricing
-const poe2_prices = {
-    level: 29.99,
-    "act1-10": 27.99,
-    boss: 10.99,
-    curr: 0.06,
-    lab: 6.99,
-    trial: 4.99
-};
+function switchTab(tab) {
+    currentTab = tab;
+    ['wow', 'fell', 'poe2', 'bf6'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
+        document.getElementById(`form-${t}`).style.display = (t === tab) ? 'block' : 'none';
+    });
+    document.body.className = `bg-${tab}`;
+    if(tab === 'fell') updateFellUI();
+    else if(tab === 'wow') updateWoWUI();
+    else if(tab === 'poe2') updatePoe2UI();
+    calcTotal();
+}
 
 function setMode(mode) {
     serviceMode = mode;
-    // Update all mode button UI
-    const prefixes = ['fell', 'wow', 'poe'];
-    prefixes.forEach(p => {
+    ['fell', 'wow', 'poe'].forEach(p => {
         const pBtn = document.getElementById(`${p}-mode-piloted`);
         const sBtn = document.getElementById(`${p}-mode-selfplay`);
         if(pBtn) pBtn.classList.toggle('active', mode === 'Piloted');
@@ -794,29 +450,9 @@ function setMode(mode) {
     calcTotal();
 }
 
-function switchTab(tab) {
-    currentTab = tab;
-    document.getElementById('tab-bf6').classList.toggle('active', tab === 'bf6');
-    document.getElementById('tab-fell').classList.toggle('active', tab === 'fell');
-    document.getElementById('tab-wow').classList.toggle('active', tab === 'wow');
-    document.getElementById('tab-poe2').classList.toggle('active', tab === 'poe2');
-    document.getElementById('form-bf6').style.display = (tab === 'bf6') ? 'block' : 'none';
-    document.getElementById('form-fell').style.display = (tab === 'fell') ? 'block' : 'none';
-    document.getElementById('form-wow').style.display = (tab === 'wow') ? 'block' : 'none';
-    document.getElementById('form-poe2').style.display = (tab === 'poe2') ? 'block' : 'none';
-    document.body.className = (tab === 'bf6') ? 'bg-bf6' :
-        (tab === 'fell' ? 'bg-fell' : (tab === 'wow' ? 'bg-wow' : 'bg-poe2'));
-
-    if(tab === 'fell') updateFellUI();
-    else if(tab === 'wow') updateWoWUI();
-    else if(tab === 'poe2') updatePoe2UI();
-    else calcTotal();
-}
-
 function updateWoWUI() {
     const ver = document.getElementById('wow_ver').value;
     document.getElementById('wowRetailSection').style.display = (ver === "retail") ? "block" : "none";
-    document.getElementById('wowClassicSection').style.display = (ver === "classic") ? "block" : "none";
     if(ver === "retail") updateWoWServiceUI();
     calcTotal();
 }
@@ -824,62 +460,11 @@ function updateWoWUI() {
 function updateWoWServiceUI() {
     const s = document.getElementById('wow_service').value;
     let html = '';
-
-    // Services that support Loot Traders
-    const supportsLoot = ['mplus', 'mplus-bundle', 'ksm', 'ksl'];
-
-    if(s === 'mplus' || s === 'mplus-bundle') {
-        html = `
-            <label>Choose Keystone Level</label>
-            <select id="wow_mplus_level" onchange="calcTotal()">
-                <option value="7">Mythic+7</option>
-                <option value="8">Mythic+8</option>
-                <option value="9">Mythic+9</option>
-                <option value="10">Mythic+10</option>
-                <option value="12">Mythic+12</option>
-                <option value="15">Mythic+15</option>
-                <option value="17">Mythic+17</option>
-                <option value="20">Mythic+20</option>
-            </select>
-        `;
-        if(s === 'mplus') {
-            html += `<div class="input-group"><label>How many runs?</label>
-                <input type="number" id="wow_mplus_runs" min="1" value="1" oninput="calcTotal()"></div>`;
-        }
-    }
-
-    if(supportsLoot.includes(s)) {
-        html += `
-            <div class="input-group">
-                <label>Loot Traders</label>
-                <select id="wow_loot_traders" onchange="calcTotal()">
-                    <option value="1">1 Loot Trader (Free)</option>
-                    <option value="1">2 Loot Traders (Free)</option>
-                    <option value="1.05">3 Loot Traders (+5% fee)</option>
-                    <option value="1.08">4 Loot Traders (+8% fee)</option>
-                </select>
-            </div>
-        `;
-    }
-
-    if(s === "leveling") {
-        html = `
-            <div class="input-group">
-                <label>Current Level</label>
-                <input type="number" id="wow_lev_from" value="1" min="1" max="80" oninput="calcTotal()">
-            </div>
-            <div class="input-group">
-                <label>Target Level</label>
-                <input type="number" id="wow_lev_to" value="80" min="2" max="80" oninput="calcTotal()">
-            </div>
-        `;
-    } else if(s === 'gold') {
-        html = `
-            <div class="input-group">
-                <label>Amount of Gold</label>
-                <input type="number" id="wow_gold_amt" value="100000" step="100000" min="100000" max="10000000" oninput="calcTotal()">
-            </div>
-        `;
+    if(s === 'mplus') {
+        html = `<label>Keystone Level</label><select id="wow_mplus_level" onchange="calcTotal()">${Object.keys(wow_mplus_prices).map(l => `<option value="${l}">Mythic+${l}</option>`)}</select>
+                <div class="input-group"><label>Runs</label><input type="number" id="wow_mplus_runs" min="1" value="1" oninput="calcTotal()"></div>`;
+    } else if(s === "leveling") {
+        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>From</label><input type="number" id="wow_lev_from" value="1" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="wow_lev_to" value="80" oninput="calcTotal()"></div></div>`;
     }
     document.getElementById('wow-service-extra').innerHTML = html;
     calcTotal();
@@ -888,13 +473,10 @@ function updateWoWServiceUI() {
 function updateFellUI() {
     const type = document.getElementById('fell_type').value;
     const div = document.getElementById('dynamic_fell');
-    const notice = document.getElementById('role_fee_notice');
     if (type === 'capstone') {
-        notice.style.display = "block";
-        div.innerHTML = `<label>Dungeon</label><select id="cap_rank" onchange="calcTotal()"><option value="2.89">Cithrel's Fall</option><option value="3.71">Heart of Tuzari</option><option value="3.71">Wraithtide Vault</option><option value="7.56">Ransack of Drakheim</option></select>`;
+        div.innerHTML = `<label>Dungeon</label><select id="cap_rank" onchange="calcTotal()"><option value="2.89">Cithrel's Fall</option><option value="3.71">Heart of Tuzari</option></select>`;
     } else {
-        notice.style.display = "none";
-        div.innerHTML = `<div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;"><div><label>From</label><input type="number" id="f_from" value="0" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="f_to" value="330" oninput="calcTotal()"></div></div>`;
+        div.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>From</label><input type="number" id="f_from" value="0" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="f_to" value="330" oninput="calcTotal()"></div></div>`;
     }
     calcTotal();
 }
@@ -902,123 +484,86 @@ function updateFellUI() {
 function updatePoe2UI() {
     const s = document.getElementById('poe2_service').value;
     document.getElementById('poe2_input_group_boss').style.display = (s === 'boss') ? 'block' : 'none';
-    document.getElementById('poe2_input_group_curr').style.display = (s === 'curr') ? 'block' : 'none';
     calcTotal();
 }
 
 function applyCoupon() {
-    if(document.getElementById('coupon_input').value.toUpperCase() === "PBOOST1454") { discount = 0.9; alert("10% Discount Applied"); }
+    if(document.getElementById('coupon_input').value.toUpperCase() === "PBOOST1454") {
+        discount = 0.9;
+        alert("10% Discount Applied");
+    }
     calcTotal();
 }
 
 function calcTotal() {
     let base = 0; let eta = "...";
+    let serviceName = "";
+
     if (currentTab === 'bf6') {
         let f = parseInt(document.getElementById('bf_from').value) || 0;
         let t = parseInt(document.getElementById('bf_to').value) || 0;
+        serviceName = document.getElementById('bf_service').options[document.getElementById('bf_service').selectedIndex].text;
         if (document.getElementById('bf_service').value === "leveling") {
-            for (let i = f; i < t; i++) base += (i < 50) ? 1.45 : (i < 200 ? 3.10 : 5.20);
-            eta = (t <= 50) ? "3-5 Days" : "59-79 Days";
+            for (let i = f; i < t; i++) base += (i < 50) ? 1.45 : 3.10;
+            eta = "3-5 Days";
         } else { base = (t-f) * 3.09; eta = "5-7 Days"; }
-    } else if (currentTab === 'fell') {
+    }
+    else if (currentTab === 'fell') {
         const type = document.getElementById('fell_type').value;
         const mult = parseFloat(document.getElementById('hero_select').value);
+        serviceName = document.getElementById('fell_type').options[document.getElementById('fell_type').selectedIndex].text;
         if (type === "bis") { base = 341.53; eta = "3-5 Days"; }
         else if (type === "capstone") {
             base = (parseFloat(document.getElementById('cap_rank').value) || 0) * mult;
-            eta = "29-59 Minutes";
+            eta = "30-60 Mins";
         } else {
             let t = parseInt(document.getElementById('f_to').value) || 0;
             let f = parseInt(document.getElementById('f_from').value) || 0;
-            base = (type === "rating" ? (t-f)*0.026 : (t-f)*0.48);
-            eta = (t <= 330) ? "3-5 Days" : "7 Days+";
+            base = (t-f)*0.48; eta = "3-5 Days";
         }
-    } else if (currentTab === 'wow') {
-        if(document.getElementById('wow_ver').value === "retail") {
-            const s = document.getElementById('wow_service').value;
-            const lootMult = parseFloat(document.getElementById('wow_loot_traders')?.value || 1);
-
-            if(s === "mplus") {
-                let lvl = parseInt(document.getElementById('wow_mplus_level').value);
-                let runs = parseInt(document.getElementById('wow_mplus_runs').value) || 1;
-                base = (wow_mplus_prices[lvl] || 0) * runs * lootMult;
-                eta = "1-3h per run";
-            } else if(s === "mplus-bundle") {
-                let lvl = parseInt(document.getElementById('wow_mplus_level').value);
-                base = (wow_mplus_prices[lvl] || 0) * 3 * lootMult;
-                eta = "4 runs total, 1-3h per run";
-            } else if(s === "ksm") {
-                base = wow_ksm_price * lootMult;
-                eta = "1-2 Days";
-            } else if(s === "ksl") {
-                base = wow_ksl_price * lootMult;
-                eta = "2-4 Days";
-            } else if(s === "leveling") {
-                let from = parseInt(document.getElementById('wow_lev_from').value) || 1;
-                let to = parseInt(document.getElementById('wow_lev_to').value) || 80;
-                if (from < 1) from = 1; if (to > 80) to = 80;
-                if (from >= to) base = 0;
-                else if (from >= 70) base = wow_leveling_7080;
-                else if (from === 1 && to === 80) base = wow_leveling_all;
-                else base = Math.round(((to-from)/79)*wow_leveling_all*100)/100;
-                eta = "1-5 Days";
-            } else if(s === "raidbundle") { base = wow_raid_bundle; eta = "1-3 Days"; }
-            else if(s === "pvp-honor") { base = wow_pvp_honor; eta = "1-2 Days"; }
-            else if(s === "pvp-conquest") { base = wow_pvp_conquest; eta = "2-4 Days"; }
-            else if(s === "pve-hero") { base = wow_pve_hero; eta = "2-4 Days"; }
-            else if(s === "pve-full714") { base = wow_pve_714; eta = "3-6 Days"; }
-            else if(s === "gold") {
-                let amt = parseInt(document.getElementById('wow_gold_amt').value) || 100000;
-                base = Math.ceil(amt / 100000) * wow_gold_100k;
-                eta = "~Instant delivery";
-            }
-        } else { base = 0; eta = "Ask in chat"; }
-    } else if(currentTab === "poe2") {
+    }
+    else if (currentTab === 'wow') {
+        const s = document.getElementById('wow_service').value;
+        serviceName = document.getElementById('wow_service').options[document.getElementById('wow_service').selectedIndex].text;
+        if(s === "mplus") {
+            let lvl = parseInt(document.getElementById('wow_mplus_level')?.value || 7);
+            let runs = parseInt(document.getElementById('wow_mplus_runs')?.value || 1);
+            base = (wow_mplus_prices[lvl] || 0) * runs;
+            eta = "1-3h per run";
+        } else if(s === "ksm") { base = 20; eta = "1-2 Days"; }
+        else if(s === "leveling") { base = 14; eta = "1-5 Days"; }
+        else if(s === "gold") { base = 5.5; eta = "~Instant"; }
+    }
+    else if(currentTab === "poe2") {
         let s = document.getElementById('poe2_service').value;
+        serviceName = document.getElementById('poe2_service').options[document.getElementById('poe2_service').selectedIndex].text;
         if(s === "boss") {
-            let cnt = parseInt(document.getElementById('poe2_boss_count')?.value || "1");
-            base = poe2_prices["boss"] * cnt;
-            eta = "30-90 min per boss";
-        } else if(s === "curr") {
-            let qty = parseInt(document.getElementById('poe2_curr_qty')?.value || "1");
-            base = poe2_prices["curr"] * qty;
-            eta = "10-60 min";
-        } else {
-            base = poe2_prices[s] || 0;
-            eta = "Varies (1-2 days)";
-        }
+            base = poe2_prices.boss * (parseInt(document.getElementById('poe2_boss_count').value) || 1);
+        } else { base = poe2_prices[s] || 0; }
+        eta = "Varies";
     }
 
-    // Cargo del 15% por modo PILOTED
-    if (serviceMode === 'Piloted') {
-        base *= 1.15;
-    }
-
+    if (serviceMode === 'Piloted') base *= 1.15;
     if (document.getElementById('opt_express').checked) base *= 1.2;
-    document.getElementById('display_price').innerText = (base * discount).toFixed(2);
+
+    let final = (base * discount).toFixed(2);
+    document.getElementById('display_price').innerText = final;
     document.getElementById('display_eta').innerText = eta;
+
+    // Update UI Checkout Details
+    document.getElementById('detail-game').innerText = currentTab.toUpperCase();
+    document.getElementById('detail-service').innerText = serviceName;
+    document.getElementById('detail-mode').innerText = serviceMode;
+    document.getElementById('detail-extra').innerText = document.getElementById('opt_express').checked ? "Express Start" : "None";
+    document.getElementById('detail-price').innerText = "$" + final;
 }
 
 function sendOrder() {
     const price = document.getElementById('display_price').innerText;
-    let modeInfo = (['fell', 'wow', 'poe2', 'bf6'].includes(currentTab)) ? ` [Mode: ${serviceMode}]` : '';
-    let serviceInfo = '';
-
-    if(currentTab === 'wow') {
-        let v = document.getElementById('wow_ver').value;
-        serviceInfo = (v === 'retail') ? document.getElementById('wow_service').options[document.getElementById('wow_service').selectedIndex].text : "Classic Service";
-        const loot = document.getElementById('wow_loot_traders');
-        if(loot) serviceInfo += " + " + loot.options[loot.selectedIndex].text;
-    } else if(currentTab === "poe2") {
-        serviceInfo = document.getElementById('poe2_service').options[document.getElementById('poe2_service').selectedIndex].text;
-    }
-
-    window.open(`https://t.me/ErnismarSF?text=I would like to order a boost for ${currentTab.toUpperCase()}${modeInfo}${serviceInfo?' (' + serviceInfo+')':''} ($${price})`);
+    window.open(`https://t.me/ErnismarSF?text=New Order: ${currentTab.toUpperCase()} - ${serviceMode} - $${price}`);
 }
 
-window.onload = () => {
-    switchTab('bf6');
-}
+window.onload = () => switchTab('wow');
 </script>
 </body>
 </html>
