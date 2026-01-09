@@ -14,6 +14,13 @@
             --card-bg: #18191b;
             --text-main: #e1e1e6;
             --success: #25d366;
+
+            /* Variables para manejo dinámico de imágenes */
+            --bg-img-bf6: none;
+            --bg-img-fell: none;
+            --bg-img-wow: none;
+            --bg-img-poe2: none;
+            --bg-img-wowtbc: none;
         }
 
         body {
@@ -29,11 +36,14 @@
             transition: background-image 0.5s ease;
         }
 
-        /* Backgrounds */
-        .bg-bf6 { background-image: linear-gradient(rgba(10,21,41,0.7), rgba(15,15,20,0.9)), url('https://www.10wallpaper.com/wallpaper/1366x768/2509/Battlefield_6_Soldier_2025_Video_Game_Poster_5K_1366x768.jpg'); }
-        .bg-fell { background-image: linear-gradient(rgba(30,13,41,0.7), rgba(10,15,33,0.9)), url('https://www-static.chiefrebel.com/wp-content/uploads/2024/08/Fellowship-KeyArt-withLogo.png?media=1689770145'); }
-        .bg-wow { background-image: linear-gradient(rgba(40,20,5,0.7), rgba(15,10,5,0.9)), url('https://www.10wallpaper.com/wallpaper/1366x768/1609/World_of_warcraft_characters-2016_Game_Posters_HD_Wallpaper_1366x768.jpg'); }
-        .bg-poe2 { background-image: linear-gradient(rgba(20,13,8,0.7), rgba(10,5,5,0.9)), url('https://gaming-cdn.com/images/products/5813/616x353/path-of-exile-2-pc-steam-cover.jpg?v=1753427678'); }
+        /* Backgrounds usando variables controladas por JS */
+        .bg-bf6 { background-image: linear-gradient(rgba(10,21,41,0.7), rgba(15,15,20,0.9)), var(--bg-img-bf6); }
+        .bg-fell { background-image: linear-gradient(rgba(30,13,41,0.7), rgba(10,15,33,0.9)), var(--bg-img-fell); }
+        .bg-wow_retail { background-image: linear-gradient(rgba(40,20,5,0.7), rgba(15,10,5,0.9)), var(--bg-img-wow); }
+        .bg-wow_classic { background-image: linear-gradient(rgba(20,20,5,0.7), rgba(10,10,5,0.9)), var(--bg-img-wowc); }
+        .bg-wow_tbc { background-image: linear-gradient(rgba(5, 40, 5, 0.7), rgba(5, 15, 5, 0.9)), var(--bg-img-wowtbc); }
+        .bg-wow_mop { background-image: linear-gradient(rgba(5, 40, 5, 0.7), rgba(5, 15, 5, 0.9)), var(--bg-img-wowmop); }
+        .bg-poe2 { background-image: linear-gradient(rgba(20,13,8,0.7), rgba(10,5,5,0.9)), var(--bg-img-poe2); }
 
         header {
             background: rgba(0, 0, 0, 0.95);
@@ -73,16 +83,16 @@
         /* Game Navigation */
         .game-nav {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 10px;
             padding: 25px 20px;
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
         .game-card {
             position: relative;
-            height: 100px;
+            height: 90px;
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -98,9 +108,10 @@
             font-family: 'Orbitron';
             font-weight: 700;
             text-transform: uppercase;
-            font-size: 0.85rem;
+            font-size: 0.75rem;
             color: white;
             z-index: 1;
+            text-align: center;
         }
 
         .game-card::before {
@@ -142,16 +153,6 @@
             color: var(--primary);
             border-left: 4px solid var(--primary);
             padding-left: 15px;
-            margin-bottom: 20px;
-        }
-
-        .service-desc {
-            background: rgba(0,0,0,0.4);
-            padding: 12px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            color: #aaa;
-            border-left: 2px solid #555;
             margin-bottom: 20px;
         }
 
@@ -222,18 +223,6 @@
             text-shadow: 0 0 15px var(--primary-glow);
         }
 
-        /* Modern PayPal Style */
-        .paypal-box {
-            margin-top: 20px;
-            background: #000;
-            padding: 15px;
-            border-radius: 12px;
-            text-align: center;
-            transition: 0.3s;
-            border: 1px solid #333;
-        }
-        .paypal-box:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(255,209,64,0.3); }
-
         .btn-checkout {
             background: var(--primary);
             color: #000;
@@ -254,34 +243,174 @@
         #discord-fab { position: fixed; left: 24px; bottom: 24px; z-index: 100; background: #5865F2; color: #000000; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-family: 'Orbitron'; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
         #wa-chat-fab { position: fixed; right: 24px; bottom: 24px; z-index: 100; background: #25d366; color: #000000; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-family: 'Orbitron'; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
 
-        .role-notice { color: #ff4444; font-size: 0.75rem; margin-top: 5px; display: none; font-weight: bold; }
         .safe-bar { background: rgba(255, 181, 44, 0.05); border-left: 4px solid var(--primary); padding: 12px; border-radius: 4px; margin-top: 15px; font-size: 0.8rem; display: flex; gap: 10px; align-items: center; }
         .eta-box { color: #f1c40f; font-size: 0.9rem; font-weight: bold; margin-top: 20px; border: 1px dashed #f1c40f66; padding: 10px; border-radius: 8px; text-align: center; }
+        .role-notice { color: #ff4444; font-size: 0.75rem; margin-top: 5px; display: none; font-weight: bold; }
     </style>
 </head>
-<body class="bg-wow">
+<body class="bg-wow_retail">
 
 <header>
     <div class="header-container">
         <div class="logo">PBOOST</div>
         <div class="search-container">
-            <i class="fas fa-search search-icon"></i>
-            <input type="text" id="service-search" placeholder="Search (e.g. Gold, M+...)" onkeyup="filterServices()">
+           <i class="fas fa-search search-icon"></i>
+           <input type="text" id="service-search" placeholder="Search (e.g. M+, Leveling, Gold...)" onkeyup="filterServices()" autocomplete="off">
+           <div id="search-results" style="position: absolute; width: 100%; background: #18191b; border: 1px solid #333; border-radius: 0 0 8px 8px; z-index: 1000; max-height: 300px; overflow-y: auto; display: none;"></div>
         </div>
     </div>
 </header>
 
 <div class="game-nav">
-    <div id="tab-wow" class="game-card" onclick="switchTab('wow')" style="background-image: url('https://i.ibb.co/1fQfdGGP/Wow.jpg');">WOW BOOSTS</div>
-    <div id="tab-fell" class="game-card" onclick="switchTab('fell')" style="background-image: url('https://i.ibb.co/bjLDrq8K/Fellowship.jpg');">FELLOWSHIP</div>
-    <div id="tab-poe2" class="game-card" onclick="switchTab('poe2')" style="background-image: url('https://i.ibb.co/zV5kqFMv/Poe.jpg');">PATH OF EXILE 2</div>
-    <div id="tab-bf6" class="game-card" onclick="switchTab('bf6')" style="background-image: url('https://i.ibb.co/v6vNt3cS/Bf6.jpg');">BATTLEFIELD 6</div>
+    <div id="tab-wow_retail" class="game-card" onclick="switchTab('wow_retail')">WOW RETAIL</div>
+    <div id="tab-wow_classic" class="game-card" onclick="switchTab('wow_classic')">WOW CLASSIC</div>
+    <div id="tab-wow_tbc" class="game-card" onclick="switchTab('wow_tbc')">WOW TBC ANNIV.</div>
+    <div id="tab-wow_mop" class="game-card" onclick="switchTab('wow_mop')">WOW MoP</div>
+    <div id="tab-fell" class="game-card" onclick="switchTab('fell')">FELLOWSHIP</div>
+    <div id="tab-poe2" class="game-card" onclick="switchTab('poe2')">PATH OF EXILE 2</div>
+    <div id="tab-bf6" class="game-card" onclick="switchTab('bf6')">BATTLEFIELD 6</div>
 </div>
 
 <div class="main-container">
     <div class="config-side">
         <div class="config-card">
             <h2><i class="fas fa-sliders-h"></i> CONFIGURATION</h2>
+
+            <div id="form-wow_retail">
+                <div class="input-group">
+                    <label>Service</label>
+                    <select id="wow_retail_service" onchange="updateWoWRetailServiceUI()">
+                        <option value="mplus">Mythic+ Carry</option>
+                        <option value="mplus_bundle">Mythic+ Bundle (3+1 FREE)</option>
+                        <option value="ksm">Keystone Master (2000 IO)</option>
+                        <option value="keystone_hero">Keystone Hero (2500 IO + Portals)</option>
+                        <option value="keystone_legend">Keystone Legend (3000 IO)</option>
+                        <option value="title_01">Top 0.1% Regional Title</option>
+                        <option value="mounts">Rare Mounts Farm</option>
+                        <option value="leveling">Leveling 1-80</option>
+                        <option value="pvp_rating">PvP Arena Rating (1-2400)</option>
+                        <option value="coaching">Professional Coaching</option>
+                        <option value="rent_boost">Rent a Pro (Hourly)</option>
+                        <option value="gold">Gold Selling (per 1k)</option>
+                    </select>
+                </div>
+                <div id="wow-retail-service-extra"></div>
+                <label>Service Mode</label>
+                <div class="mode-selector">
+                    <div id="wow-retail-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
+                    <div id="wow-retail-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
+                </div>
+            </div>
+
+            <div id="form-wow_classic" style="display:none;">
+                <div class="input-group">
+                    <label>Classic Service</label>
+                    <select id="wow_classic_service" onchange="updateWoWClassicServiceUI()">
+                        <option value="leveling">Classic Leveling</option>
+                        <option value="gold">Classic Gold</option>
+                        <option value="raid">Classic Raid Carry</option>
+                    </select>
+                </div>
+                <div id="wow-classic-service-extra"></div>
+                <label>Service Mode</label>
+                <div class="mode-selector">
+                    <div id="wow-classic-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
+                    <div id="wow-classic-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
+                </div>
+            </div>
+
+            <div id="form-wow_tbc" style="display:none;">
+                <div class="input-group">
+                    <label>TBC Anniversary Service (Pre-order)</label>
+                    <select id="wow_tbc_service" onchange="updateWoWTBCServiceUI()">
+                        <option value="leveling">TBC Power Leveling (1-70)</option>
+                        <option value="professions">TBC Professions (1-375)</option>
+                        <option value="riding">TBC Riding & Flying</option>
+                    </select>
+                </div>
+                <div id="wow-tbc-service-extra"></div>
+                <label>Service Mode</label>
+                <div class="mode-selector">
+                    <div id="wow-tbc-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
+                    <div id="wow-tbc-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
+                </div>
+            </div>
+
+            <div id="form-wow_mop" style="display:none;">
+                <div class="input-group">
+                    <label>MoP Service</label>
+                    <select id="wow_mop_service" onchange="updateWoWMoPUI()">
+                        <option value="leveling">Power Leveling (1-90)</option>
+                        <option value="professions">Professions Boost</option>
+                        <option value="ilvl">Item Level Farm</option>
+                        <option value="dungeons">Dungeon / Scenarios</option>
+                        <option value="challenges">Challenge Mode (Gold)</option>
+                    </select>
+                </div>
+                <div id="wow-mop-service-extra"></div>
+                <label>Service Mode</label>
+                <div class="mode-selector">
+                    <div id="mop-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
+                    <div id="mop-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
+                </div>
+            </div>
+
+            <div id="form-fell" style="display:none;">
+                <div class="input-group">
+                    <label>Hero Selection</label>
+                    <select id="hero_select" onchange="calcTotal()">
+                        <option value="none">Ardeos (DPS)</option>
+                        <option value="none">Tariq (DPS)</option>
+                        <option value="none">Amara (DPS)</option>
+                        <option value="none">Runa (DPS)</option>
+                        <option value="none">Sylas (DPS)</option>
+
+                        <option value="fee">Helena (Tank) +30% fee</option>
+                        <option value="fee">Gideon (Tank) +30% fee</option>
+                        <option value="fee">Bryn (Tank) +30% fee</option>
+
+                        <option value="fee">Sylvie (Healer) +30% fee</option>
+                        <option value="fee">Ana (Healer) +30% fee</option>
+                        <option value="fee">Xavier (Healer) +30% fee</option>
+                    </select>
+                    <div id="role_fee_notice" class="role-notice">* A 30% role fee is applied ONLY to Tanks and Heals.</div>
+                </div>
+                <div class="input-group">
+                    <label>Boosting Category</label>
+                    <select id="fell_type" onchange="updateFellUI()">
+                    <option value="gear_score">Gear Score Farming</option>
+                    <option value="capstone">Dungeon Runs / Carries</option>
+                    <option value="rating">Hero Dungeon Rating</option>
+                    <option value="bis">BIS Gear Full Farm</option>
+                    <option value="bundles">Value Bundles</option>
+                    </select>
+                </div>
+                <div id="dynamic_fell"></div>
+                <label>Service Mode</label>
+                <div class="mode-selector">
+                    <div id="fell-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
+                    <div id="fell-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
+                </div>
+            </div>
+
+                <div id="form-poe2" style="display:none;">
+                <div class="input-group">
+                    <label>PoE 2 Service</label>
+                    <select id="poe2_type" onchange="updatePoe2UI()">
+                        <option value="leveling">Power Leveling</option>
+                        <option value="currency">Currency Farming (Orbs)</option>
+                        <option value="campaign">Campaign Boost</option>
+                        <option value="trials">Ascendancy Trials</option>
+                        <option value="builds">Complete Builds</option>
+                    </select>
+                </div>
+                <div id="dynamic_poe2"></div>
+                <label>Service Mode</label>
+                <div class="mode-selector">
+                    <div id="poe-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
+                    <div id="poe-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
+                </div>
+            </div>
 
             <div id="form-bf6" style="display:none;">
                 <div class="input-group">
@@ -297,79 +426,6 @@
                 </div>
             </div>
 
-            <div id="form-fell" style="display:none;">
-                <div class="input-group">
-                    <label>Hero Selection</label>
-                    <select id="hero_select" onchange="calcTotal()">
-                        <option value="1">Ardeos (DPS)</option><option value="1">Tariq (DPS)</option>
-                        <option value="1.3">Helena (Tank) +30% fee</option>
-                        <option value="1.3">Sylvie (Healer) +30% fee</option>
-                    </select>
-                    <div id="role_fee_notice" class="role-notice">* A 30% role fee is applied ONLY to Capstone Dungeons.</div>
-                </div>
-                <div class="input-group">
-                    <label>Boosting Category</label>
-                    <select id="fell_type" onchange="updateFellUI()">
-                        <option value="bis">BIS Gear Full Farm</option>
-                        <option value="rating">Hero Dungeon Rating</option>
-                        <option value="capstone">Capstone Dungeons</option>
-                    </select>
-                </div>
-                <div id="dynamic_fell"></div>
-                <label>Service Mode</label>
-                <div class="mode-selector">
-                    <div id="fell-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
-                    <div id="fell-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
-                </div>
-            </div>
-
-            <div id="form-wow">
-                <div class="input-group">
-                    <label>Game Version</label>
-                    <select id="wow_ver" onchange="updateWoWUI()">
-                        <option value="retail">World of Warcraft Retail</option>
-                        <option value="classic">WoW Classic</option>
-                    </select>
-                </div>
-                <div id="wowRetailSection">
-                    <div class="input-group">
-                        <label>Service</label>
-                        <select id="wow_service" onchange="updateWoWServiceUI()">
-                            <option value="mplus">Mythic+ Carry</option>
-                            <option value="ksm">Keystone Master</option>
-                            <option value="leveling">Leveling 1-80</option>
-                            <option value="gold">Gold Selling</option>
-                        </select>
-                    </div>
-                    <div id="wow-service-extra"></div>
-                </div>
-                <label>Service Mode</label>
-                <div class="mode-selector">
-                    <div id="wow-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
-                    <div id="wow-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
-                </div>
-            </div>
-
-            <div id="form-poe2" style="display:none;">
-                <div class="input-group">
-                    <label>Service</label>
-                    <select id="poe2_service" onchange="updatePoe2UI()">
-                        <option value="level">Leveling 1-80</option>
-                        <option value="boss">Uber Boss Carries</option>
-                        <option value="curr">Divine (1)</option>
-                    </select>
-                </div>
-                <div class="input-group" id="poe2_input_group_boss" style="display:none;">
-                    <label>Number of Bosses</label>
-                    <input type="number" id="poe2_boss_count" value="1" min="1" oninput="calcTotal()">
-                </div>
-                <label>Service Mode</label>
-                <div class="mode-selector">
-                    <div id="poe-mode-selfplay" class="mode-btn active" onclick="setMode('Self-play')">SELF-PLAY</div>
-                    <div id="poe-mode-piloted" class="mode-btn" onclick="setMode('Piloted')">PILOTED (+15%)</div>
-                </div>
-            </div>
-
             <div class="safe-bar"><i class="fas fa-shield-alt"></i> Safe & Secure: 100% Hand-made. VPN included on Piloted.</div>
             <div class="eta-box"><i class="fas fa-bolt"></i> DELIVERY: <span id="display_eta">...</span></div>
         </div>
@@ -378,7 +434,6 @@
     <div class="summary-side">
         <div class="summary-card">
             <h2 style="border:none; text-align:center; padding:0; margin-bottom:10px;">YOUR ORDER</h2>
-
             <div class="order-details" id="checkout-details">
                 <div class="detail-item"><span>Game:</span> <b id="detail-game">-</b></div>
                 <div class="detail-item"><span>Service:</span> <b id="detail-service">-</b></div>
@@ -386,7 +441,6 @@
                 <div class="detail-item"><span>Extra:</span> <b id="detail-extra">None</b></div>
                 <div class="detail-item total"><span>Final Price:</span> <b id="detail-price">$0.00</b></div>
             </div>
-
             <div class="price-val">$<span id="display_price">0.00</span></div>
 
             <div class="input-group" style="margin-top:20px;">
@@ -394,17 +448,11 @@
                 <div style="display:flex; gap:8px;"><input type="text" id="coupon_input" placeholder="CODE"><button onclick="applyCoupon()" style="background:#333; color:white; border:none; border-radius:8px; cursor:pointer; font-family:Orbitron; padding: 0 15px;">OK</button></div>
             </div>
 
-            <div style="font-size:0.8rem; margin-bottom:15px; display:flex; align-items:center; gap:10px;">
-             <input type="checkbox" id="opt_express" onchange="calcTotal()" style="width:20px;">
-               <span>EXPRESS START (+20%)</span>
-           </div>
-
-              <div style="background: rgba(255, 181, 44, 0.1); border: 1px solid rgba(255, 181, 44, 0.3); padding: 10px; border-radius: 8px; font-size: 0.75rem; color: var(--primary); margin-bottom: 20px; text-align: center; font-weight: 600;">
-              <i class="fas fa-exclamation-triangle"></i> Please confirm with support before doing a payment
-           </div>
-
-             <button class="btn-checkout" onclick="sendOrder()">Confirm with Support</button>
-
+            <div style="font-size:0.8rem; margin-top:20px; display:flex; align-items:center; gap:10px;">
+                <input type="checkbox" id="opt_express" onchange="calcTotal()" style="width:20px;">
+                <span>EXPRESS START (+20%)</span>
+            </div>
+            <button class="btn-checkout" onclick="sendOrder()" style="margin-top:20px;">Confirm with Support</button>
             <div class="paypal-box">
                 <form action="https://www.paypal.com/ncp/payment/FR89NJWW4YZZC" method="post" target="_blank" style="display:inline-grid;justify-items:center;width:100%;">
                     <input type="submit" value="Pay with PayPal" style="background: #FFD140; border:none; padding:12px 30px; border-radius:10px; font-weight:900; cursor:pointer; width:100%; font-size:1.1rem; margin-bottom:5px; font-family:'Orbitron'; color: #000; text-transform: uppercase;"/>
@@ -419,29 +467,128 @@
 <a href="https://wa.me/584125151298" id="wa-chat-fab" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
 
 <script>
-let currentTab = 'wow';
+// --- IMG SECTION --- //
+const IMAGES_CONFIG = {
+    backgrounds: {
+        wow: "img/bg-wow.jpg",
+        wowc: "img/wow-classic.jpg",
+        wowtbc: "img/bg-wowtbc.jpg",
+        wowmop: "img/bg-wowmop.jpg",
+        fell: "img/bg-fell.jpg",
+        poe2: "img/bg-poe2.jpg",
+        bf6: "img/bg-bf6.jpg"
+    },
+    nav_cards: {
+        wow_retail: "img/wow.jpg",
+        wow_classic: "img/wow-classic.jpg",
+        wow_tbc: "img/wow-tbc.jpg",
+        wow_mop: "img/wow-mop.jpg",
+        fell: "img/fell.jpg",
+        poe2: "img/poe2.jpg",
+        bf6: "img/bf6.jpg"
+    }
+};
+// --- PRICE SECTION --- //
+const PRICES_CONFIG = {
+    wow_retail: {
+        mplus: { 7: 2.5, 8: 3, 9: 3.5, 10: 5, 11: 6, 12: 7, 13: 10, 14: 13, 15: 16 },
+        mplus_bundle: { 7: 7.50, 8: 9.00, 9: 10.50, 10: 15.00, 11: 18.00, 12: 21.00, 13: 30.00, 14: 39.00, 15: 48.00 },
+        ksm: 25,
+        keystone_hero: 110,
+        keystone_legend: 245,
+        title_01: 590,
+        mounts: { beledar: 35, mithrios: 185, ivory: 45, renewed: 60 },
+        leveling_per_lvl: 0.45,
+        pvp_per_rating: 0.25,
+        coaching_hr: 25,
+        rent_hr: 18,
+        gold_per_k: 0.055
+    },
+    wow_classic: {
+        leveling_per_lvl: 1.2,
+        gold_unit: 0.12,
+        raids: { mc: 45, bwl: 65 }
+    },
+    wow_tbc: {
+        leveling_per_lvl: 1.85,
+        professions_prices: { jewelcrafting: 45.00, leatherworking: 38.00, alchemy: 29.00, enchanting: 42.00, gathering: 22.00 },
+        riding_prices: { expert_riding: 35.00, artisan_flying: 185.00 }
+    },
+    wow_mop: {
+        // Precios graduales basados en mercado para Leveling 1-90
+        leveling: { low: 0.80, mid: 1.50, high: 2.50 },
+        professions: { primary: 35.00, secondary: 15.00 },
+        ilvl_farm: { 463: 45.00, 476: 85.00, 496: 150.00 },
+        dungeons: { hc_run: 5.00, scenario: 3.00 },
+        challenges: { full_9_9_gold: 180.00, single_run: 25.00 }
+    },
+    fell: {
+        gear_score: 0.48,
+        dungeons: { cithrel: 2.89, tuzari: 3.71, molten_forge: 4.50, abyssal_depths: 5.00 },
+        bundles: { raid_ready: 120.00, full_bis_starter: 250.00 },
+        bis: 341.53,
+        rating_per_point: 0.024,
+        role_fee_multiplier: 1.3
+    },
+    poe2: {
+        leveling: { "1-60": 39.99, "60-80": 45.00, "1-90": 115.00 },
+        campaign: { "acts_1_4": 25.00, "full_campaign": 49.00 },
+        currency: { divine_orb: 0.15, exalted_orb: 0.05 },
+        trials: { all_8_points: 15.00, trial_of_chaos: 8.00 },
+        builds: { starter: 89.00, endgame: 199.00 }
+    },
+    bf6: { lvl_low: 1.45, lvl_high: 3.10, battlepass_per_tier: 3.09 },
+    global: {
+        piloted_fee: 1.15,
+        express_fee: 1.20,
+        coupon_discount: 0.9,
+        coupon_code: "PBOOST1454"
+    }
+};
+
+let currentTab = 'wow_retail';
 let discount = 1.0;
 let serviceMode = 'Self-play';
 
-const wow_mplus_prices = { 7: 2.5, 8: 3, 9: 3.5, 10: 5, 12: 7, 15: 16, 17: 60, 20: 100 };
-const poe2_prices = { level: 29.99, boss: 10.99, curr: 0.06 };
+function initImages() {
+    const root = document.documentElement;
+    root.style.setProperty('--bg-img-wow', `url('${IMAGES_CONFIG.backgrounds.wow}')`);
+    root.style.setProperty('--bg-img-wowc', `url('${IMAGES_CONFIG.backgrounds.wowc}')`);
+    root.style.setProperty('--bg-img-wowtbc', `url('${IMAGES_CONFIG.backgrounds.wowtbc}')`);
+    root.style.setProperty('--bg-img-wowmop', `url('${IMAGES_CONFIG.backgrounds.wowmop}')`);
+    root.style.setProperty('--bg-img-fell', `url('${IMAGES_CONFIG.backgrounds.fell}')`);
+    root.style.setProperty('--bg-img-poe2', `url('${IMAGES_CONFIG.backgrounds.poe2}')`);
+    root.style.setProperty('--bg-img-bf6', `url('${IMAGES_CONFIG.backgrounds.bf6}')`);
+
+    document.getElementById('tab-wow_retail').style.backgroundImage = `url('${IMAGES_CONFIG.nav_cards.wow_retail}')`;
+    document.getElementById('tab-wow_classic').style.backgroundImage = `url('${IMAGES_CONFIG.nav_cards.wow_classic}')`;
+    document.getElementById('tab-wow_tbc').style.backgroundImage = `url('${IMAGES_CONFIG.nav_cards.wow_tbc}')`;
+    document.getElementById('tab-wow_mop').style.backgroundImage = `url('${IMAGES_CONFIG.nav_cards.wow_mop}')`;
+    document.getElementById('tab-fell').style.backgroundImage = `url('${IMAGES_CONFIG.nav_cards.fell}')`;
+    document.getElementById('tab-poe2').style.backgroundImage = `url('${IMAGES_CONFIG.nav_cards.poe2}')`;
+    document.getElementById('tab-bf6').style.backgroundImage = `url('${IMAGES_CONFIG.nav_cards.bf6}')`;
+}
 
 function switchTab(tab) {
     currentTab = tab;
-    ['wow', 'fell', 'poe2', 'bf6'].forEach(t => {
-        document.getElementById(`tab-${t}`).classList.toggle('active', t === tab);
-        document.getElementById(`form-${t}`).style.display = (t === tab) ? 'block' : 'none';
+    ['wow_retail', 'wow_classic', 'wow_tbc', 'wow_mop', 'fell', 'poe2', 'bf6'].forEach(t => {
+        const tabEl = document.getElementById(`tab-${t}`);
+        const formEl = document.getElementById(`form-${t}`);
+        if(tabEl) tabEl.classList.toggle('active', t === tab);
+        if(formEl) formEl.style.display = (t === tab) ? 'block' : 'none';
     });
     document.body.className = `bg-${tab}`;
-    if(tab === 'fell') updateFellUI();
-    else if(tab === 'wow') updateWoWUI();
+    if(tab === 'wow_retail') updateWoWRetailServiceUI();
+    else if(tab === 'wow_classic') updateWoWClassicServiceUI();
+    else if(tab === 'wow_tbc') updateWoWTBCServiceUI();
+    else if(tab === 'fell') updateFellUI();
     else if(tab === 'poe2') updatePoe2UI();
     calcTotal();
 }
 
 function setMode(mode) {
     serviceMode = mode;
-    ['fell', 'wow', 'poe'].forEach(p => {
+    ['wow-retail', 'wow-classic', 'wow-tbc', 'wow_mop', 'fell', 'poe'].forEach(p => {
         const pBtn = document.getElementById(`${p}-mode-piloted`);
         const sBtn = document.getElementById(`${p}-mode-selfplay`);
         if(pBtn) pBtn.classList.toggle('active', mode === 'Piloted');
@@ -450,120 +597,379 @@ function setMode(mode) {
     calcTotal();
 }
 
-function updateWoWUI() {
-    const ver = document.getElementById('wow_ver').value;
-    document.getElementById('wowRetailSection').style.display = (ver === "retail") ? "block" : "none";
-    if(ver === "retail") updateWoWServiceUI();
+function updateWoWRetailServiceUI() {
+    const s = document.getElementById('wow_retail_service').value;
+    const cfg = PRICES_CONFIG.wow_retail;
+    let html = '';
+    if(s === 'mplus') {
+        html = `<label>Level</label><select id="wow_mplus_level" onchange="calcTotal()">${Object.keys(cfg.mplus).map(l => `<option value="${l}">+${l}</option>`)}</select><label>Runs</label><input type="number" id="wow_mplus_runs" min="1" value="1" oninput="calcTotal()">`;
+    } else if(s === 'mplus_bundle') {
+        html = `<label>Bundle</label><select id="wow_bundle_level" onchange="calcTotal()">${Object.keys(cfg.mplus_bundle).map(l => `<option value="${l}">+${l} Bundle (3+1)</option>`)}</select>`;
+    } else if(s === 'mounts') {
+        html = `<label>Mount</label><select id="wow_mount_select" onchange="calcTotal()">${Object.keys(cfg.mounts).map(m => `<option value="${m}">${m}</option>`)}</select>`;
+    } else if(s === 'leveling') {
+        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>From</label><input type="number" id="wow_lev_from" value="1" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="wow_lev_to" value="80" oninput="calcTotal()"></div></div>`;
+    } else if(s === 'pvp_rating') {
+        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>Current</label><input type="number" id="pvp_from" value="0" oninput="calcTotal()"></div><div><label>Target</label><input type="number" id="pvp_to" value="1400" oninput="calcTotal()"></div></div>`;
+    } else if(s === 'coaching' || s === 'rent_boost') {
+        html = `<label>Hours</label><input type="number" id="wow_hours" value="1" min="1" oninput="calcTotal()">`;
+    } else if(s === 'gold') {
+        html = `<label>Gold (k)</label><input type="number" id="wow_gold_k" min="1" value="100" oninput="calcTotal()">`;
+    }
+    document.getElementById('wow-retail-service-extra').innerHTML = html;
     calcTotal();
 }
 
-function updateWoWServiceUI() {
-    const s = document.getElementById('wow_service').value;
+function updateWoWClassicServiceUI() {
+    const s = document.getElementById('wow_classic_service').value;
     let html = '';
-    if(s === 'mplus') {
-        html = `<label>Keystone Level</label><select id="wow_mplus_level" onchange="calcTotal()">${Object.keys(wow_mplus_prices).map(l => `<option value="${l}">Mythic+${l}</option>`)}</select>
-                <div class="input-group"><label>Runs</label><input type="number" id="wow_mplus_runs" min="1" value="1" oninput="calcTotal()"></div>`;
-    } else if(s === "leveling") {
-        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>From</label><input type="number" id="wow_lev_from" value="1" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="wow_lev_to" value="80" oninput="calcTotal()"></div></div>`;
+    if(s === 'leveling') html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>From</label><input type="number" id="classic_from" value="1" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="classic_to" value="60" oninput="calcTotal()"></div></div>`;
+    else if(s === 'gold') html = `<label>Amount</label><input type="number" id="classic_gold" value="100" oninput="calcTotal()">`;
+    else if(s === 'raid') html = `<label>Raid</label><select id="classic_raid" onchange="calcTotal()"><option value="mc">Molten Core</option><option value="bwl">Blackwing Lair</option></select>`;
+    document.getElementById('wow-classic-service-extra').innerHTML = html;
+    calcTotal();
+}
+
+function updateWoWMoPUI() {
+    const s = document.getElementById('wow_mop_service').value;
+    let html = '';
+    if(s === 'leveling') {
+        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>From</label><input type="number" id="mop_from" value="1" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="mop_to" value="90" oninput="calcTotal()"></div></div>`;
+    } else if(s === 'professions') {
+        html = `<label>Type</label><select id="mop_prof_type" onchange="calcTotal()"><option value="primary">Main Profession (1-600)</option><option value="secondary">Secondary Profession</option></select>`;
+    } else if(s === 'ilvl') {
+        html = `<label>Target Average ilvl</label><select id="mop_ilvl_target" onchange="calcTotal()"><option value="463">463 ilvl (Heroic Ready)</option><option value="476">476 ilvl (LFR Ready)</option><option value="496">496 ilvl (T14 BiS)</option></select>`;
+    } else if(s === 'dungeons') {
+        html = `<label>Activity</label><select id="mop_dung_type" onchange="calcTotal()"><option value="hc_run">Heroic Dungeon Run</option><option value="scenario">Scenario Completion</option></select>`;
+    } else if(s === 'challenges') {
+        html = `<label>Medal Rank</label><select id="mop_chal_type" onchange="calcTotal()"><option value="full_9_9_gold">9/9 Gold (Full Set/Mount)</option><option value="single_run">Single Dungeon Gold</option></select>`;
     }
-    document.getElementById('wow-service-extra').innerHTML = html;
+    document.getElementById('wow-mop-service-extra').innerHTML = html;
+    calcTotal();
+}
+
+function updateWoWTBCServiceUI() {
+    const s = document.getElementById('wow_tbc_service').value;
+    let html = '';
+    if(s === 'leveling') html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>From</label><input type="number" id="tbc_from" value="1" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="tbc_to" value="70" oninput="calcTotal()"></div></div>`;
+    else if(s === 'professions') html = `<label>Profession (1-375)</label><select id="tbc_prof" onchange="calcTotal()"><option value="jewelcrafting">Jewelcrafting</option><option value="leatherworking">Leatherworking</option><option value="alchemy">Alchemy</option><option value="enchanting">Enchanting</option><option value="gathering">Gathering</option></select>`;
+    else if(s === 'riding') html = `<label>Riding/Flying</label><select id="tbc_riding" onchange="calcTotal()"><option value="expert_riding">Expert (150%)</option><option value="artisan_flying">Artisan (280%)</option></select>`;
+    document.getElementById('wow-tbc-service-extra').innerHTML = html;
     calcTotal();
 }
 
 function updateFellUI() {
     const type = document.getElementById('fell_type').value;
     const div = document.getElementById('dynamic_fell');
-    if (type === 'capstone') {
-        div.innerHTML = `<label>Dungeon</label><select id="cap_rank" onchange="calcTotal()"><option value="2.89">Cithrel's Fall</option><option value="3.71">Heart of Tuzari</option></select>`;
+    let html = '';
+
+    if (type === 'leveling') {
+        html = `<label>Leveling Range</label><select id="fell_lev_range" onchange="calcTotal()">
+                    <option value="1-20">Full Leveling (1-20)</option>
+                    <option value="1-10">Starter (1-10)</option>
+                    <option value="10-20">Endgame Push (10-20)</option>
+                </select>`;
+    } else if (type === 'gear_score') {
+        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                    <div><label>Current GS</label><input type="number" id="gs_from" value="0" oninput="calcTotal()"></div>
+                    <div><label>Target GS</label><input type="number" id="gs_to" value="330" oninput="calcTotal()"></div>
+                </div>`;
+    } else if (type === 'capstone') {
+        html = `<label>Dungeon</label><select id="cap_rank" onchange="calcTotal()">
+                    <option value="cithrel">Cithrel's Fall</option>
+                    <option value="tuzari">Heart of Tuzari</option>
+                    <option value="molten_forge">Molten Forge</option>
+                    <option value="abyssal_depths">Abyssal Depths</option>
+                </select>`;
+    } else if (type === 'bundles') {
+        html = `<label>Select Bundle</label><select id="fell_bundle" onchange="calcTotal()">
+                    <option value="raid_ready">Raid Ready Bundle</option>
+                    <option value="full_bis_starter">Full BIS Starter Pack</option>
+                </select>`;
     } else {
-        div.innerHTML = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>From</label><input type="number" id="f_from" value="0" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="f_to" value="330" oninput="calcTotal()"></div></div>`;
+        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                    <div><label>From</label><input type="number" id="f_from" value="0" oninput="calcTotal()"></div>
+                    <div><label>To</label><input type="number" id="f_to" value="330" oninput="calcTotal()"></div>
+                </div>`;
     }
+    div.innerHTML = html;
     calcTotal();
 }
 
 function updatePoe2UI() {
-    const s = document.getElementById('poe2_service').value;
-    document.getElementById('poe2_input_group_boss').style.display = (s === 'boss') ? 'block' : 'none';
+    const type = document.getElementById('poe2_type').value;
+    const div = document.getElementById('dynamic_poe2');
+    let html = '';
+
+    if (type === 'leveling') {
+        html = `<label>Leveling Range</label><select id="poe2_lev_range" onchange="calcTotal()">
+                    <option value="1-60">Starter Leveling (1-60)</option>
+                    <option value="60-80">Mid-game Push (60-80)</option>
+                    <option value="1-90">Endgame Ready (1-90)</option>
+                </select>`;
+    } else if (type === 'currency') {
+        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                    <div><label>Orb Type</label><select id="poe2_orb_type" onchange="calcTotal()">
+                        <option value="divine_orb">Divine Orb</option>
+                        <option value="exalted_orb">Exalted Orb</option>
+                    </select></div>
+                    <div><label>Amount</label><input type="number" id="poe2_orb_qty" value="10" min="10" oninput="calcTotal()"></div>
+                </div>`;
+    } else if (type === 'campaign') {
+        html = `<label>Scope</label><select id="poe2_camp_scope" onchange="calcTotal()">
+                    <option value="acts_1_4">Acts 1 to 4</option>
+                    <option value="full_campaign">Full Campaign Completion</option>
+                </select>`;
+    } else if (type === 'trials') {
+        html = `<label>Trial Service</label><select id="poe2_trial_type" onchange="calcTotal()">
+                    <option value="all_8_points">All 8 Ascendancy Points</option>
+                    <option value="trial_of_chaos">Trial of Chaos Completion</option>
+                </select>`;
+    } else if (type === 'builds') {
+        html = `<label>Build Tier</label><select id="poe2_build_tier" onchange="calcTotal()">
+                    <option value="starter">Starter Build (Maps Ready)</option>
+                    <option value="endgame">Endgame Build (Boss Killer)</option>
+                </select>`;
+    }
+    div.innerHTML = html;
     calcTotal();
 }
 
 function applyCoupon() {
-    if(document.getElementById('coupon_input').value.toUpperCase() === "PBOOST1454") {
-        discount = 0.9;
-        alert("10% Discount Applied");
+    if(document.getElementById('coupon_input').value.toUpperCase() === PRICES_CONFIG.global.coupon_code) {
+        discount = PRICES_CONFIG.global.coupon_discount; alert("Discount Applied");
     }
     calcTotal();
 }
 
 function calcTotal() {
-    let base = 0; let eta = "...";
-    let serviceName = "";
+    let base = 0; let eta = "..."; let serviceName = "";
 
-    if (currentTab === 'bf6') {
+    if (currentTab === 'wow_retail') {
+        const cfg = PRICES_CONFIG.wow_retail;
+        const s = document.getElementById('wow_retail_service').value;
+        serviceName = document.getElementById('wow_retail_service').options[document.getElementById('wow_retail_service').selectedIndex].text;
+        if(s === "mplus") { base = (cfg.mplus[document.getElementById('wow_mplus_level')?.value] || 0) * (document.getElementById('wow_mplus_runs')?.value || 1); eta = "1-3h"; }
+        else if(s === "mplus_bundle") { base = cfg.mplus_bundle[document.getElementById('wow_bundle_level')?.value] || 0; eta = "4-6h"; }
+        else if(s === "leveling") { base = (document.getElementById('wow_lev_to').value - document.getElementById('wow_lev_from').value) * cfg.leveling_per_lvl; eta = "1-2d"; }
+        else if(s === "pvp_rating") { base = (document.getElementById('pvp_to').value - document.getElementById('pvp_from').value) * cfg.pvp_per_rating; eta = "2-5d"; }
+        else if(s === "coaching") { base = (document.getElementById('wow_hours').value || 1) * cfg.coaching_hr; eta = "Instant"; }
+        else if(s === "rent_boost") { base = (document.getElementById('wow_hours').value || 1) * cfg.rent_hr; eta = "Instant"; }
+        else if(s === "gold") { base = (document.getElementById('wow_gold_k').value || 0) * cfg.gold_per_k; eta = "15m"; }
+        else { base = cfg[s] || 0; eta = "1-3d"; }
+    }
+    else if (currentTab === 'wow_classic') {
+        const cfg = PRICES_CONFIG.wow_classic;
+        const s = document.getElementById('wow_classic_service').value;
+        serviceName = "Classic " + document.getElementById('wow_classic_service').options[document.getElementById('wow_classic_service').selectedIndex].text;
+        if(s === "leveling") { base = (document.getElementById('classic_to').value - document.getElementById('classic_from').value) * cfg.leveling_per_lvl; eta = "3-10d"; }
+        else if(s === "gold") { base = (document.getElementById('classic_gold').value || 0) * cfg.gold_unit; eta = "30m"; }
+        else if(s === "raid") { base = cfg.raids[document.getElementById('classic_raid').value] || 0; eta = "Sched"; }
+    }
+    else if (currentTab === 'wow_mop') {
+        const cfg = PRICES_CONFIG.wow_mop;
+        const s = document.getElementById('wow_mop_service').value;
+        serviceName = "MoP " + document.getElementById('wow_mop_service').options[document.getElementById('wow_mop_service').selectedIndex].text;
+
+        if(s === "leveling") {
+            let f = parseInt(document.getElementById('mop_from').value) || 0;
+            let t = parseInt(document.getElementById('mop_to').value) || 0;
+            for (let i = f; i < t; i++) {
+                if (i < 80) base += cfg.leveling.low;
+                else if (i < 85) base += cfg.leveling.mid;
+                else base += cfg.leveling.high;
+            }
+            eta = "2-5d";
+        } else if(s === "professions") {
+            base = cfg.professions[document.getElementById('mop_prof_type').value];
+            eta = "1-2d";
+        } else if(s === "ilvl") {
+            base = cfg.ilvl_farm[document.getElementById('mop_ilvl_target').value];
+            eta = "3-4d";
+        } else if(s === "dungeons") {
+            base = cfg.dungeons[document.getElementById('mop_dung_type').value];
+            eta = "1h";
+        } else if(s === "challenges") {
+            base = cfg.challenges[document.getElementById('mop_chal_type').value];
+            eta = "4-8h";
+        }
+    }
+    else if (currentTab === 'wow_tbc') {
+        const cfg = PRICES_CONFIG.wow_tbc;
+        const s = document.getElementById('wow_tbc_service').value;
+        serviceName = "TBC " + document.getElementById('wow_tbc_service').options[document.getElementById('wow_tbc_service').selectedIndex].text;
+        if(s === "leveling") { base = (document.getElementById('tbc_to').value - document.getElementById('tbc_from').value) * cfg.leveling_per_lvl; eta = "10-14d"; }
+        else if(s === "professions") { base = cfg.professions_prices[document.getElementById('tbc_prof').value] || 0; eta = "3-4d"; }
+        else if(s === "riding") { base = cfg.riding_prices[document.getElementById('tbc_riding').value] || 0; eta = "2-3d"; }
+    }
+    else if (currentTab === 'fell') {
+        const cfg = PRICES_CONFIG.fell;
+        const type = document.getElementById('fell_type').value;
+        serviceName = document.getElementById('fell_type').options[document.getElementById('fell_type').selectedIndex].text;
+
+        // 1. Cálculo del precio base por servicio
+        if (type === "leveling") {
+            base = cfg.leveling[document.getElementById('fell_lev_range')?.value] || 0;
+        } else if (type === "gear_score") {
+            let f = parseInt(document.getElementById('gs_from')?.value) || 0;
+            let t = parseInt(document.getElementById('gs_to')?.value) || 0;
+            base = Math.max(0, t - f) * cfg.gear_score;
+        } else if (type === "capstone") {
+            base = cfg.dungeons[document.getElementById('cap_rank')?.value] || 0;
+        } else if (type === "bundles") {
+            base = cfg.bundles[document.getElementById('fell_bundle')?.value] || 0;
+        } else if (type === "bis") {
+            base = cfg.bis;
+        } else {
+            let f = parseInt(document.getElementById('f_from')?.value) || 0;
+            let t = parseInt(document.getElementById('f_to')?.value) || 0;
+            base = Math.max(0, t - f) * cfg.rating_per_point;
+        }
+
+        // 2. APLICACIÓN DEL RECARGO DEL 30% (Corregido: ahora aplica a TODO Fellowship)
+        const heroValue = document.getElementById('hero_select').value;
+        const notice = document.getElementById('role_fee_notice');
+
+        if (heroValue === "fee") {
+            base *= cfg.role_fee_multiplier; // Multiplica por 1.3
+            if (notice) notice.style.display = 'block';
+        } else {
+            if (notice) notice.style.display = 'none';
+        }
+
+        eta = "Varies";
+    }
+    else if (currentTab === 'poe2') {
+        const cfg = PRICES_CONFIG.poe2;
+        const type = document.getElementById('poe2_type').value;
+        serviceName = document.getElementById('poe2_type').options[document.getElementById('poe2_type').selectedIndex].text;
+
+        if (type === "leveling") {
+            base = cfg.leveling[document.getElementById('poe2_lev_range').value];
+            eta = "1-3d";
+        } else if (type === "currency") {
+            let qty = parseInt(document.getElementById('poe2_orb_qty').value) || 0;
+            base = qty * cfg.currency[document.getElementById('poe2_orb_type').value];
+            eta = "15-60m";
+        } else if (type === "campaign") {
+            base = cfg.campaign[document.getElementById('poe2_camp_scope').value];
+            eta = "12-24h";
+        } else if (type === "trials") {
+            base = cfg.trials[document.getElementById('poe2_trial_type').value];
+            eta = "2-4h";
+        } else if (type === "builds") {
+            base = cfg.builds[document.getElementById('poe2_build_tier').value];
+            eta = "3-5d";
+        }
+    }
+    else if (currentTab === 'bf6') {
+        const cfg = PRICES_CONFIG.bf6;
         let f = parseInt(document.getElementById('bf_from').value) || 0;
         let t = parseInt(document.getElementById('bf_to').value) || 0;
         serviceName = document.getElementById('bf_service').options[document.getElementById('bf_service').selectedIndex].text;
         if (document.getElementById('bf_service').value === "leveling") {
-            for (let i = f; i < t; i++) base += (i < 50) ? 1.45 : 3.10;
-            eta = "3-5 Days";
-        } else { base = (t-f) * 3.09; eta = "5-7 Days"; }
-    }
-    else if (currentTab === 'fell') {
-        const type = document.getElementById('fell_type').value;
-        const mult = parseFloat(document.getElementById('hero_select').value);
-        serviceName = document.getElementById('fell_type').options[document.getElementById('fell_type').selectedIndex].text;
-        if (type === "bis") { base = 341.53; eta = "3-5 Days"; }
-        else if (type === "capstone") {
-            base = (parseFloat(document.getElementById('cap_rank').value) || 0) * mult;
-            eta = "30-60 Mins";
-        } else {
-            let t = parseInt(document.getElementById('f_to').value) || 0;
-            let f = parseInt(document.getElementById('f_from').value) || 0;
-            base = (t-f)*0.48; eta = "3-5 Days";
-        }
-    }
-    else if (currentTab === 'wow') {
-        const s = document.getElementById('wow_service').value;
-        serviceName = document.getElementById('wow_service').options[document.getElementById('wow_service').selectedIndex].text;
-        if(s === "mplus") {
-            let lvl = parseInt(document.getElementById('wow_mplus_level')?.value || 7);
-            let runs = parseInt(document.getElementById('wow_mplus_runs')?.value || 1);
-            base = (wow_mplus_prices[lvl] || 0) * runs;
-            eta = "1-3h per run";
-        } else if(s === "ksm") { base = 20; eta = "1-2 Days"; }
-        else if(s === "leveling") { base = 14; eta = "1-5 Days"; }
-        else if(s === "gold") { base = 5.5; eta = "~Instant"; }
-    }
-    else if(currentTab === "poe2") {
-        let s = document.getElementById('poe2_service').value;
-        serviceName = document.getElementById('poe2_service').options[document.getElementById('poe2_service').selectedIndex].text;
-        if(s === "boss") {
-            base = poe2_prices.boss * (parseInt(document.getElementById('poe2_boss_count').value) || 1);
-        } else { base = poe2_prices[s] || 0; }
-        eta = "Varies";
+            for (let i = f; i < t; i++) base += (i < 50) ? cfg.lvl_low : cfg.lvl_high;
+            eta = "3-5d";
+        } else { base = (t-f) * cfg.battlepass_per_tier; eta = "5-7d"; }
     }
 
-    if (serviceMode === 'Piloted') base *= 1.15;
-    if (document.getElementById('opt_express').checked) base *= 1.2;
+    if (serviceMode === 'Piloted') base *= PRICES_CONFIG.global.piloted_fee;
+    if (document.getElementById('opt_express').checked) base *= PRICES_CONFIG.global.express_fee;
 
     let final = (base * discount).toFixed(2);
     document.getElementById('display_price').innerText = final;
     document.getElementById('display_eta').innerText = eta;
-
-    // Update UI Checkout Details
     document.getElementById('detail-game').innerText = currentTab.toUpperCase();
     document.getElementById('detail-service').innerText = serviceName;
     document.getElementById('detail-mode').innerText = serviceMode;
-    document.getElementById('detail-extra').innerText = document.getElementById('opt_express').checked ? "Express Start" : "None";
     document.getElementById('detail-price').innerText = "$" + final;
 }
 
 function sendOrder() {
     const price = document.getElementById('display_price').innerText;
-    window.open(`https://t.me/ErnismarSF?text=New Order: ${currentTab.toUpperCase()} - ${serviceMode} - $${price}`);
+    window.open(`https://t.me/ErnismarSF?text=New Order: ${currentTab.toUpperCase()} - $${price}`);
+}
+function filterServices() {
+    const input = document.getElementById('service-search').value.toLowerCase();
+    const resultsDiv = document.getElementById('search-results');
+
+    // Diccionario completo de servicios para búsqueda directa
+    const services = [
+        { name: "Mythic+ Carry", tab: "wow_retail", val: "mplus" },
+        { name: "Keystone Master (KSM)", tab: "wow_retail", val: "ksm" },
+        { name: "Gold Selling (WoW)", tab: "wow_retail", val: "gold" },
+        { name: "Rare Mounts", tab: "wow_retail", val: "mounts" },
+        { name: "Classic Leveling", tab: "wow_classic", val: "leveling" },
+        { name: "TBC Power Leveling", tab: "wow_tbc", val: "leveling" },
+        { name: "MoP Challenge Mode", tab: "wow_mop", val: "challenges" },
+        { name: "Gear Score Farm", tab: "fell", val: "gear_score" },
+        { name: "PoE 2 Currency (Orbs)", tab: "poe2", val: "currency" },
+        { name: "Battlefield Leveling", tab: "bf6", val: "leveling" },
+        { name: "Dungeon Carries", tab: "fell", val: "capstone" }
+    ];
+
+    if (input.length < 2) {
+        resultsDiv.style.display = 'none';
+        return;
+    }
+
+    const filtered = services.filter(s => s.name.toLowerCase().includes(input));
+
+    if (filtered.length > 0) {
+        resultsDiv.innerHTML = filtered.map(s => `
+            <div onclick="goToService('${s.tab}', '${s.val}')" style="padding: 10px; cursor: pointer; border-bottom: 1px solid #333; font-size: 0.8rem; color: #eee;">
+                <span style="color: var(--primary); font-weight: bold;">[${s.tab.replace('_', ' ').toUpperCase()}]</span> ${s.name}
+            </div>
+        `).join('');
+        resultsDiv.style.display = 'block';
+    } else {
+        resultsDiv.style.display = 'none';
+    }
 }
 
-window.onload = () => switchTab('wow');
+// Función para navegar y seleccionar el servicio
+function goToService(tab, serviceVal) {
+    switchTab(tab); // Cambia la pestaña del juego
+
+    // Busca el selector específico del juego y cambia su valor
+    const selectors = {
+        wow_retail: 'wow_retail_service',
+        wow_classic: 'wow_classic_service',
+        wow_tbc: 'wow_tbc_service',
+        wow_mop: 'wow_mop_service',
+        fell: 'fell_type',
+        poe2: 'poe2_type',
+        bf6: 'bf_service'
+    };
+
+    const selectorId = selectors[tab];
+    const selectEl = document.getElementById(selectorId);
+
+    if (selectEl) {
+        selectEl.value = serviceVal;
+        // Disparar el evento de cambio manual para que se actualice la UI
+        if (tab === 'wow_retail') updateWoWRetailServiceUI();
+        else if (tab === 'wow_classic') updateWoWClassicServiceUI();
+        else if (tab === 'wow_tbc') updateWoWTBCServiceUI();
+        else if (tab === 'wow_mop') updateWoWMoPUI();
+        else if (tab === 'fell') updateFellUI();
+        else if (tab === 'poe2') updatePoe2UI();
+        else calcTotal();
+    }
+
+    // Limpiar búsqueda
+    document.getElementById('service-search').value = '';
+    document.getElementById('search-results').style.display = 'none';
+}
+
+// Cerrar resultados si se hace clic fuera
+document.addEventListener('click', (e) => {
+    if (!e.target.closest('.search-container')) {
+        document.getElementById('search-results').style.display = 'none';
+    }
+});
+
+window.onload = () => { initImages(); switchTab('wow_retail'); };
 </script>
 </body>
 </html>
