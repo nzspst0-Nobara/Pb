@@ -61,14 +61,19 @@
             gap: 20px;
         }
 
-        .logo {
-            font-family: 'Orbitron';
-            font-size: 1.8rem;
-            color: var(--primary);
-            letter-spacing: 4px;
-            font-weight: 900;
+        .logo-text {
+           font-family: 'Orbitron', sans-serif;
+           font-size: 2rem;
+           font-weight: 900;
+           letter-spacing: 2px;
+    /* Degradado que va del blanco al naranja de tu sitio */
+           background: linear-gradient(to right, #ffffff 0%, var(--primary) 100%);
+           -webkit-background-clip: text;
+           -webkit-text-fill-color: transparent;
+    /* Efecto de brillo sutil */
+          filter: drop-shadow(0 0 10px var(--primary-glow));
+          text-transform: uppercase;
         }
-
         .search-container { position: relative; flex: 1; max-width: 400px; }
         #service-search {
             width: 100%;
@@ -252,7 +257,10 @@
 
 <header>
     <div class="header-container">
-        <div class="logo">PBOOST</div>
+        <div class="logo-wrapper" style="display: flex; align-items: center; gap: 15px;">
+            <img src="img/pboost_logo.png" alt="PBOOST Logo" style="height: 50px; width: auto;">
+            <span class="logo-text">PBOOST</span>
+        </div>
         <div class="search-container">
            <i class="fas fa-search search-icon"></i>
            <input type="text" id="service-search" placeholder="Search (e.g. M+, Leveling, Gold...)" onkeyup="filterServices()" autocomplete="off">
