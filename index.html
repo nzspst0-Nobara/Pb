@@ -37,6 +37,9 @@
         }
 
         /* Backgrounds usando variables controladas por JS */
+        .bg-landing { 
+            background-image: url('img/la.jpg');
+        }
         .bg-bf6 { background-image: linear-gradient(rgba(10,21,41,0.7), rgba(15,15,20,0.9)), var(--bg-img-bf6); }
         .bg-fell { background-image: linear-gradient(rgba(30,13,41,0.7), rgba(10,15,33,0.9)), var(--bg-img-fell); }
         .bg-wow_retail { background-image: linear-gradient(rgba(40,20,5,0.7), rgba(15,10,5,0.9)), var(--bg-img-wow); }
@@ -55,7 +58,6 @@
         .header-container {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             max-width: 1300px;
             margin: 0 auto;
             gap: 20px;
@@ -66,15 +68,13 @@
            font-size: 2rem;
            font-weight: 900;
            letter-spacing: 2px;
-    /* Degradado que va del blanco al naranja de tu sitio */
            background: linear-gradient(to right, #ffffff 0%, var(--primary) 100%);
            -webkit-background-clip: text;
            -webkit-text-fill-color: transparent;
-    /* Efecto de brillo sutil */
           filter: drop-shadow(0 0 10px var(--primary-glow));
           text-transform: uppercase;
         }
-        .search-container { position: relative; flex: 1; max-width: 400px; }
+        .search-container { position: relative; flex: 1; max-width: 700px; margin-left: 10px; }
         #service-search {
             width: 100%;
             background: #18191b;
@@ -87,17 +87,20 @@
 
         /* Game Navigation */
         .game-nav {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-            gap: 10px;
-            padding: 25px 20px;
-            max-width: 1300px;
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 20px;
+            padding: 20px 0 60px 0;
             margin: 0 auto;
+            width: max-content;
+            animation: marquee-scroll 20s linear infinite;
         }
+        .game-nav:hover { animation-play-state: paused; }
 
         .game-card {
             position: relative;
-            height: 90px;
+            width: 128px;
+            height: 128px;
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -117,6 +120,7 @@
             color: white;
             z-index: 1;
             text-align: center;
+            -webkit-box-reflect: below 5px linear-gradient(to bottom, rgba(0,0,0,0.2), transparent);
         }
 
         .game-card::before {
@@ -127,10 +131,97 @@
             z-index: -1;
         }
 
+        .game-card:nth-child(odd) { animation-delay: 0s; }
+        .game-card:nth-child(even) { animation-delay: 2s; }
+
+        .game-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 25px var(--primary-glow);
+        }
+
+        @keyframes pulse-ribbon {
+            0% { transform: rotate(45deg) scale(1); }
+            50% { transform: rotate(45deg) scale(1.05); }
+            100% { transform: rotate(45deg) scale(1); }
+        }
+
+        .ribbon {
+            position: absolute;
+            top: 10px;
+            right: -32px;
+            background: var(--primary);
+            color: #000;
+            font-size: 0.55rem;
+            font-weight: 900;
+            padding: 4px 30px;
+            transform: rotate(45deg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            z-index: 5;
+            pointer-events: none;
+            animation: pulse-ribbon 2s infinite ease-in-out;
+        }
+
         .game-card.active {
             border-color: var(--primary);
             box-shadow: 0 0 15px var(--primary-glow);
             transform: scale(1.05);
+        }
+
+        /* NUEVO: Contenedor de Servicios Visuales */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .service-visual-card {
+            position: relative;
+            height: 100px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .service-visual-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            transition: 0.3s;
+        }
+
+        .service-visual-card span {
+            position: relative;
+            z-index: 2;
+            font-family: 'Orbitron';
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 5px;
+            text-transform: uppercase;
+        }
+
+        .service-visual-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .service-visual-card.selected {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px var(--primary-glow);
+        }
+
+        .service-visual-card.selected::after {
+            background: rgba(255, 181, 44, 0.2);
+            border: 2px solid var(--primary);
         }
 
         /* Layout */
@@ -245,63 +336,534 @@
         .btn-checkout:hover { background: #e5a227; transform: scale(1.02); }
 
         /* Floating Buttons */
-        #discord-fab { position: fixed; left: 24px; bottom: 24px; z-index: 100; background: #5865F2; color: #000000; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-family: 'Orbitron'; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
-        #wa-chat-fab { position: fixed; right: 24px; bottom: 24px; z-index: 100; background: #25d366; color: #000000; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-family: 'Orbitron'; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
+        #discord-fab { position: fixed; left: 24px; bottom: 24px; z-index: 2100; background: #5865F2; color: #000000; padding: 12px 20px; border-radius: 50px; text-decoration: none; font-family: 'Orbitron'; font-size: 0.9rem; display: flex; align-items: center; gap: 8px; }
 
         .safe-bar { background: rgba(255, 181, 44, 0.05); border-left: 4px solid var(--primary); padding: 12px; border-radius: 4px; margin-top: 15px; font-size: 0.8rem; display: flex; gap: 10px; align-items: center; }
         .eta-box { color: #f1c40f; font-size: 0.9rem; font-weight: bold; margin-top: 20px; border: 1px dashed #f1c40f66; padding: 10px; border-radius: 8px; text-align: center; }
         .role-notice { color: #ff4444; font-size: 0.75rem; margin-top: 5px; display: none; font-weight: bold; }
-    </style>
-</head>
-<body class="bg-wow_retail">
 
-<header>
-    <div class="header-container">
-        <div class="logo-wrapper" style="display: flex; align-items: center; gap: 15px;">
+       /* Estilos para la Página de Entrada */
+        #landing-page {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Animations */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-6px); }
+            100% { transform: translateY(0px); }
+        }
+        @keyframes marquee-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        @keyframes typing {
+            from { width: 0 }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--primary); }
+        }
+
+        .hero-section {
+            padding: 20px;
+            background: transparent;
+            background-size: cover;
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .hero-section h1 {
+            font-family: 'Orbitron';
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid var(--primary);
+            width: 17ch;
+            animation: typing 2s steps(20, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @media (max-width: 600px) {
+            .hero-section h1 {
+                font-size: 1.4rem;
+            }
+        }
+
+        .trust-star { color: #00b67a; } /* Color oficial Trustpilot */
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: 0.3s;
+        }
+
+        .feature-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .btn-start {
+            background: var(--primary);
+            color: black;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-family: 'Orbitron';
+            font-weight: 900;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+        }
+        .trust-badge {
+            background: #1c1d1f;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid #333;
+            margin-bottom: 0;
+            cursor: pointer; /* Indica que es clickeable */
+            transition: 0.3s;
+        }
+
+        .trust-badge:hover {
+            border-color: #00b67a; /* Se ilumina en verde Trustpilot al pasar el mouse */
+            background: rgba(0, 182, 122, 0.1);
+        }
+        button:hover { background: var(--primary) !important; color: black !important; }
+        /* Ocultar el cotizador inicialmente */
+        .main-app-content { display: none; }
+
+        #scroll-top-btn {
+            position: fixed;
+            bottom: 90px;
+            right: 24px;
+            width: 40px;
+            height: 40px;
+            background: rgba(0,0,0,0.8);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            display: none;
+            z-index: 99;
+            font-size: 1rem;
+            transition: 0.3s;
+            align-items: center;
+            justify-content: center;
+        }
+        #scroll-top-btn:hover { background: var(--primary); color: black; }
+
+        /* Light Mode Overrides */
+        body.light-mode {
+            --bg-dark: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-main: #1a1b1e;
+            --primary-glow: rgba(255, 181, 44, 0.15);
+        }
+        body.light-mode header { background: rgba(255,255,255,0.95); }
+        body.light-mode .game-card { color: white; border-color: transparent; }
+        body.light-mode input, body.light-mode select { background: #fff; color: #333; border-color: #ddd; }
+        body.light-mode .feature-card, body.light-mode .config-card, body.light-mode .summary-card { border-color: #e5e5e5; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+        body.light-mode .detail-item { color: #666; }
+        body.light-mode .detail-item b { color: #000; }
+        body.light-mode .price-val { color: #333; text-shadow: none; }
+        body.light-mode #service-search { background: #fff; color: #333; border-color: #ddd; }
+        body.light-mode .trust-badge { background: #fff; border-color: #ddd; }
+        body.light-mode .trust-badge b { color: #333 !important; }
+
+        /* Toast Notifications */
+        #toast-container {
+            position: fixed; top: 20px; right: 20px; z-index: 11000;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .toast {
+            background: rgba(15, 16, 18, 0.95);
+            border-left: 4px solid var(--primary);
+            color: white; padding: 15px 20px; border-radius: 4px;
+            font-family: 'Orbitron'; font-size: 0.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            display: flex; align-items: center; gap: 10px;
+            animation: slideIn 0.3s ease-out forwards; min-width: 250px;
+        }
+        .toast.error { border-left-color: #ff4444; }
+        .toast.success { border-left-color: #25d366; }
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideOut { to { transform: translateX(100%); opacity: 0; } }
+
+        /* Dropdown Menu */
+        .dropdown-content {
+            visibility: hidden;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all 0.3s ease;
+            position: absolute;
+            top: 50px;
+            left: 0;
+            background-color: var(--card-bg);
+            min-width: 220px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            z-index: 3000;
+            padding: 10px 0;
+            backdrop-filter: blur(10px);
+        }
+        .dropdown-content a {
+            color: var(--text-main);
+            padding: 12px 20px;
+            text-decoration: none;
+            display: block;
+            font-family: 'Orbitron';
+            font-size: 0.8rem;
+            transition: 0.3s;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .dropdown-content a:last-child { border-bottom: none; }
+        .dropdown-content a:hover {
+            background-color: rgba(255, 181, 44, 0.1);
+            color: var(--primary);
+            padding-left: 25px;
+        }
+        .show-menu {
+            visibility: visible;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .menu-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 5px;
+            transition: 0.3s;
+            margin-right: 5px;
+        }
+        .menu-btn:hover { color: var(--primary); transform: scale(1.1); }
+
+        /* Cart Styles */
+        .cart-badge {
+            position: absolute; top: -5px; right: -5px;
+            background: var(--primary); color: black;
+            border-radius: 50%; width: 18px; height: 18px;
+            font-size: 0.7rem; font-weight: bold;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .cart-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+    </style>
+       </head>
+       <body class="bg-landing">
+
+       <header>
+            <div class="header-container">
+            <div class="logo-wrapper" style="display: flex; align-items: center; gap: 15px;">
+            
+            <div style="position: relative;">
+                <button onclick="toggleMenu()" class="menu-btn"><i class="fas fa-bars"></i></button>
+                <div id="dropdown-menu" class="dropdown-content">
+                    <a href="javascript:void(0)" onclick="selectGameFromMenu('wow_retail')"><i class="fas fa-dragon" style="width:20px;"></i> WoW Retail</a>
+                    <a href="javascript:void(0)" onclick="selectGameFromMenu('wow_classic')"><i class="fas fa-scroll" style="width:20px;"></i> WoW Classic</a>
+                    <a href="javascript:void(0)" onclick="selectGameFromMenu('wow_tbc')"><i class="fas fa-dungeon" style="width:20px;"></i> WoW TBC</a>
+                    <a href="javascript:void(0)" onclick="selectGameFromMenu('wow_mop')"><i class="fas fa-leaf" style="width:20px;"></i> WoW MoP</a>
+                    <a href="javascript:void(0)" onclick="selectGameFromMenu('fell')"><i class="fas fa-users" style="width:20px;"></i> Fellowship</a>
+                    <a href="javascript:void(0)" onclick="selectGameFromMenu('poe2')"><i class="fas fa-gem" style="width:20px;"></i> Path of Exile 2</a>
+                    <a href="javascript:void(0)" onclick="selectGameFromMenu('bf6')"><i class="fas fa-crosshairs" style="width:20px;"></i> Battlefield 6</a>
+                </div>
+            </div>
+
             <img src="img/pboost_logo.png" alt="PBOOST Logo" style="height: 50px; width: auto;">
             <span class="logo-text">PBOOST</span>
+           </div>
+
+            <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="service-search" name="pboost_search_service" placeholder="Search service..." onkeyup="filterServices()" autocomplete="off">
+            <div id="search-results" style="position: absolute; width: 100%; background: #18191b; border: 1px solid #333; border-radius: 0 0 8px 8px; z-index: 1000; max-height: 300px; overflow-y: auto; display: none;"></div>
+          </div>
+
+          <div id="user-section" style="display: flex; align-items: center; gap: 15px; margin-left: auto;">
+          <button onclick="toggleTheme()" style="background:none; border:none; color:var(--primary); cursor:pointer; font-size:1.1rem;" title="Toggle Theme"><i id="theme-icon" class="fas fa-moon"></i></button>
+          <div id="user-info" style="display: none; text-align: right;">
+            <span id="user-email" style="display: block; font-size: 0.7rem; color: var(--primary); font-family: 'Orbitron';"></span>
+            <span id="user-balance" style="font-weight: bold; color: white; font-size: 0.8rem;">Balance: $0.00</span>
+            <button onclick="openNotifications()" style="position: relative; background:none; border:none; color:#aaa; cursor:pointer; font-size:0.9rem; margin-left:5px; transition:0.3s;" title="Notifications" onmouseover="this.style.color='white'" onmouseout="this.style.color='#aaa'">
+                <i class="fas fa-bell"></i>
+                <span id="notif-badge" style="position: absolute; top: 0; right: 0; width: 8px; height: 8px; background: #ff4444; border-radius: 50%; display: none;"></span>
+            </button>
+            <button id="btn-profile-header" onclick="openProfileModal()" style="background:none; border:none; color:#aaa; cursor:pointer; font-size:0.9rem; margin-left:5px; transition:0.3s; padding: 0;" title="My Profile" onmouseover="this.style.color='white'" onmouseout="this.style.color='#aaa'"><i class="fas fa-user-cog"></i></button>
+            <button onclick="showHistory()" style="background:none; border:none; color:#aaa; cursor:pointer; font-size:0.9rem; margin-left:5px; transition:0.3s;" title="Order History" onmouseover="this.style.color='white'" onmouseout="this.style.color='#aaa'"><i class="fas fa-history"></i></button>
+            <button onclick="requestFunds()" style="background:none; border:1px solid #333; color:#25d366; border-radius:50%; width:20px; height:20px; cursor:pointer; font-size:0.8rem; line-height:1; margin-left:5px;" title="Add Funds">+</button>
         </div>
-        <div class="search-container">
-           <i class="fas fa-search search-icon"></i>
-           <input type="text" id="service-search" placeholder="Search (e.g. M+, Leveling, Gold...)" onkeyup="filterServices()" autocomplete="off">
-           <div id="search-results" style="position: absolute; width: 100%; background: #18191b; border: 1px solid #333; border-radius: 0 0 8px 8px; z-index: 1000; max-height: 300px; overflow-y: auto; display: none;"></div>
+          <button id="auth-btn" onclick="handleAuth()" style="background: var(--primary); border: none; padding: 8px 15px; border-radius: 5px; font-family: 'Orbitron'; font-size: 0.7rem; cursor: pointer; font-weight: 900;">LOGIN</button>
+          <button onclick="openCart()" style="position: relative; background:none; border:none; color:white; cursor:pointer; font-size:1.1rem; margin-left: 10px;">
+              <i class="fas fa-shopping-cart"></i>
+              <span id="cart-badge" class="cart-badge" style="display: none;">0</span>
+          </button>
+         </div>
+     </div>
+             <div id="auth-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+    <div style="background: var(--card-bg); width: 90%; max-width: 400px; padding: 40px; border-radius: 15px; border: 1px solid var(--primary); box-shadow: 0 0 20px var(--primary-glow); position: relative;">
+        <button onclick="closeAuthModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem;"><i class="fas fa-times"></i></button>
+        
+        <h2 id="modal-title" style="font-family: 'Orbitron'; color: var(--primary); text-align: center; margin-bottom: 25px; letter-spacing: 2px;">LOGIN</h2>
+        
+        <form onsubmit="executeAuth(event)" style="display: flex; flex-direction: column; gap: 15px;">
+            <input type="email" id="auth-email" name="email" autocomplete="username" placeholder="Email Address" style="background: #0f1012; border: 1px solid #333; padding: 12px; border-radius: 8px; color: white; outline: none;">
+            <div style="position: relative; display: flex; align-items: center;">
+                <input type="password" id="auth-password" name="password" autocomplete="current-password" placeholder="Password" style="background: #0f1012; border: 1px solid #333; padding: 12px 40px 12px 12px; border-radius: 8px; color: white; outline: none; width: 100%;">
+                <i id="toggle-password-icon" class="fas fa-eye" onclick="togglePasswordVisibility()" style="position: absolute; right: 15px; cursor: pointer; color: #666;"></i>
+            </div>
+            <div style="text-align: right; margin-top: -10px;">
+                <a href="javascript:void(0)" onclick="resetPassword()" style="color: #888; font-size: 0.7rem; text-decoration: none; transition: 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#888'">Forgot Password?</a>
+            </div>
+            
+            <button type="submit" id="main-auth-btn" style="background: var(--primary); color: black; border: none; padding: 15px; border-radius: 8px; font-family: 'Orbitron'; font-weight: 900; cursor: pointer; margin-top: 10px; transition: 0.3s;">Sign in</button>
+            <div style="display: flex; align-items: center; margin: 20px 0;">
+                <hr style="flex: 1; border: 0; border-top: 1px solid #333;">
+                <span style="padding: 0 10px; color: #666; font-size: 0.8rem;">OR CONTINUE WITH</span>
+                <hr style="flex: 1; border: 0; border-top: 1px solid #333;">
+            </div>
+
+            <div style="display: flex; gap: 10px;">
+                <button id="google-btn" onclick="loginWithGoogle()" style="flex: 1; background: #fff; color: #000; border: none; padding: 10px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: bold; transition: 0.3s;">
+                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18"> Google
+                </button>
+                
+            </div>
+            
+            <p style="text-align: center; font-size: 0.8rem; color: #888;">
+                <span id="toggle-text">Don't have an account?</span> 
+                <a href="javascript:void(0)" onclick="toggleAuthMode()" id="toggle-link" style="color: var(--primary); text-decoration: none; font-weight: bold;">Create one</a>
+            </p>
+        </form>
+    </div>
+</div>
+<div id="custom-alert" style="display: none; position: fixed; z-index: 12000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+    <div style="background: var(--card-bg); border: 1px solid var(--primary); padding: 30px; border-radius: 15px; text-align: center; max-width: 400px; width: 80%; box-shadow: 0 0 20px var(--primary-glow); position: relative;">
+        <h2 id="custom-alert-title" style="margin-top: 0; color: var(--primary); font-family: 'Orbitron'; margin-bottom: 15px;">TITLE</h2>
+        <p id="custom-alert-msg" style="color: #ccc; margin-bottom: 25px; font-size: 0.9rem;">Message</p>
+        <button onclick="closeCustomAlert()" style="background: var(--primary); color: black; border: none; padding: 12px 30px; border-radius: 8px; font-weight: 900; cursor: pointer; font-family: 'Orbitron'; transition: 0.3s;">OK</button>
+    </div>
+</div>
+<div id="confirm-modal" style="display: none; position: fixed; z-index: 13000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+    <div style="background: var(--card-bg); border: 1px solid var(--primary); padding: 30px; border-radius: 15px; text-align: center; max-width: 400px; width: 80%; box-shadow: 0 0 20px var(--primary-glow); position: relative;">
+        <h2 style="margin-top: 0; color: var(--primary); font-family: 'Orbitron'; margin-bottom: 15px;">CONFIRMATION</h2>
+        <p id="confirm-modal-msg" style="color: #ccc; margin-bottom: 25px; font-size: 0.9rem;">Are you sure?</p>
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <button onclick="resolveConfirm(false)" style="background: transparent; border: 1px solid #666; color: #ccc; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: 'Orbitron'; transition: 0.3s;">CANCEL</button>
+            <button onclick="resolveConfirm(true)" style="background: var(--primary); color: black; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 900; cursor: pointer; font-family: 'Orbitron'; transition: 0.3s;">CONFIRM</button>
         </div>
     </div>
-</header>
-
-<div class="game-nav">
-    <div id="tab-wow_retail" class="game-card" onclick="switchTab('wow_retail')">WOW RETAIL</div>
-    <div id="tab-wow_classic" class="game-card" onclick="switchTab('wow_classic')">WOW CLASSIC</div>
-    <div id="tab-wow_tbc" class="game-card" onclick="switchTab('wow_tbc')">WOW TBC ANNIV.</div>
-    <div id="tab-wow_mop" class="game-card" onclick="switchTab('wow_mop')">WOW MoP</div>
-    <div id="tab-fell" class="game-card" onclick="switchTab('fell')">FELLOWSHIP</div>
-    <div id="tab-poe2" class="game-card" onclick="switchTab('poe2')">PATH OF EXILE 2</div>
-    <div id="tab-bf6" class="game-card" onclick="switchTab('bf6')">BATTLEFIELD 6</div>
 </div>
+<div id="profile-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+    <div style="background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 15px; border: 1px solid var(--primary); box-shadow: 0 0 20px var(--primary-glow); position: relative;">
+        <button onclick="closeProfileModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem;"><i class="fas fa-times"></i></button>
+        <h2 style="font-family: 'Orbitron'; color: var(--primary); text-align: center; margin-bottom: 20px;">MY PROFILE</h2>
+        
+        <div style="text-align: center; margin-bottom: 15px;">
+            <img id="profile-preview" src="img/pboost_logo.png" style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); margin-bottom: 10px;">
+            <input type="file" id="profile-pic-input" accept="image/*" style="display: none;" onchange="previewImage(this)">
+            <button onclick="document.getElementById('profile-pic-input').click()" style="background: #333; color: white; border: 1px solid #555; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.7rem;">Change Photo</button>
+        </div>
 
-<div class="main-container">
-    <div class="config-side">
-        <div class="config-card">
-            <h2><i class="fas fa-sliders-h"></i> CONFIGURATION</h2>
+        <label style="margin-top:10px;">Display Name</label>
+        <input type="text" id="profile-name" placeholder="Enter your name" style="margin-bottom:15px;">
+        
+        <label>New Password (Optional)</label>
+        <input type="password" id="profile-pass" placeholder="Leave empty to keep current" style="margin-bottom:20px;">
+        
+        <button onclick="saveProfile()" style="background: var(--primary); color: black; border: none; padding: 12px; width: 100%; border-radius: 8px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer;">SAVE CHANGES</button>
+        
+        <div style="margin-top: 20px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 8px; border: 1px dashed #444;">
+            <h3 style="margin: 0 0 10px 0; font-size: 0.9rem; color: var(--primary); font-family: 'Orbitron';">REFER A FRIEND</h3>
+            <p style="font-size: 0.75rem; color: #aaa; margin-bottom: 10px;">Share your code to earn 5% bonus balance!</p>
+            <div style="display: flex; gap: 5px;">
+                <input type="text" id="referral-code" readonly style="background: #000; border: 1px solid #333; color: white; padding: 8px; border-radius: 5px; font-family: monospace; text-align: center; letter-spacing: 1px;">
+                <button onclick="copyReferralCode()" style="background: #333; color: white; border: 1px solid #555; border-radius: 5px; cursor: pointer; padding: 0 15px;"><i class="fas fa-copy"></i></button>
+            </div>
+        </div>
+        
+        <hr style="border: 0; border-top: 1px solid #333; margin: 20px 0;">
+        <button onclick="deleteAccount()" style="background: transparent; border: 1px solid #ff4444; color: #ff4444; padding: 10px; width: 100%; border-radius: 8px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; transition: 0.3s;" onmouseover="this.style.background='#ff4444';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#ff4444'">DELETE ACCOUNT</button>
+    </div>
+</div>
+<div id="history-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+    <div style="background: var(--card-bg); width: 90%; max-width: 500px; padding: 30px; border-radius: 15px; border: 1px solid var(--primary); box-shadow: 0 0 20px var(--primary-glow); position: relative; max-height: 80vh; display: flex; flex-direction: column;">
+        <button onclick="closeHistoryModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem;"><i class="fas fa-times"></i></button>
+        <h2 style="font-family: 'Orbitron'; color: var(--primary); text-align: center; margin-bottom: 20px; font-size: 1.2rem;">ORDER HISTORY</h2>
+        <div id="history-list" style="overflow-y: auto; flex: 1; padding-right: 5px;">
+            <!-- Orders injected via JS -->
+        </div>
+    </div>
+</div>
+<div id="notifications-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+    <div style="background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 15px; border: 1px solid var(--primary); box-shadow: 0 0 20px var(--primary-glow); position: relative; max-height: 80vh; display: flex; flex-direction: column;">
+        <button onclick="closeNotificationsModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem;"><i class="fas fa-times"></i></button>
+        <h2 style="font-family: 'Orbitron'; color: var(--primary); text-align: center; margin-bottom: 20px; font-size: 1.2rem;">NOTIFICATIONS</h2>
+        <button onclick="markAllRead()" style="background:none; border:none; color:#888; font-size:0.7rem; cursor:pointer; margin-bottom:10px; text-decoration:underline; align-self:flex-end;">Mark all as read</button>
+        <div id="notifications-list" style="overflow-y: auto; flex: 1;">
+            <!-- Notifications injected via JS -->
+        </div>
+    </div>
+</div>
+<div id="cart-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 11000; backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+    <div style="background: var(--card-bg); width: 90%; max-width: 500px; padding: 30px; border-radius: 15px; border: 1px solid var(--primary); box-shadow: 0 0 20px var(--primary-glow); position: relative; max-height: 85vh; display: flex; flex-direction: column;">
+        <button onclick="closeCart()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem;"><i class="fas fa-times"></i></button>
+        <h2 style="font-family: 'Orbitron'; color: var(--primary); text-align: center; margin-bottom: 20px;">SHOPPING CART</h2>
+        
+        <div id="cart-items-container" style="overflow-y: auto; flex: 1; margin-bottom: 20px;">
+            <!-- Cart Items -->
+        </div>
+
+        <div style="border-top: 1px solid #333; padding-top: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: #aaa;">Total:</span>
+            <span id="cart-total-price" style="font-family: 'Orbitron'; font-size: 1.5rem; color: white; font-weight: bold;">$0.00</span>
+        </div>
+
+        <div id="paypal-button-container"></div>
+        <!-- Placeholder for PayPal SDK Button -->
+        <button id="btn-pay-balance" onclick="payWithBalance()" style="background: var(--primary); color: black; width: 100%; padding: 15px; border: none; border-radius: 5px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; margin-top: 10px;"><i class="fas fa-wallet"></i> Pay with Balance</button>
+        <button onclick="checkoutTelegram()" style="background: #5865F2; color: white; width: 100%; padding: 15px; border: none; border-radius: 5px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; margin-top: 10px;"><i class="fab fa-telegram-plane"></i> Checkout via Telegram</button>
+    </div>
+</div>
+<div id="add-funds-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 12000; backdrop-filter: blur(5px); align-items: center; justify-content: center;">
+    <div style="background: var(--card-bg); width: 90%; max-width: 400px; padding: 30px; border-radius: 15px; border: 1px solid var(--primary); box-shadow: 0 0 20px var(--primary-glow); position: relative;">
+        <button onclick="closeAddFundsModal()" style="position: absolute; top: 15px; right: 15px; background: none; border: none; color: #666; cursor: pointer; font-size: 1.2rem;"><i class="fas fa-times"></i></button>
+        <h2 style="font-family: 'Orbitron'; color: var(--primary); text-align: center; margin-bottom: 20px;">ADD FUNDS</h2>
+        
+        <label>Amount ($)</label>
+        <input type="number" id="fund-amount" placeholder="Enter amount (e.g. 50)" min="5" style="margin-bottom: 20px;">
+        
+        <div id="paypal-funds-container"></div>
+    </div>
+</div>
+       </header>
+         <div id="landing-page">
+          <section class="hero-section">
+                 <div style="display: flex; justify-content: center; margin-bottom: 15px;">
+                     <a href="https://www.trustpilot.com/" target="_blank" class="trust-badge">
+                         <i class="fas fa-star" style="color: #00b67a;"></i>
+                         <span style="font-size: 0.9rem;">Trustpilot <b style="color: white;">Excellent 4.9/5</b></span>
+                     </a>
+                 </div>
+                 <h1>SELECT YOUR GAME</h1>
+                 <p>Click on a game to explore our professional services and updated pricing.</p>
+
+                 <div style="width: 100%; overflow: hidden;">
+                 <div id="games-portal" class="game-nav" style="margin-top: 15px;">
+                     <div id="tab-wow_retail" class="game-card">
+                         WOW RETAIL
+                         <div class="ribbon">MOST POPULAR</div>
+                     </div>
+                     <div id="tab-wow_classic" class="game-card">WOW CLASSIC</div>
+                     <div id="tab-wow_tbc" class="game-card">WOW TBC ANNIV.</div>
+                     <div id="tab-wow_mop" class="game-card">WOW MoP</div>
+                     <div id="tab-fell" class="game-card">FELLOWSHIP</div>
+                     <div id="tab-poe2" class="game-card">PATH OF EXILE 2</div>
+                     <div id="tab-bf6" class="game-card">BATTLEFIELD 6</div>
+                     <!-- Duplicates for seamless scrolling -->
+                     <div id="tab-wow_retail" class="game-card">
+                         WOW RETAIL
+                         <div class="ribbon">MOST POPULAR</div>
+                     </div>
+                     <div id="tab-wow_classic" class="game-card">WOW CLASSIC</div>
+                     <div id="tab-wow_tbc" class="game-card">WOW TBC ANNIV.</div>
+                     <div id="tab-wow_mop" class="game-card">WOW MoP</div>
+                     <div id="tab-fell" class="game-card">FELLOWSHIP</div>
+                     <div id="tab-poe2" class="game-card">PATH OF EXILE 2</div>
+                     <div id="tab-bf6" class="game-card">BATTLEFIELD 6</div>
+                 </div>
+                 </div>
+             </section>
+
+             <div class="features-grid">
+                 <div class="feature-card">
+                    <i class="fas fa-shield-check"></i>
+                     <h3>Who are we?</h3>
+                     <p>We are a team of professional gamers dedicated to helping the community achieve their goals in record time, always keeping the security of your account as a priority.</p>
+                 </div>
+                 <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Our Services</h3>
+                    <p>We offer Power Leveling and Rare Mount Farming to Professional Coaching in PvP and Mythic+ for WoW, PoE2 and more.</p>
+                 </div>
+                 <div class="feature-card">
+                     <i class="fas fa-user-secret"></i>
+                     <h3>Privacy</h3>
+                     <p>All our services are hand-made. We include a premium VPN in our piloted services to protect your location.</p>
+                 </div>
+             </div>
+
+             <section class="contact-section" style="margin-top: 30px; text-align: center; padding: 25px; background: radial-gradient(circle, rgba(255,181,44,0.05) 0%, transparent 70%); border-radius: 20px; border: 1px solid rgba(255,255,255,0.05);">
+                 <h2 style="border: none; font-size: 2rem; margin-bottom: 15px; padding: 0;">CONTACT US</h2>
+                 <p style="color: #aaa; margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto;">Need help with an order or have a custom request? Our support team is online 24/7 ready to assist you.</p>
+                 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                     <a href="https://discord.gg/8zkvN4qNfq" target="_blank" style="background: #5865F2; color: white; padding: 15px 30px; border-radius: 8px; text-decoration: none; font-family: 'Orbitron'; font-weight: bold; display: flex; align-items: center; gap: 10px; transition: 0.3s;" onmouseover="this.style.transform='translateY(-3px)'" onmouseout="this.style.transform='translateY(0)'">
+                         <i class="fab fa-discord"></i> Join Discord
+                     </a>
+                 </div>
+             </section>
+         </div>
+
+         <div id="app-content" class="main-app-content">
+           <div style="max-width: 1300px; margin: 20px auto 0 auto; padding: 0 20px;">
+               <button onclick="goBackToLanding()" style="background: rgba(255,181,44,0.1); border: 1px solid var(--primary); color: var(--primary); padding: 10px 20px; border-radius: 8px; cursor: pointer; font-family: 'Orbitron'; font-size: 0.8rem; display: flex; align-items: center; gap: 10px; transition: 0.3s;">
+                   <i class="fas fa-arrow-left"></i> BACK TO GAMES
+               </button>
+           </div>
+
+         <div class="main-container">
+             <div class="config-side">
+                 <div class="config-card">
+                     <h2><i class="fas fa-sliders-h"></i> CONFIGURATION</h2>
 
             <div id="form-wow_retail">
-                <div class="input-group">
-                    <label>Service</label>
-                    <select id="wow_retail_service" onchange="updateWoWRetailServiceUI()">
-                        <option value="mplus">Mythic+ Carry</option>
-                        <option value="mplus_bundle">Mythic+ Bundle (3+1 FREE)</option>
-                        <option value="ksm">Keystone Master (2000 IO)</option>
-                        <option value="keystone_hero">Keystone Hero (2500 IO + Portals)</option>
-                        <option value="keystone_legend">Keystone Legend (3000 IO)</option>
-                        <option value="title_01">Top 0.1% Regional Title</option>
-                        <option value="mounts">Rare Mounts Farm</option>
-                        <option value="leveling">Leveling 1-80</option>
-                        <option value="pvp_rating">PvP Arena Rating (1-2400)</option>
-                        <option value="coaching">Professional Coaching</option>
-                        <option value="rent_boost">Rent a Pro (Hourly)</option>
-                        <option value="gold">Gold Selling (per 1k)</option>
-                    </select>
-                </div>
+                <label>Select Service</label>
+                <div id="grid-wow_retail" class="services-grid"></div>
+                <select id="wow_retail_service" onchange="updateWoWRetailServiceUI()" style="display:none;">
+                    <option value="mplus">Mythic+ Carry</option>
+                    <option value="mplus_bundle">Mythic+ Bundle (3+1 FREE)</option>
+                    <option value="ksm">Keystone Master (2000 IO)</option>
+                    <option value="keystone_hero">Keystone Hero (2500 IO + Portals)</option>
+                    <option value="keystone_legend">Keystone Legend (3000 IO)</option>
+                    <option value="title_01">Top 0.1% Regional Title</option>
+                    <option value="mounts">Rare Mounts Farm</option>
+                    <option value="leveling">Leveling 1-80</option>
+                    <option value="pvp_rating">PvP Arena Rating (1-2400)</option>
+                    <option value="coaching">Professional Coaching</option>
+                    <option value="rent_boost">Rent a Pro (Hourly)</option>
+                    <option value="gold">Gold Selling (per 1k)</option>
+                </select>
                 <div id="wow-retail-service-extra"></div>
                 <label>Service Mode</label>
                 <div class="mode-selector">
@@ -311,14 +873,13 @@
             </div>
 
             <div id="form-wow_classic" style="display:none;">
-                <div class="input-group">
-                    <label>Classic Service</label>
-                    <select id="wow_classic_service" onchange="updateWoWClassicServiceUI()">
-                        <option value="leveling">Classic Leveling</option>
-                        <option value="gold">Classic Gold</option>
-                        <option value="raid">Classic Raid Carry</option>
-                    </select>
-                </div>
+                <label>Classic Service</label>
+                <div id="grid-wow_classic" class="services-grid"></div>
+                <select id="wow_classic_service" onchange="updateWoWClassicServiceUI()" style="display:none;">
+                    <option value="leveling">Classic Leveling</option>
+                    <option value="gold">Classic Gold</option>
+                    <option value="raid">Classic Raid Carry</option>
+                </select>
                 <div id="wow-classic-service-extra"></div>
                 <label>Service Mode</label>
                 <div class="mode-selector">
@@ -328,14 +889,13 @@
             </div>
 
             <div id="form-wow_tbc" style="display:none;">
-                <div class="input-group">
-                    <label>TBC Anniversary Service (Pre-order)</label>
-                    <select id="wow_tbc_service" onchange="updateWoWTBCServiceUI()">
-                        <option value="leveling">TBC Power Leveling (1-70)</option>
-                        <option value="professions">TBC Professions (1-375)</option>
-                        <option value="riding">TBC Riding & Flying</option>
-                    </select>
-                </div>
+                <label>TBC Anniversary Service</label>
+                <div id="grid-wow_tbc" class="services-grid"></div>
+                <select id="wow_tbc_service" onchange="updateWoWTBCServiceUI()" style="display:none;">
+                    <option value="leveling">TBC Power Leveling (1-70)</option>
+                    <option value="professions">TBC Professions (1-375)</option>
+                    <option value="riding">TBC Riding & Flying</option>
+                </select>
                 <div id="wow-tbc-service-extra"></div>
                 <label>Service Mode</label>
                 <div class="mode-selector">
@@ -345,16 +905,15 @@
             </div>
 
             <div id="form-wow_mop" style="display:none;">
-                <div class="input-group">
-                    <label>MoP Service</label>
-                    <select id="wow_mop_service" onchange="updateWoWMoPUI()">
-                        <option value="leveling">Power Leveling (1-90)</option>
-                        <option value="professions">Professions Boost</option>
-                        <option value="ilvl">Item Level Farm</option>
-                        <option value="dungeons">Dungeon / Scenarios</option>
-                        <option value="challenges">Challenge Mode (Gold)</option>
-                    </select>
-                </div>
+                <label>MoP Service</label>
+                <div id="grid-wow_mop" class="services-grid"></div>
+                <select id="wow_mop_service" onchange="updateWoWMoPUI()" style="display:none;">
+                    <option value="leveling">Power Leveling (1-90)</option>
+                    <option value="professions">Professions Boost</option>
+                    <option value="ilvl">Item Level Farm</option>
+                    <option value="dungeons">Dungeon / Scenarios</option>
+                    <option value="challenges">Challenge Mode (Gold)</option>
+                </select>
                 <div id="wow-mop-service-extra"></div>
                 <label>Service Mode</label>
                 <div class="mode-selector">
@@ -372,27 +931,24 @@
                         <option value="none">Amara (DPS)</option>
                         <option value="none">Runa (DPS)</option>
                         <option value="none">Sylas (DPS)</option>
-
                         <option value="fee">Helena (Tank) +30% fee</option>
                         <option value="fee">Gideon (Tank) +30% fee</option>
                         <option value="fee">Bryn (Tank) +30% fee</option>
-
                         <option value="fee">Sylvie (Healer) +30% fee</option>
                         <option value="fee">Ana (Healer) +30% fee</option>
                         <option value="fee">Xavier (Healer) +30% fee</option>
                     </select>
                     <div id="role_fee_notice" class="role-notice">* A 30% role fee is applied ONLY to Tanks and Heals.</div>
                 </div>
-                <div class="input-group">
-                    <label>Boosting Category</label>
-                    <select id="fell_type" onchange="updateFellUI()">
+                <label>Boosting Category</label>
+                <div id="grid-fell" class="services-grid"></div>
+                <select id="fell_type" onchange="updateFellUI()" style="display:none;">
                     <option value="gear_score">Gear Score Farming</option>
                     <option value="capstone">Dungeon Runs / Carries</option>
                     <option value="rating">Hero Dungeon Rating</option>
                     <option value="bis">BIS Gear Full Farm</option>
                     <option value="bundles">Value Bundles</option>
-                    </select>
-                </div>
+                </select>
                 <div id="dynamic_fell"></div>
                 <label>Service Mode</label>
                 <div class="mode-selector">
@@ -401,17 +957,16 @@
                 </div>
             </div>
 
-                <div id="form-poe2" style="display:none;">
-                <div class="input-group">
-                    <label>PoE 2 Service</label>
-                    <select id="poe2_type" onchange="updatePoe2UI()">
-                        <option value="leveling">Power Leveling</option>
-                        <option value="currency">Currency Farming (Orbs)</option>
-                        <option value="campaign">Campaign Boost</option>
-                        <option value="trials">Ascendancy Trials</option>
-                        <option value="builds">Complete Builds</option>
-                    </select>
-                </div>
+            <div id="form-poe2" style="display:none;">
+                <label>PoE 2 Service</label>
+                <div id="grid-poe2" class="services-grid"></div>
+                <select id="poe2_type" onchange="updatePoe2UI()" style="display:none;">
+                    <option value="leveling">Power Leveling</option>
+                    <option value="currency">Currency Farming (Orbs)</option>
+                    <option value="campaign">Campaign Boost</option>
+                    <option value="trials">Ascendancy Trials</option>
+                    <option value="builds">Complete Builds</option>
+                </select>
                 <div id="dynamic_poe2"></div>
                 <label>Service Mode</label>
                 <div class="mode-selector">
@@ -421,13 +976,12 @@
             </div>
 
             <div id="form-bf6" style="display:none;">
-                <div class="input-group">
-                    <label>Selected Service</label>
-                    <select id="bf_service" onchange="calcTotal()">
-                        <option value="leveling">Account Power Leveling (1-500)</option>
-                        <option value="battlepass">Battle Pass Tier Progression</option>
-                    </select>
-                </div>
+                <label>Selected Service</label>
+                <div id="grid-bf6" class="services-grid"></div>
+                <select id="bf_service" onchange="calcTotal()" style="display:none;">
+                    <option value="leveling">Account Power Leveling (1-500)</option>
+                    <option value="battlepass">Battle Pass Tier Progression</option>
+                </select>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                     <div><label>Current Level</label><input type="number" id="bf_from" value="1" oninput="calcTotal()"></div>
                     <div><label>Target Level</label><input type="number" id="bf_to" value="50" oninput="calcTotal()"></div>
@@ -456,12 +1010,27 @@
                 <div style="display:flex; gap:8px;"><input type="text" id="coupon_input" placeholder="CODE"><button onclick="applyCoupon()" style="background:#333; color:white; border:none; border-radius:8px; cursor:pointer; font-family:Orbitron; padding: 0 15px;">OK</button></div>
             </div>
 
-            <div style="font-size:0.8rem; margin-top:20px; display:flex; align-items:center; gap:10px;">
-                <input type="checkbox" id="opt_express" onchange="calcTotal()" style="width:20px;">
-                <span>EXPRESS START (+20%)</span>
+            <div style="font-size:0.8rem; margin-top:20px; display:flex; flex-direction:column; gap:10px;">
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="opt_express" onchange="calcTotal()" style="width:20px;">
+                    <span>EXPRESS START (+20%)</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="opt_priority" onchange="calcTotal()" style="width:20px;">
+                    <span>PRIORITY START (+5%)</span>
+                </div>
+                <div style="display:flex; align-items:center; gap:10px;">
+                    <input type="checkbox" id="opt_stream" onchange="calcTotal()" style="width:20px;">
+                    <span>STREAM (+15%)</span>
+                </div>
             </div>
-            <button class="btn-checkout" onclick="sendOrder()" style="margin-top:20px;">Confirm with Support</button>
-            <div class="paypal-box">
+            <button class="btn-checkout" onclick="addToCart()" style="margin-top:20px;"><i class="fas fa-cart-plus"></i> ADD TO CART</button>
+            <button onclick="resetCalculator()" style="width:100%; background:transparent; border:1px solid #333; color:#777; padding:12px; border-radius:10px; margin-bottom:20px; cursor:pointer; font-family:'Orbitron'; font-size:0.8rem; transition:0.3s;" onmouseover="this.style.borderColor='#666';this.style.color='#ccc'" onmouseout="this.style.borderColor='#333';this.style.color='#777'">
+                <i class="fas fa-undo"></i> RESET CONFIGURATION
+            </button>
+            
+            <!-- PayPal Hidden as requested, moved logic to Cart -->
+            <div class="paypal-box" style="display: none;">
                 <form action="https://www.paypal.com/ncp/payment/FR89NJWW4YZZC" method="post" target="_blank" style="display:inline-grid;justify-items:center;width:100%;">
                     <input type="submit" value="Pay with PayPal" style="background: #FFD140; border:none; padding:12px 30px; border-radius:10px; font-weight:900; cursor:pointer; width:100%; font-size:1.1rem; margin-bottom:5px; font-family:'Orbitron'; color: #000; text-transform: uppercase;"/>
                     <img src="https://www.paypalobjects.com/images/Debit_Credit.svg" alt="cards" style="height:20px;"/>
@@ -471,11 +1040,569 @@
     </div>
 </div>
 
-<a href="https://discord.gg/8zkvN4qNfq" id="discord-fab" target="_blank"><i class="fab fa-discord"></i> Discord</a>
-<a href="https://wa.me/584125151298" id="wa-chat-fab" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+<footer style="background: #0b0c0d; border-top: 1px solid #333; padding: 50px 20px; margin-top: 60px;">
+    <div style="max-width: 1300px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 25px;">
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <img src="img/pboost_logo.png" alt="PBOOST" style="height: 40px; opacity: 0.8;">
+            <span style="font-family: 'Orbitron'; font-size: 1.5rem; font-weight: 900; color: #fff; letter-spacing: 2px;">PBOOST</span>
+        </div>
+        <div style="display: flex; gap: 30px; flex-wrap: wrap; justify-content: center;">
+            <a href="#" style="color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#888'">Terms of Service</a>
+            <a href="#" style="color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#888'">Privacy Policy</a>
+            <a href="#" style="color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#888'">Refund Policy</a>
+            <a href="#" style="color: #888; text-decoration: none; font-size: 0.9rem; transition: 0.3s;" onmouseover="this.style.color='var(--primary)'" onmouseout="this.style.color='#888'">Work with Us</a>
+        </div>
+        <div style="width: 100%; height: 1px; background: #222; margin: 10px 0;"></div>
+        <p style="color: #444; font-size: 0.8rem; text-align: center;">
+            &copy; 2026 PBOOST. All rights reserved.<br>
+            World of Warcraft, Path of Exile, and Battlefield are registered trademarks of their respective owners.
+        </p>
+    </div>
+</footer>
 
-<script>
-// --- IMG SECTION --- //
+<a href="https://discord.gg/8zkvN4qNfq" id="discord-fab" target="_blank"><i class="fab fa-discord"></i> Discord</a>
+<button id="scroll-top-btn" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+<audio id="card-click-sound" src="audio/click.mp3"></audio>
+<div id="toast-container"></div>
+
+<!-- PayPal SDK (Placeholder - Replace YOUR_CLIENT_ID) -->
+<script src="https://www.paypal.com/sdk/js?client-id=AVNqPcb0796-mmK3GD_MaWPYVQspH2wKJ61nYLveDpwKMGeun-f7nNZ83hrFOSwGafdhqlSFeAfEw3w-&currency=USD&disable-funding=credit,card"></script>
+
+<script type="module">
+// Configuración de Firebase como Módulo
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, FacebookAuthProvider, sendPasswordResetEmail, updateProfile, updatePassword, deleteUser } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, collection, addDoc, query, where, getDocs, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCFXwGLDf3-0gwfoNLcrgM3NyUHlZgbQMQ",
+  authDomain: "pboost-web.firebaseapp.com",
+  projectId: "pboost-web",
+  storageBucket: "pboost-web.firebasestorage.app",
+  messagingSenderId: "312773661524",
+  appId: "1:312773661524:web:6a848de465f9407648eec1",
+  measurementId: "G-NLE8M0HCMN"
+};
+
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
+
+// --- LÓGICA DE LOGIN MODERNO ---
+let isLoginMode = true;
+
+function toggleTheme() {
+    document.body.classList.toggle('light-mode');
+    const icon = document.getElementById('theme-icon');
+    if(document.body.classList.contains('light-mode')) {
+        icon.classList.remove('fa-moon');
+        icon.classList.add('fa-sun');
+    } else {
+        icon.classList.remove('fa-sun');
+        icon.classList.add('fa-moon');
+    }
+}
+
+let alertResolve = null;
+
+function customAlert(title, msg) {
+    document.getElementById('custom-alert-title').innerText = title;
+    document.getElementById('custom-alert-msg').innerText = msg;
+    document.getElementById('custom-alert').style.display = 'flex';
+    return new Promise(resolve => {
+        alertResolve = resolve;
+    });
+}
+
+function closeCustomAlert() {
+    document.getElementById('custom-alert').style.display = 'none';
+    if (alertResolve) {
+        alertResolve();
+        alertResolve = null;
+    }
+}
+
+let confirmResolve = null;
+
+function showConfirmModal(msg) {
+    document.getElementById('confirm-modal-msg').innerText = msg;
+    document.getElementById('confirm-modal').style.display = 'flex';
+    return new Promise(resolve => {
+        confirmResolve = resolve;
+    });
+}
+
+function resolveConfirm(result) {
+    document.getElementById('confirm-modal').style.display = 'none';
+    if (confirmResolve) {
+        confirmResolve(result);
+        confirmResolve = null;
+    }
+}
+
+function handleAuth() {
+    if (auth.currentUser) {
+        signOut(auth).then(async () => {
+            await customAlert("LOGGED OUT", "You have been logged out successfully.");
+            location.reload();
+        });
+    } else {
+        document.getElementById('auth-modal').style.display = 'flex';
+    }
+}
+
+function closeAuthModal() {
+    document.getElementById('auth-modal').style.display = 'none';
+}
+
+function toggleAuthMode() {
+    isLoginMode = !isLoginMode;
+    document.getElementById('modal-title').innerText = isLoginMode ? 'LOGIN' : 'REGISTER';
+    document.getElementById('main-auth-btn').innerText = isLoginMode ? 'ENTER SYSTEM' : 'CREATE ACCOUNT';
+    document.getElementById('toggle-text').innerText = isLoginMode ? "Don't have an account?" : "Already have an account?";
+    document.getElementById('toggle-link').innerText = isLoginMode ? "Create one" : "Login here";
+}
+
+async function executeAuth(event) {
+    if (event) {
+        event.preventDefault();
+    }
+    const email = document.getElementById('auth-email').value;
+    const pass = document.getElementById('auth-password').value;
+    const btn = document.getElementById('main-auth-btn');
+
+    if (!email || !pass) return showToast("Please fill all fields", "error");
+
+    btn.disabled = true;
+    btn.innerText = "PROCESSING...";
+
+    try {
+        if (isLoginMode) {
+            await signInWithEmailAndPassword(auth, email, pass);
+        } else {
+            const userCred = await createUserWithEmailAndPassword(auth, email, pass);
+            await setDoc(doc(db, "users", userCred.user.uid), {
+                email: email,
+                balance: 0,
+                createdAt: new Date()
+            });
+            await customAlert("SUCCESS", "Account created successfully! Welcome to PBOOST.");
+        }
+        closeAuthModal();
+    } catch (error) {
+        showToast("Error: " + error.message, "error");
+    } finally {
+        btn.disabled = false;
+        btn.innerText = isLoginMode ? 'ENTER SYSTEM' : 'CREATE ACCOUNT';
+    }
+}
+
+async function resetPassword() {
+    const email = document.getElementById('auth-email').value;
+    if (!email) return showToast("Please enter email to reset password", "error");
+    try {
+        await sendPasswordResetEmail(auth, email);
+        showToast("Reset email sent! Check your inbox", "success");
+    } catch (error) {
+        showToast("Error: " + error.message, "error");
+    }
+}
+
+function togglePasswordVisibility() {
+    const passwordInput = document.getElementById('auth-password');
+    const icon = document.getElementById('toggle-password-icon');
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        icon.classList.remove('fa-eye');
+        icon.classList.add('fa-eye-slash');
+    } else {
+        passwordInput.type = 'password';
+        icon.classList.remove('fa-eye-slash');
+        icon.classList.add('fa-eye');
+    }
+}
+
+function openProfileModal() {
+    if (!auth.currentUser) return;
+    document.getElementById('profile-modal').style.display = 'flex';
+    document.getElementById('profile-name').value = auth.currentUser.displayName || '';
+    document.getElementById('profile-pass').value = '';
+    document.getElementById('profile-preview').src = auth.currentUser.photoURL || 'img/pboost_logo.png';
+    document.getElementById('referral-code').value = auth.currentUser.uid.substring(0, 8).toUpperCase();
+}
+
+function closeProfileModal() {
+    document.getElementById('profile-modal').style.display = 'none';
+}
+
+window.previewImage = function(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('profile-preview').src = e.target.result;
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+};
+
+window.copyReferralCode = function() {
+    const copyText = document.getElementById("referral-code");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); 
+    navigator.clipboard.writeText(copyText.value).then(() => showToast("Referral code copied!", "success"));
+};
+
+async function saveProfile() {
+    const user = auth.currentUser;
+    const newName = document.getElementById('profile-name').value;
+    const newPass = document.getElementById('profile-pass').value;
+    const fileInput = document.getElementById('profile-pic-input');
+    
+    const btn = document.querySelector('#profile-modal button[onclick="saveProfile()"]');
+    const originalText = btn.innerText;
+    btn.innerText = "SAVING...";
+    btn.disabled = true;
+
+    try {
+        let photoURL = user.photoURL;
+
+        if (fileInput.files[0]) {
+            const file = fileInput.files[0];
+            const storageRef = ref(storage, `profile_pics/${user.uid}`);
+            await uploadBytes(storageRef, file);
+            photoURL = await getDownloadURL(storageRef);
+        }
+
+        const updates = {};
+        if (newName && newName !== user.displayName) updates.displayName = newName;
+        if (photoURL !== user.photoURL) updates.photoURL = photoURL;
+
+        if (Object.keys(updates).length > 0) await updateProfile(user, updates);
+        if (newPass) await updatePassword(user, newPass);
+        
+        showToast("Profile updated successfully!", "success");
+        closeProfileModal();
+    } catch (error) {
+        if(error.code === 'auth/requires-recent-login') showToast("Please re-login to change password", "error");
+        else showToast("Error: " + error.message, "error");
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
+}
+
+async function deleteAccount() {
+    if(!confirm("Are you sure? This action cannot be undone and all your data will be lost.")) return;
+    const user = auth.currentUser;
+    try {
+        // Delete Firestore data
+        await deleteDoc(doc(db, "users", user.uid));
+        // Delete Auth user
+        await deleteUser(user);
+        showToast("Account deleted", "success");
+        location.reload();
+    } catch (error) {
+        if(error.code === 'auth/requires-recent-login') showToast("Please re-login to delete account", "error");
+        else showToast("Error: " + error.message, "error");
+    }
+}
+
+// Mock Notifications Data
+const MOCK_NOTIFICATIONS = [
+    { title: "Welcome to PBOOST!", msg: "Thanks for joining our platform.", date: "Just now", icon: "fa-star" },
+    { title: "Maintenance", msg: "Scheduled maintenance on Sunday 3AM UTC.", date: "1 day ago", icon: "fa-tools" },
+    { title: "New Game Added", msg: "Path of Exile 2 services are now live!", date: "2 days ago", icon: "fa-gamepad" }
+];
+
+function checkNotifications() {
+    const badge = document.getElementById('notif-badge');
+    if (MOCK_NOTIFICATIONS.length > 0) {
+        badge.style.display = 'block';
+    }
+}
+
+function openNotifications() {
+    document.getElementById('notifications-modal').style.display = 'flex';
+    const list = document.getElementById('notifications-list');
+    
+    // Hide badge when opened (visual only)
+    document.getElementById('notif-badge').style.display = 'none';
+    
+    list.innerHTML = MOCK_NOTIFICATIONS.map(n => `
+        <div style="background:rgba(255,255,255,0.03); padding:15px; border-radius:8px; margin-bottom:10px; border-left: 3px solid var(--primary);">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:5px;">
+                <i class="fas ${n.icon}" style="color:var(--primary);"></i>
+                <span style="font-weight:bold; font-size:0.9rem; color:white;">${n.title}</span>
+            </div>
+            <p style="font-size:0.8rem; color:#ccc; margin:0;">${n.msg}</p>
+            <span style="font-size:0.65rem; color:#666; display:block; margin-top:5px; text-align:right;">${n.date}</span>
+        </div>
+    `).join('');
+}
+
+function closeNotificationsModal() {
+    document.getElementById('notifications-modal').style.display = 'none';
+}
+
+window.markAllRead = function() {
+    document.getElementById('notif-badge').style.display = 'none';
+    showToast("All notifications marked as read", "success");
+};
+
+let fundsPaypalRendered = false;
+
+function initFundsPayPal() {
+    if (fundsPaypalRendered) return;
+    
+    if (document.getElementById('paypal-funds-container') && window.paypal) {
+        window.paypal.Buttons({
+            createOrder: function(data, actions) {
+                const amount = parseFloat(document.getElementById('fund-amount').value);
+                if (!amount || amount < 5) {
+                    showToast("Minimum amount is $5", "error");
+                    return actions.reject();
+                }
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { value: amount.toFixed(2) }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(async function(details) {
+                    const amount = parseFloat(details.purchase_units[0].amount.value);
+                    
+                    if (auth.currentUser) {
+                        const userRef = doc(db, "users", auth.currentUser.uid);
+                        const userSnap = await getDoc(userRef);
+                        let currentBalance = 0;
+                        let currentPoints = 0;
+                        if (userSnap.exists()) {
+                            currentBalance = userSnap.data().balance || 0;
+                            currentPoints = userSnap.data().loyaltyPoints || 0;
+                        }
+                        
+                        const newBalance = currentBalance + amount;
+                        await updateDoc(userRef, { balance: newBalance });
+                        
+                        document.getElementById('user-balance').innerHTML = `Balance: $${newBalance.toFixed(2)} <span style="color:#ffd700; margin-left:8px; font-size:0.7rem;" title="Loyalty Points"><i class="fas fa-crown"></i> ${currentPoints}</span>`;
+                        userBalance = newBalance;
+                    }
+                    
+                    showToast(`Successfully added $${amount}!`, "success");
+                    closeAddFundsModal();
+                    document.getElementById('fund-amount').value = '';
+                });
+            },
+            onError: function(err) {
+                console.error(err);
+                showToast("Payment Error. Try again.", "error");
+            }
+        }).render('#paypal-funds-container');
+        fundsPaypalRendered = true;
+    }
+}
+
+function requestFunds() {
+    if (!auth.currentUser) return showToast("Please login to add funds", "error");
+    document.getElementById('add-funds-modal').style.display = 'flex';
+    setTimeout(initFundsPayPal, 100);
+}
+
+function closeAddFundsModal() {
+    document.getElementById('add-funds-modal').style.display = 'none';
+}
+
+// Inicializar proveedores
+const googleProvider = new GoogleAuthProvider();
+const facebookProvider = new FacebookAuthProvider();
+
+// Función de Google
+window.loginWithGoogle = async function() {
+    const btn = document.getElementById('google-btn');
+    const originalContent = btn.innerHTML;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+    btn.disabled = true;
+    try {
+        const result = await signInWithPopup(auth, googleProvider);
+        const user = result.user;
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        
+        if (!docSnap.exists()) {
+            await setDoc(docRef, { email: user.email, balance: 0, createdAt: new Date() });
+        }
+        closeAuthModal();
+    } catch (error) {
+        console.error(error);
+        showToast("Google Login Error: " + error.message, "error");
+    } finally {
+        btn.innerHTML = originalContent;
+        btn.disabled = false;
+    }
+};
+
+// Función de Facebook (mismo proceso)
+window.loginWithFacebook = async function() {
+    try {
+        const result = await signInWithPopup(auth, facebookProvider);
+        // ... misma lógica de guardado en Firestore ...
+        closeAuthModal();
+    } catch (error) {
+        showToast("Facebook Error: " + error.message, "error");
+    }
+};
+
+function reorderItems(itemsJsonString) {
+    try {
+        const items = JSON.parse(itemsJsonString);
+        if (!items || items.length === 0) return showToast("No items in this order to re-add.", "error");
+        
+        cart.push(...items);
+        updateCartBadge();
+        closeHistoryModal();
+        openCart();
+        showToast(`${items.length} item(s) added back to cart!`, "success");
+    } catch (e) { console.error("Reorder error:", e); }
+}
+
+async function showHistory() {
+    if (!auth.currentUser) return showToast("Please login to view history", "error");
+    document.getElementById('history-modal').style.display = 'flex';
+    const list = document.getElementById('history-list');
+    list.innerHTML = '<p style="text-align:center; color:#888; margin-top:20px;">Loading orders...</p>';
+
+    try {
+        const q = query(collection(db, "orders"), where("userId", "==", auth.currentUser.uid));
+        const querySnapshot = await getDocs(q);
+        
+        if (querySnapshot.empty) {
+            list.innerHTML = '<p style="text-align:center; color:#666; margin-top:20px;">No orders found.</p>';
+            return;
+        }
+        
+        const orders = [];
+        querySnapshot.forEach(doc => {
+            const d = doc.data();
+            d.id = doc.id;
+            orders.push(d);
+        });
+        // Sort client-side to avoid index requirement errors
+        orders.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+
+        list.innerHTML = orders.map(data => {
+            const date = data.createdAt ? new Date(data.createdAt.seconds * 1000).toLocaleDateString() : 'N/A';
+            const status = data.status || 'Pending';
+            const statusColor = (status === 'Paid' || status === 'Completed') ? '#25d366' : '#f1c40f';
+            const orderId = data.orderId || 'N/A';
+            const total = data.total || data.price; // Fallback for old orders
+            
+            // Render items list
+            let itemsHtml = '';
+            if (data.items && Array.isArray(data.items)) {
+                itemsHtml = data.items.map(item => `
+                    <div style="font-size:0.8rem; color:#ccc; margin-top:4px; border-bottom:1px solid #333; padding-bottom:4px;">
+                        ${item.game} - ${item.service} (${item.mode})
+                    </div>
+                `).join('');
+            } else {
+                // Fallback for old single-item orders
+                itemsHtml = `<div style="font-size:0.8rem; color:#ccc;">${data.game} - ${data.service} (${data.mode})</div>`;
+            }
+
+            // Prepare action buttons
+            const itemsJsonString = JSON.stringify(data.items || []).replace(/'/g, "\\'");
+            let buttonsHtml = `<button onclick="reorderItems('${itemsJsonString}')" style="background:transparent; border:1px solid var(--primary); color:var(--primary); padding:5px 10px; border-radius:4px; cursor:pointer; font-size:0.7rem; font-family:'Orbitron'; transition:0.3s;" onmouseover="this.style.background='var(--primary)';this.style.color='black'" onmouseout="this.style.background='transparent';this.style.color='var(--primary)'">REORDER</button>`;
+            
+            if (status === 'Pending') {
+                buttonsHtml += `<button onclick="cancelOrder('${data.id}')" style="background:transparent; border:1px solid #ff4444; color:#ff4444; padding:5px 10px; border-radius:4px; cursor:pointer; font-size:0.7rem; font-family:'Orbitron'; transition:0.3s;" onmouseover="this.style.background='#ff4444';this.style.color='white'" onmouseout="this.style.background='transparent';this.style.color='#ff4444'">CANCEL</button>`;
+            }
+
+            const actionButtonsContainer = (data.items && data.items.length > 0)
+                ? `<div style="margin-top:10px; text-align:right; border-top:1px dashed #333; padding-top:10px; display:flex; justify-content:flex-end; gap:10px;">${buttonsHtml}</div>`
+                : '';
+
+            return `
+                <div style="background:rgba(255,255,255,0.03); padding:15px; border-radius:8px; margin-bottom:10px; border:1px solid #333;">
+                    <div style="display:flex; justify-content:space-between; margin-bottom:5px;">
+                        <span style="color:var(--primary); font-weight:bold; font-family:'Orbitron'; font-size:0.8rem;">${orderId}</span>
+                        <span style="color:#666; font-size:0.7rem;">${date}</span>
+                    </div>
+                    <div style="margin-bottom:8px;">${itemsHtml}</div>
+                    <div style="display:flex; justify-content:space-between; font-size:0.8rem; border-top:1px solid #222; padding-top:8px;">
+                        <span style="color:#888;">Total</span>
+                        <span style="color:${statusColor}; font-weight:bold;">${status}</span>
+                        <span style="color:white; font-weight:bold;">$${total}</span>
+                    </div>
+                    ${actionButtonsContainer}
+                </div>`;
+        }).join('');
+    } catch (error) {
+        console.error(error);
+        list.innerHTML = '<p style="text-align:center; color:red;">Error loading history.</p>';
+    }
+}
+
+function closeHistoryModal() {
+    document.getElementById('history-modal').style.display = 'none';
+}
+
+function cancelOrder(orderId) {
+    if(!confirm("Are you sure you want to cancel this order? Support will be notified.")) return;
+    const message = `Hello, I would like to cancel my order. Order ID: ${orderId}`;
+    window.open(`https://t.me/ErnismarSF?text=${encodeURIComponent(message)}`, '_blank');
+}
+
+// Hacer las funciones accesibles globalmente ya que usamos type="module"
+window.toggleTheme = toggleTheme;
+window.handleAuth = handleAuth;
+window.selectGameFromLanding = selectGameFromLanding;
+window.goBackToLanding = goBackToLanding;
+window.filterServices = filterServices;
+window.closeAuthModal = closeAuthModal;
+window.toggleAuthMode = toggleAuthMode;
+window.executeAuth = executeAuth;
+window.togglePasswordVisibility = togglePasswordVisibility;
+window.customAlert = customAlert;
+window.closeCustomAlert = closeCustomAlert;
+window.resolveConfirm = resolveConfirm;
+window.openProfileModal = openProfileModal;
+window.closeProfileModal = closeProfileModal;
+window.saveProfile = saveProfile;
+window.openNotifications = openNotifications;
+window.closeNotificationsModal = closeNotificationsModal;
+window.deleteAccount = deleteAccount;
+window.resetPassword = resetPassword;
+window.requestFunds = requestFunds;
+window.closeAddFundsModal = closeAddFundsModal;
+window.showHistory = showHistory;
+window.closeHistoryModal = closeHistoryModal;
+window.cancelOrder = cancelOrder;
+window.goToService = goToService;
+window.reorderItems = reorderItems;
+window.toggleMenu = toggleMenu;
+window.selectGameFromMenu = selectGameFromMenu;
+window.calcTotal = calcTotal;
+window.setMode = setMode;
+window.applyCoupon = applyCoupon;
+window.sendOrder = sendOrder;
+window.resetCalculator = resetCalculator;
+window.updateWoWRetailServiceUI = updateWoWRetailServiceUI;
+window.updateWoWClassicServiceUI = updateWoWClassicServiceUI;
+window.updateWoWTBCServiceUI = updateWoWTBCServiceUI;
+window.updateWoWMoPUI = updateWoWMoPUI;
+window.updateFellUI = updateFellUI;
+window.updatePoe2UI = updatePoe2UI;
+window.payWithBalance = payWithBalance;
+
+window.addToCart = addToCart;
+window.openCart = openCart;
+window.closeCart = closeCart;
+
+// --- TUS CONSTANTES ORIGINALES EMPIEZAN AQUÍ ---
 const IMAGES_CONFIG = {
     backgrounds: {
         wow: "img/bg-wow.jpg",
@@ -487,16 +1614,63 @@ const IMAGES_CONFIG = {
         bf6: "img/bg-bf6.jpg"
     },
     nav_cards: {
-        wow_retail: "img/wow.jpg",
+        wow_retail: "img/bg-wow.jpg",
         wow_classic: "img/wow-classic.jpg",
         wow_tbc: "img/wow-tbc.jpg",
         wow_mop: "img/wow-mop.jpg",
         fell: "img/fell.jpg",
         poe2: "img/poe2.jpg",
         bf6: "img/bf6.jpg"
+    },
+    // NUEVO: Imágenes para los servicios individuales
+    // Simplemente añade la ruta de la imagen según el 'value' del servicio
+    services: {
+        // --- WOW RETAIL ---
+        mplus: "img/s-mplus.jpg",
+        mplus_bundle: "img/s-bundle.jpg",
+        ksm: "img/s-ksm.jpg",
+        keystone_hero: "img/s-hero.jpg",
+        keystone_legend: "img/s-legend.jpg",
+        title_01: "img/s-title.jpg",
+        mounts: "img/s-mounts.jpg",
+        leveling: "img/s-leveling.jpg",
+        pvp_rating: "img/s-pvp.jpg",
+        coaching: "img/s-coach.jpg",
+        rent_boost: "img/s-rent.jpg",
+        gold: "img/s-gold.jpg",
+
+        // --- WOW CLASSIC ---
+        // (Nota: leveling y gold ya están arriba, se comparten si el value es igual)
+        raid: "img/s-raid.jpg",
+
+        // --- WOW TBC ANNIVERSARY ---
+        professions: "img/s-prof.jpg",
+        riding: "img/s-riding.jpg",
+
+        // --- WOW MoP ---
+        ilvl: "img/s-ilvl.jpg",
+        dungeons: "img/s-dungeons.jpg",
+        challenges: "img/s-challenge.jpg",
+
+        // --- FELLOWSHIP ---
+        gear_score: "img/s-gs.jpg",
+        capstone: "img/s-dungeon.jpg",
+        rating: "img/s-rating.jpg",
+        bis: "img/s-bis.jpg",
+        bundles: "img/s-bundle.jpg",
+
+        // --- PATH OF EXILE 2 ---
+        currency: "img/s-orb.jpg",
+        campaign: "img/s-campaign.jpg",
+        trials: "img/s-trials.jpg",
+        builds: "img/s-builds.jpg",
+
+        // --- BATTLEFIELD 6 ---
+        battlepass: "img/s-battlepass.jpg"
+        // (Nota: leveling ya está incluido arriba)
     }
 };
-// --- PRICE SECTION --- //
+
 const PRICES_CONFIG = {
     wow_retail: {
         mplus: { 7: 2.5, 8: 3, 9: 3.5, 10: 5, 11: 6, 12: 7, 13: 10, 14: 13, 15: 16 },
@@ -523,7 +1697,6 @@ const PRICES_CONFIG = {
         riding_prices: { expert_riding: 35.00, artisan_flying: 185.00 }
     },
     wow_mop: {
-        // Precios graduales basados en mercado para Leveling 1-90
         leveling: { low: 0.80, mid: 1.50, high: 2.50 },
         professions: { primary: 35.00, secondary: 15.00 },
         ilvl_farm: { 463: 45.00, 476: 85.00, 496: 150.00 },
@@ -549,14 +1722,64 @@ const PRICES_CONFIG = {
     global: {
         piloted_fee: 1.15,
         express_fee: 1.20,
+        priority_fee: 1.05,
+        stream_fee: 1.15,
         coupon_discount: 0.9,
         coupon_code: "PBOOST1454"
     }
 };
 
+let cart = [];
+
 let currentTab = 'wow_retail';
 let discount = 1.0;
 let serviceMode = 'Self-play';
+
+// --- NUEVA FUNCIÓN: Generador de Cuadrícula Visual ---
+function renderServiceGrid(tab) {
+    const selectId = {
+        wow_retail: 'wow_retail_service',
+        wow_classic: 'wow_classic_service',
+        wow_tbc: 'wow_tbc_service',
+        wow_mop: 'wow_mop_service',
+        fell: 'fell_type',
+        poe2: 'poe2_type',
+        bf6: 'bf_service'
+    }[tab];
+
+    const grid = document.getElementById(`grid-${tab}`);
+    const select = document.getElementById(selectId);
+    if (!grid || !select) return;
+
+    grid.innerHTML = '';
+
+    Array.from(select.options).forEach(opt => {
+        const card = document.createElement('div');
+        card.className = 'service-visual-card';
+        if (select.value === opt.value) card.classList.add('selected');
+
+        // Imagen de fondo (usa la del config o una por defecto)
+        const bgImg = IMAGES_CONFIG.services[opt.value] || 'img/default-service.jpg';
+        card.style.backgroundImage = `url('${bgImg}')`;
+
+        card.innerHTML = `<span>${opt.text}</span>`;
+
+        card.onclick = () => {
+            const audio = document.getElementById('card-click-sound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => {});
+            }
+            select.value = opt.value;
+            // Disparar el cambio del select original
+            select.dispatchEvent(new Event('change'));
+            // Actualizar visual de la grid
+            renderServiceGrid(tab);
+        };
+
+        grid.appendChild(card);
+    });
+}
 
 function initImages() {
     const root = document.documentElement;
@@ -586,9 +1809,14 @@ function switchTab(tab) {
         if(formEl) formEl.style.display = (t === tab) ? 'block' : 'none';
     });
     document.body.className = `bg-${tab}`;
+
+    // Renderizamos la nueva grid visual
+    renderServiceGrid(tab);
+
     if(tab === 'wow_retail') updateWoWRetailServiceUI();
     else if(tab === 'wow_classic') updateWoWClassicServiceUI();
     else if(tab === 'wow_tbc') updateWoWTBCServiceUI();
+    else if(tab === 'wow_mop') updateWoWMoPUI();
     else if(tab === 'fell') updateFellUI();
     else if(tab === 'poe2') updatePoe2UI();
     calcTotal();
@@ -596,7 +1824,7 @@ function switchTab(tab) {
 
 function setMode(mode) {
     serviceMode = mode;
-    ['wow-retail', 'wow-classic', 'wow-tbc', 'wow_mop', 'fell', 'poe'].forEach(p => {
+    ['wow-retail', 'wow-classic', 'wow-tbc', 'mop', 'fell', 'poe'].forEach(p => {
         const pBtn = document.getElementById(`${p}-mode-piloted`);
         const sBtn = document.getElementById(`${p}-mode-selfplay`);
         if(pBtn) pBtn.classList.toggle('active', mode === 'Piloted');
@@ -609,10 +1837,16 @@ function updateWoWRetailServiceUI() {
     const s = document.getElementById('wow_retail_service').value;
     const cfg = PRICES_CONFIG.wow_retail;
     let html = '';
+
+    const dungeons = ["Random Dungeon (Any)", "Ara-Kara, City of Echoes", "The Dawnbreaker", "Tazavesh: So'leah's Gambit", "Tazavesh: Streets of Wonder", "Eco-dome Aldani", "Halls of Atonement", "Priory of the Sacred Flame", "Operation: Floodgate"];
+    const dungeonSelect = `<label>Specific Dungeon</label><select id="wow_specific_dungeon" onchange="calcTotal()">${dungeons.map(d => `<option value="${d}">${d}</option>`).join('')}</select>`;
+
     if(s === 'mplus') {
-        html = `<label>Level</label><select id="wow_mplus_level" onchange="calcTotal()">${Object.keys(cfg.mplus).map(l => `<option value="${l}">+${l}</option>`)}</select><label>Runs</label><input type="number" id="wow_mplus_runs" min="1" value="1" oninput="calcTotal()">`;
+        html = `<label>Level</label><select id="wow_mplus_level" onchange="calcTotal()">${Object.keys(cfg.mplus).map(l => `<option value="${l}">+${l}</option>`)}</select><label>Runs</label><input type="number" id="wow_mplus_runs" min="1" value="1" oninput="calcTotal()">` + dungeonSelect;
+        html += `<div style="margin-top:5px; display:flex; align-items:center; gap:5px;"><input type="checkbox" id="wow_timed_run" onchange="calcTotal()" style="width:auto;"><label for="wow_timed_run" style="margin:0; font-size:0.8rem; color:#ccc;">Timed Run (+10%)</label></div>`;
     } else if(s === 'mplus_bundle') {
-        html = `<label>Bundle</label><select id="wow_bundle_level" onchange="calcTotal()">${Object.keys(cfg.mplus_bundle).map(l => `<option value="${l}">+${l} Bundle (3+1)</option>`)}</select>`;
+        html = `<label>Bundle</label><select id="wow_bundle_level" onchange="calcTotal()">${Object.keys(cfg.mplus_bundle).map(l => `<option value="${l}">+${l} Bundle (3+1)</option>`)}</select>` + dungeonSelect;
+        html += `<div style="margin-top:5px; display:flex; align-items:center; gap:5px;"><input type="checkbox" id="wow_timed_run" onchange="calcTotal()" style="width:auto;"><label for="wow_timed_run" style="margin:0; font-size:0.8rem; color:#ccc;">Timed Run (+10%)</label></div>`;
     } else if(s === 'mounts') {
         html = `<label>Mount</label><select id="wow_mount_select" onchange="calcTotal()">${Object.keys(cfg.mounts).map(m => `<option value="${m}">${m}</option>`)}</select>`;
     } else if(s === 'leveling') {
@@ -623,6 +1857,17 @@ function updateWoWRetailServiceUI() {
         html = `<label>Hours</label><input type="number" id="wow_hours" value="1" min="1" oninput="calcTotal()">`;
     } else if(s === 'gold') {
         html = `<label>Gold (k)</label><input type="number" id="wow_gold_k" min="1" value="100" oninput="calcTotal()">`;
+    }
+
+    if (['mplus', 'mplus_bundle', 'ksm', 'keystone_hero', 'keystone_legend'].includes(s)) {
+        html += `<label>Loot Traders <i class="fas fa-info-circle" title="Loot traders are players of the same armor type who trade you the gear they loot at the end of the dungeon." style="cursor: help; color: var(--primary);"></i></label>
+                 <select id="wow_loot_traders" onchange="calcTotal()">
+                     <option value="0">No Traders</option>
+                     <option value="1">1 Trader (Free)</option>
+                     <option value="2">2 Traders (Free)</option>
+                     <option value="3">3 Traders (+20%)</option>
+                     <option value="4">4 Traders (+30%)</option>
+                 </select>`;
     }
     document.getElementById('wow-retail-service-extra').innerHTML = html;
     calcTotal();
@@ -670,35 +1915,14 @@ function updateFellUI() {
     const type = document.getElementById('fell_type').value;
     const div = document.getElementById('dynamic_fell');
     let html = '';
-
-    if (type === 'leveling') {
-        html = `<label>Leveling Range</label><select id="fell_lev_range" onchange="calcTotal()">
-                    <option value="1-20">Full Leveling (1-20)</option>
-                    <option value="1-10">Starter (1-10)</option>
-                    <option value="10-20">Endgame Push (10-20)</option>
-                </select>`;
-    } else if (type === 'gear_score') {
-        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                    <div><label>Current GS</label><input type="number" id="gs_from" value="0" oninput="calcTotal()"></div>
-                    <div><label>Target GS</label><input type="number" id="gs_to" value="330" oninput="calcTotal()"></div>
-                </div>`;
+    if (type === 'gear_score') {
+        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>Current GS</label><input type="number" id="gs_from" value="0" oninput="calcTotal()"></div><div><label>Target GS</label><input type="number" id="gs_to" value="330" oninput="calcTotal()"></div></div>`;
     } else if (type === 'capstone') {
-        html = `<label>Dungeon</label><select id="cap_rank" onchange="calcTotal()">
-                    <option value="cithrel">Cithrel's Fall</option>
-                    <option value="tuzari">Heart of Tuzari</option>
-                    <option value="molten_forge">Molten Forge</option>
-                    <option value="abyssal_depths">Abyssal Depths</option>
-                </select>`;
+        html = `<label>Dungeon</label><select id="cap_rank" onchange="calcTotal()"><option value="cithrel">Cithrel's Fall</option><option value="tuzari">Heart of Tuzari</option><option value="molten_forge">Molten Forge</option><option value="abyssal_depths">Abyssal Depths</option></select>`;
     } else if (type === 'bundles') {
-        html = `<label>Select Bundle</label><select id="fell_bundle" onchange="calcTotal()">
-                    <option value="raid_ready">Raid Ready Bundle</option>
-                    <option value="full_bis_starter">Full BIS Starter Pack</option>
-                </select>`;
+        html = `<label>Select Bundle</label><select id="fell_bundle" onchange="calcTotal()"><option value="raid_ready">Raid Ready Bundle</option><option value="full_bis_starter">Full BIS Starter Pack</option></select>`;
     } else {
-        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                    <div><label>From</label><input type="number" id="f_from" value="0" oninput="calcTotal()"></div>
-                    <div><label>To</label><input type="number" id="f_to" value="330" oninput="calcTotal()"></div>
-                </div>`;
+        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>From</label><input type="number" id="f_from" value="0" oninput="calcTotal()"></div><div><label>To</label><input type="number" id="f_to" value="330" oninput="calcTotal()"></div></div>`;
     }
     div.innerHTML = html;
     calcTotal();
@@ -708,36 +1932,16 @@ function updatePoe2UI() {
     const type = document.getElementById('poe2_type').value;
     const div = document.getElementById('dynamic_poe2');
     let html = '';
-
     if (type === 'leveling') {
-        html = `<label>Leveling Range</label><select id="poe2_lev_range" onchange="calcTotal()">
-                    <option value="1-60">Starter Leveling (1-60)</option>
-                    <option value="60-80">Mid-game Push (60-80)</option>
-                    <option value="1-90">Endgame Ready (1-90)</option>
-                </select>`;
+        html = `<label>Leveling Range</label><select id="poe2_lev_range" onchange="calcTotal()"><option value="1-60">Starter Leveling (1-60)</option><option value="60-80">Mid-game Push (60-80)</option><option value="1-90">Endgame Ready (1-90)</option></select>`;
     } else if (type === 'currency') {
-        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-                    <div><label>Orb Type</label><select id="poe2_orb_type" onchange="calcTotal()">
-                        <option value="divine_orb">Divine Orb</option>
-                        <option value="exalted_orb">Exalted Orb</option>
-                    </select></div>
-                    <div><label>Amount</label><input type="number" id="poe2_orb_qty" value="10" min="10" oninput="calcTotal()"></div>
-                </div>`;
+        html = `<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"><div><label>Orb Type</label><select id="poe2_orb_type" onchange="calcTotal()"><option value="divine_orb">Divine Orb</option><option value="exalted_orb">Exalted Orb</option></select></div><div><label>Amount</label><input type="number" id="poe2_orb_qty" value="10" min="10" oninput="calcTotal()"></div></div>`;
     } else if (type === 'campaign') {
-        html = `<label>Scope</label><select id="poe2_camp_scope" onchange="calcTotal()">
-                    <option value="acts_1_4">Acts 1 to 4</option>
-                    <option value="full_campaign">Full Campaign Completion</option>
-                </select>`;
+        html = `<label>Scope</label><select id="poe2_camp_scope" onchange="calcTotal()"><option value="acts_1_4">Acts 1 to 4</option><option value="full_campaign">Full Campaign Completion</option></select>`;
     } else if (type === 'trials') {
-        html = `<label>Trial Service</label><select id="poe2_trial_type" onchange="calcTotal()">
-                    <option value="all_8_points">All 8 Ascendancy Points</option>
-                    <option value="trial_of_chaos">Trial of Chaos Completion</option>
-                </select>`;
+        html = `<label>Trial Service</label><select id="poe2_trial_type" onchange="calcTotal()"><option value="all_8_points">All 8 Ascendancy Points</option><option value="trial_of_chaos">Trial of Chaos Completion</option></select>`;
     } else if (type === 'builds') {
-        html = `<label>Build Tier</label><select id="poe2_build_tier" onchange="calcTotal()">
-                    <option value="starter">Starter Build (Maps Ready)</option>
-                    <option value="endgame">Endgame Build (Boss Killer)</option>
-                </select>`;
+        html = `<label>Build Tier</label><select id="poe2_build_tier" onchange="calcTotal()"><option value="starter">Starter Build (Maps Ready)</option><option value="endgame">Endgame Build (Boss Killer)</option></select>`;
     }
     div.innerHTML = html;
     calcTotal();
@@ -745,26 +1949,83 @@ function updatePoe2UI() {
 
 function applyCoupon() {
     if(document.getElementById('coupon_input').value.toUpperCase() === PRICES_CONFIG.global.coupon_code) {
-        discount = PRICES_CONFIG.global.coupon_discount; alert("Discount Applied");
+        discount = PRICES_CONFIG.global.coupon_discount; showToast("Discount Applied!", "success");
     }
     calcTotal();
 }
 
 function calcTotal() {
     let base = 0; let eta = "..."; let serviceName = "";
-
-    if (currentTab === 'wow_retail') {
+if (currentTab === 'wow_retail') {
         const cfg = PRICES_CONFIG.wow_retail;
         const s = document.getElementById('wow_retail_service').value;
         serviceName = document.getElementById('wow_retail_service').options[document.getElementById('wow_retail_service').selectedIndex].text;
-        if(s === "mplus") { base = (cfg.mplus[document.getElementById('wow_mplus_level')?.value] || 0) * (document.getElementById('wow_mplus_runs')?.value || 1); eta = "1-3h"; }
-        else if(s === "mplus_bundle") { base = cfg.mplus_bundle[document.getElementById('wow_bundle_level')?.value] || 0; eta = "4-6h"; }
-        else if(s === "leveling") { base = (document.getElementById('wow_lev_to').value - document.getElementById('wow_lev_from').value) * cfg.leveling_per_lvl; eta = "1-2d"; }
-        else if(s === "pvp_rating") { base = (document.getElementById('pvp_to').value - document.getElementById('pvp_from').value) * cfg.pvp_per_rating; eta = "2-5d"; }
-        else if(s === "coaching") { base = (document.getElementById('wow_hours').value || 1) * cfg.coaching_hr; eta = "Instant"; }
-        else if(s === "rent_boost") { base = (document.getElementById('wow_hours').value || 1) * cfg.rent_hr; eta = "Instant"; }
-        else if(s === "gold") { base = (document.getElementById('wow_gold_k').value || 0) * cfg.gold_per_k; eta = "15m"; }
-        else { base = cfg[s] || 0; eta = "1-3d"; }
+
+        const specDungeon = document.getElementById('wow_specific_dungeon');
+        if (specDungeon && specDungeon.value !== "Random Dungeon (Any)") {
+            serviceName += ` [${specDungeon.value}]`;
+        }
+        
+        const timedRun = document.getElementById('wow_timed_run');
+        if (timedRun && timedRun.checked) {
+            serviceName += " [Timed]";
+        }
+
+        if(s === "mplus") {
+            base = (cfg.mplus[document.getElementById('wow_mplus_level')?.value] || 0) * (document.getElementById('wow_mplus_runs')?.value || 1);
+            eta = "1-3h";
+        }
+        else if(s === "mplus_bundle") {
+            base = cfg.mplus_bundle[document.getElementById('wow_bundle_level')?.value] || 0;
+            eta = "4-6h";
+        }
+        else if(s === "leveling") {
+            base = (document.getElementById('wow_lev_to').value - document.getElementById('wow_lev_from').value) * cfg.leveling_per_lvl;
+            eta = "1-2d";
+        }
+        else if(s === "pvp_rating") {
+            base = (document.getElementById('pvp_to').value - document.getElementById('pvp_from').value) * cfg.pvp_per_rating;
+            eta = "2-5d";
+        }
+        else if(s === "coaching") {
+            base = (document.getElementById('wow_hours').value || 1) * cfg.coaching_hr;
+            eta = "Instant";
+        }
+        else if(s === "rent_boost") {
+            base = (document.getElementById('wow_hours').value || 1) * cfg.rent_hr;
+            eta = "Instant";
+        }
+        else if(s === "gold") {
+            base = (document.getElementById('wow_gold_k').value || 0) * cfg.gold_per_k;
+            eta = "15m";
+        }
+        // --- AQUÍ ESTABA EL ERROR: CORRECCIÓN PARA MOUNTS ---
+        else if(s === "mounts") {
+            const selectedMount = document.getElementById('wow_mount_select')?.value;
+            base = cfg.mounts[selectedMount] || 0;
+            eta = "1-3d";
+        }
+        // ---------------------------------------------------
+        else {
+            base = cfg[s] || 0;
+            eta = "1-3d";
+        }
+
+        // Apply Specific Dungeon Fee (2%)
+        if (specDungeon && specDungeon.value !== "Random Dungeon (Any)") {
+            base *= 1.02;
+        }
+        // Apply Timed Run Fee (10%)
+        if (timedRun && timedRun.checked) {
+            base *= 1.10;
+        }
+
+        const lootTraders = document.getElementById('wow_loot_traders');
+        if (lootTraders) {
+            const traders = parseInt(lootTraders.value);
+            if (traders === 3) base *= 1.20;
+            else if (traders === 4) base *= 1.30;
+        }
     }
     else if (currentTab === 'wow_classic') {
         const cfg = PRICES_CONFIG.wow_classic;
@@ -778,7 +2039,6 @@ function calcTotal() {
         const cfg = PRICES_CONFIG.wow_mop;
         const s = document.getElementById('wow_mop_service').value;
         serviceName = "MoP " + document.getElementById('wow_mop_service').options[document.getElementById('wow_mop_service').selectedIndex].text;
-
         if(s === "leveling") {
             let f = parseInt(document.getElementById('mop_from').value) || 0;
             let t = parseInt(document.getElementById('mop_to').value) || 0;
@@ -814,11 +2074,7 @@ function calcTotal() {
         const cfg = PRICES_CONFIG.fell;
         const type = document.getElementById('fell_type').value;
         serviceName = document.getElementById('fell_type').options[document.getElementById('fell_type').selectedIndex].text;
-
-        // 1. Cálculo del precio base por servicio
-        if (type === "leveling") {
-            base = cfg.leveling[document.getElementById('fell_lev_range')?.value] || 0;
-        } else if (type === "gear_score") {
+        if (type === "gear_score") {
             let f = parseInt(document.getElementById('gs_from')?.value) || 0;
             let t = parseInt(document.getElementById('gs_to')?.value) || 0;
             base = Math.max(0, t - f) * cfg.gear_score;
@@ -833,25 +2089,20 @@ function calcTotal() {
             let t = parseInt(document.getElementById('f_to')?.value) || 0;
             base = Math.max(0, t - f) * cfg.rating_per_point;
         }
-
-        // 2. APLICACIÓN DEL RECARGO DEL 30% (Corregido: ahora aplica a TODO Fellowship)
         const heroValue = document.getElementById('hero_select').value;
         const notice = document.getElementById('role_fee_notice');
-
         if (heroValue === "fee") {
-            base *= cfg.role_fee_multiplier; // Multiplica por 1.3
+            base *= cfg.role_fee_multiplier;
             if (notice) notice.style.display = 'block';
         } else {
             if (notice) notice.style.display = 'none';
         }
-
         eta = "Varies";
     }
     else if (currentTab === 'poe2') {
         const cfg = PRICES_CONFIG.poe2;
         const type = document.getElementById('poe2_type').value;
         serviceName = document.getElementById('poe2_type').options[document.getElementById('poe2_type').selectedIndex].text;
-
         if (type === "leveling") {
             base = cfg.leveling[document.getElementById('poe2_lev_range').value];
             eta = "1-3d";
@@ -883,6 +2134,8 @@ function calcTotal() {
 
     if (serviceMode === 'Piloted') base *= PRICES_CONFIG.global.piloted_fee;
     if (document.getElementById('opt_express').checked) base *= PRICES_CONFIG.global.express_fee;
+    if (document.getElementById('opt_priority').checked) base *= PRICES_CONFIG.global.priority_fee;
+    if (document.getElementById('opt_stream').checked) base *= PRICES_CONFIG.global.stream_fee;
 
     let final = (base * discount).toFixed(2);
     document.getElementById('display_price').innerText = final;
@@ -893,15 +2146,367 @@ function calcTotal() {
     document.getElementById('detail-price').innerText = "$" + final;
 }
 
+let paypalButtonsRendered = false;
+
+// --- TELEGRAM NOTIFICATION SYSTEM (FREE) ---
+const TELEGRAM_BOT_TOKEN = "8422637031:AAGB-E_JbrqZQuFveLLAgBAalMEivmYeAOI"; // Example: 123456:ABC-DEF1234ghIkl-zyx57W2v1u123ew11
+const TELEGRAM_CHAT_ID = "5666666789";     // <--- CHECK THIS: Did you replace this with your real ID from @userinfobot?
+
+async function sendTelegramNotification(orderId, total, items, customerEmail, method) {
+    if (!TELEGRAM_BOT_TOKEN || TELEGRAM_BOT_TOKEN.includes("YOUR_BOT_TOKEN")) {
+        console.warn("Telegram Token not set.");
+        return;
+    }
+
+    // Helper to escape HTML characters to prevent parsing errors
+    const escapeHtml = (text) => {
+        if (!text) return "";
+        return String(text)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+    };
+
+    const itemsList = items.map(i => `- ${escapeHtml(i.game)} | ${escapeHtml(i.service)} (${escapeHtml(i.mode)}): $${i.price}`).join('\n');
+    const message = `
+🚨 <b>NEW ORDER RECEIVED</b> 🚨
+🆔 <b>Order ID:</b> <code>${escapeHtml(orderId)}</code>
+👤 <b>Customer:</b> ${escapeHtml(customerEmail)}
+💰 <b>Total:</b> $${total}
+💳 <b>Method:</b> ${escapeHtml(method)}
+
+📦 *Items:*
+${itemsList}
+    `;
+
+    try {
+        const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'HTML'
+            })
+        });
+        const result = await response.json();
+        if (!result.ok) {
+            console.error("Telegram API Error:", result);
+            alert("Telegram Error: " + result.description); // This will tell you exactly what is wrong
+        }
+    } catch (error) {
+        console.error("Telegram Notification Error:", error);
+    }
+}
+
+function initPayPal() {
+    if (paypalButtonsRendered) return;
+    
+    if (document.getElementById('paypal-button-container') && window.paypal) {
+        window.paypal.Buttons({
+            createOrder: function(data, actions) {
+                let total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: { value: total }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(async function(details) {
+                    showToast("Payment successful! Transaction completed.", "success");
+                    
+                    if (auth.currentUser) {
+                        // Create a single professional order document
+                        const orderId = 'ORD-' + Date.now();
+                        const total = cart.reduce((sum, item) => sum + item.price, 0);
+                        
+                        // Award Loyalty Points (1 point per $1)
+                        const pointsEarned = Math.floor(total);
+                        const userRef = doc(db, "users", auth.currentUser.uid);
+                        const userSnap = await getDoc(userRef);
+                        if(userSnap.exists()) {
+                            const currentPoints = userSnap.data().loyaltyPoints || 0;
+                            await updateDoc(userRef, { loyaltyPoints: currentPoints + pointsEarned });
+                            document.getElementById('user-balance').innerHTML = `Balance: $${(userSnap.data().balance).toFixed(2)} <span style="color:#ffd700; margin-left:8px; font-size:0.7rem;" title="Loyalty Points"><i class="fas fa-crown"></i> ${currentPoints + pointsEarned}</span>`;
+                        }
+
+                        addDoc(collection(db, "orders"), {
+                            userId: auth.currentUser.uid,
+                            customerEmail: auth.currentUser.email, // Ready for Firebase Email Trigger
+                            orderId: orderId,
+                            items: cart, // Store all items in one array
+                            total: parseFloat(total.toFixed(2)),
+                            status: 'Paid',
+                            transactionId: details.id,
+                            createdAt: new Date()
+                        }).then(() => {
+                            console.log("Order created: " + orderId);
+                            
+                            // --- SEND TELEGRAM NOTIFICATION ---
+                            sendTelegramNotification(orderId, parseFloat(total.toFixed(2)), cart, auth.currentUser.email, "PayPal");
+
+                        }).catch(e => console.error("Error saving order", e));
+                    }
+                    
+                    cart = [];
+                    renderCart();
+                    updateCartBadge();
+                    closeCart();
+                });
+            },
+            onError: function(err) {
+                console.error(err);
+                showToast("Payment Error. Try again.", "error");
+            }
+        }).render('#paypal-button-container');
+        paypalButtonsRendered = true;
+    }
+}
+
+function addToCart() {
+    const price = document.getElementById('display_price').innerText;
+    const game = document.getElementById('detail-game').innerText;
+    const service = document.getElementById('detail-service').innerText;
+    const mode = document.getElementById('detail-mode').innerText;
+    
+    const item = {
+        id: Date.now(), // Simple ID
+        game: game,
+        service: service,
+        mode: mode,
+        price: parseFloat(price)
+    };
+
+    cart.push(item);
+    updateCartBadge();
+    showToast("Item added to cart!", "success");
+}
+
+function updateCartBadge() {
+    const badge = document.getElementById('cart-badge');
+    if (cart.length > 0) {
+        badge.style.display = 'flex';
+        badge.innerText = cart.length;
+    } else {
+        badge.style.display = 'none';
+    }
+}
+
+function openCart() {
+    document.getElementById('cart-modal').style.display = 'flex';
+    renderCart();
+    setTimeout(initPayPal, 100);
+}
+
+function closeCart() {
+    document.getElementById('cart-modal').style.display = 'none';
+}
+
+function renderCart() {
+    const container = document.getElementById('cart-items-container');
+    container.innerHTML = '';
+    let total = 0;
+
+    if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:#666;">Your cart is empty.</p>';
+    } else {
+        cart.forEach((item, index) => {
+            total += item.price;
+            container.innerHTML += `
+                <div class="cart-item">
+                    <div>
+                        <div style="color:var(--primary); font-weight:bold; font-size:0.8rem;">${item.game}</div>
+                        <div style="color:#ccc; font-size:0.8rem;">${item.service}</div>
+                        <div style="color:#666; font-size:0.7rem;">${item.mode}</div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-weight:bold;">$${item.price.toFixed(2)}</div>
+                        <button onclick="removeFromCart(${index})" style="background:none; border:none; color:#ff4444; cursor:pointer; font-size:0.8rem; margin-top:5px;">Remove</button>
+                    </div>
+                </div>
+            `;
+        });
+    }
+    document.getElementById('cart-total-price').innerText = '$' + total.toFixed(2);
+}
+
+window.removeFromCart = function(index) {
+    cart.splice(index, 1);
+    renderCart();
+    updateCartBadge();
+};
+
+window.checkoutTelegram = async function() {
+    if (cart.length === 0) return showToast("Cart is empty", "error");
+    
+    let orderId = 'PENDING';
+    let total = 0;
+    
+    // Save Pending Order to Database
+    if (auth.currentUser) {
+        orderId = 'ORD-' + Date.now();
+        total = cart.reduce((sum, item) => sum + item.price, 0);
+        
+        try {
+            await addDoc(collection(db, "orders"), {
+                userId: auth.currentUser.uid,
+                customerEmail: auth.currentUser.email,
+                orderId: orderId,
+                items: cart,
+                total: parseFloat(total.toFixed(2)),
+                status: 'Pending',
+                createdAt: new Date()
+            });
+        } catch (e) { console.error(e); }
+    }
+
+    let msg = "Hello! I want to order:\n";
+    msg += `Order ID: ${orderId}\n`;
+    cart.forEach(item => {
+        msg += `- ${item.game} | ${item.service} (${item.mode}): $${item.price}\n`;
+    });
+    if(total === 0) total = cart.reduce((sum, item) => sum + item.price, 0); // Recalculate if not logged in
+    msg += `\nTotal: $${total.toFixed(2)}`;
+    window.open(`https://t.me/ErnismarSF?text=${encodeURIComponent(msg)}`, '_blank');
+    
+    // Clear cart after sending to Telegram
+    cart = [];
+    renderCart();
+    updateCartBadge();
+    closeCart();
+};
+
+async function payWithBalance() {
+    if (!auth.currentUser) return showToast("Please login to pay with balance", "error");
+    if (cart.length === 0) return showToast("Cart is empty", "error");
+
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+    if (userBalance < total) {
+        return showToast(`Insufficient balance. You need $${(total - userBalance).toFixed(2)} more.`, "error");
+    }
+
+    const confirmed = await showConfirmModal(`Confirm payment of $${total.toFixed(2)} with your balance?`);
+    if (!confirmed) return;
+
+    const btn = document.getElementById('btn-pay-balance');
+    const originalText = btn.innerHTML;
+    btn.innerText = "PROCESSING...";
+    btn.disabled = true;
+
+    try {
+        const newBalance = userBalance - total;
+        const userRef = doc(db, "users", auth.currentUser.uid);
+        
+        // Calculate Points (1 point per $1)
+        const pointsEarned = Math.floor(total);
+        const userSnap = await getDoc(userRef);
+        const currentPoints = userSnap.exists() ? (userSnap.data().loyaltyPoints || 0) : 0;
+
+        // 1. Deduct balance & Add Points
+        await updateDoc(userRef, { balance: newBalance, loyaltyPoints: currentPoints + pointsEarned });
+        
+        // Update local state immediately for UI responsiveness
+        userBalance = newBalance;
+        document.getElementById('user-balance').innerHTML = `Balance: $${userBalance.toFixed(2)} <span style="color:#ffd700; margin-left:8px; font-size:0.7rem;" title="Loyalty Points"><i class="fas fa-crown"></i> ${currentPoints + pointsEarned}</span>`;
+
+        // 2. Create Order
+        const orderId = 'ORD-' + Date.now();
+        await addDoc(collection(db, "orders"), {
+            userId: auth.currentUser.uid,
+            customerEmail: auth.currentUser.email,
+            orderId: orderId,
+            items: cart,
+            total: parseFloat(total.toFixed(2)),
+            status: 'Paid', // Paid with balance
+            paymentMethod: 'Balance',
+            createdAt: new Date()
+        });
+
+        // --- SEND TELEGRAM NOTIFICATION ---
+        sendTelegramNotification(orderId, total.toFixed(2), cart, auth.currentUser.email, "Balance");
+
+        showToast(`Payment successful! Earned ${pointsEarned} Points.`, "success");
+        
+        cart = [];
+        renderCart();
+        updateCartBadge();
+        closeCart();
+
+    } catch (error) {
+        console.error(error);
+        showToast("Payment failed: " + error.message, "error");
+    } finally {
+        if(btn) {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    }
+}
+
 function sendOrder() {
     const price = document.getElementById('display_price').innerText;
-    window.open(`https://t.me/ErnismarSF?text=New Order: ${currentTab.toUpperCase()} - $${price}`);
+    const game = document.getElementById('detail-game').innerText;
+    const service = document.getElementById('detail-service').innerText;
+    const mode = document.getElementById('detail-mode').innerText;
+
+    if (auth.currentUser) {
+        addDoc(collection(db, "orders"), {
+            userId: auth.currentUser.uid,
+            game: game,
+            service: service,
+            mode: mode,
+            price: price,
+            status: 'Pending',
+            date: new Date()
+        }).catch(e => console.error("Error saving order", e));
+    }
+    window.open(`https://t.me/ErnismarSF?text=New Order: ${game} - ${service} ($${price})`);
 }
+
+function resetCalculator() {
+    // 1. Reset Global Options
+    setMode('Self-play');
+    document.getElementById('opt_express').checked = false;
+    document.getElementById('opt_priority').checked = false;
+    document.getElementById('opt_stream').checked = false;
+    document.getElementById('coupon_input').value = '';
+    discount = 1.0;
+
+    // 2. Reset Service Selection
+    const selectors = {
+        wow_retail: 'wow_retail_service',
+        wow_classic: 'wow_classic_service',
+        wow_tbc: 'wow_tbc_service',
+        wow_mop: 'wow_mop_service',
+        fell: 'fell_type',
+        poe2: 'poe2_type',
+        bf6: 'bf_service'
+    };
+    const selectId = selectors[currentTab];
+    const selectEl = document.getElementById(selectId);
+
+    if (selectEl) {
+        selectEl.selectedIndex = 0;
+        // Trigger change to update UI (re-renders dynamic inputs with defaults)
+        selectEl.dispatchEvent(new Event('change'));
+        renderServiceGrid(currentTab);
+    }
+
+    // 3. Special handling for static inputs
+    if (currentTab === 'bf6') {
+        document.getElementById('bf_from').value = 1;
+        document.getElementById('bf_to').value = 50;
+    } else if (currentTab === 'fell') {
+        document.getElementById('hero_select').selectedIndex = 0;
+    }
+    calcTotal();
+}
+
 function filterServices() {
     const input = document.getElementById('service-search').value.toLowerCase();
     const resultsDiv = document.getElementById('search-results');
-
-    // Diccionario completo de servicios para búsqueda directa
     const services = [
         { name: "Mythic+ Carry", tab: "wow_retail", val: "mplus" },
         { name: "Keystone Master (KSM)", tab: "wow_retail", val: "ksm" },
@@ -916,31 +2521,16 @@ function filterServices() {
         { name: "Battlefield Leveling", tab: "bf6", val: "leveling" },
         { name: "Dungeon Carries", tab: "fell", val: "capstone" }
     ];
-
-    if (input.length < 2) {
-        resultsDiv.style.display = 'none';
-        return;
-    }
-
+    if (input.length < 2) { resultsDiv.style.display = 'none'; return; }
     const filtered = services.filter(s => s.name.toLowerCase().includes(input));
-
     if (filtered.length > 0) {
-        resultsDiv.innerHTML = filtered.map(s => `
-            <div onclick="goToService('${s.tab}', '${s.val}')" style="padding: 10px; cursor: pointer; border-bottom: 1px solid #333; font-size: 0.8rem; color: #eee;">
-                <span style="color: var(--primary); font-weight: bold;">[${s.tab.replace('_', ' ').toUpperCase()}]</span> ${s.name}
-            </div>
-        `).join('');
+        resultsDiv.innerHTML = filtered.map(s => `<div onclick="goToService('${s.tab}', '${s.val}')" style="padding: 10px; cursor: pointer; border-bottom: 1px solid #333; font-size: 0.8rem; color: #eee;"><span style="color: var(--primary); font-weight: bold;">[${s.tab.replace('_', ' ').toUpperCase()}]</span> ${s.name}</div>`).join('');
         resultsDiv.style.display = 'block';
-    } else {
-        resultsDiv.style.display = 'none';
-    }
+    } else { resultsDiv.style.display = 'none'; }
 }
 
-// Función para navegar y seleccionar el servicio
 function goToService(tab, serviceVal) {
-    switchTab(tab); // Cambia la pestaña del juego
-
-    // Busca el selector específico del juego y cambia su valor
+    switchTab(tab);
     const selectors = {
         wow_retail: 'wow_retail_service',
         wow_classic: 'wow_classic_service',
@@ -950,13 +2540,11 @@ function goToService(tab, serviceVal) {
         poe2: 'poe2_type',
         bf6: 'bf_service'
     };
-
     const selectorId = selectors[tab];
     const selectEl = document.getElementById(selectorId);
-
     if (selectEl) {
         selectEl.value = serviceVal;
-        // Disparar el evento de cambio manual para que se actualice la UI
+        renderServiceGrid(tab); // Actualizar grid visual
         if (tab === 'wow_retail') updateWoWRetailServiceUI();
         else if (tab === 'wow_classic') updateWoWClassicServiceUI();
         else if (tab === 'wow_tbc') updateWoWTBCServiceUI();
@@ -965,20 +2553,165 @@ function goToService(tab, serviceVal) {
         else if (tab === 'poe2') updatePoe2UI();
         else calcTotal();
     }
-
-    // Limpiar búsqueda
     document.getElementById('service-search').value = '';
     document.getElementById('search-results').style.display = 'none';
 }
 
-// Cerrar resultados si se hace clic fuera
-document.addEventListener('click', (e) => {
-    if (!e.target.closest('.search-container')) {
+function toggleMenu() {
+    document.getElementById("dropdown-menu").classList.toggle("show-menu");
+}
+
+function selectGameFromMenu(tab) {
+    document.getElementById("dropdown-menu").classList.remove("show-menu");
+    selectGameFromLanding(tab);
+}
+
+document.addEventListener('click', (event) => {
+    if (!event.target.closest('.menu-btn') && !event.target.closest('.dropdown-content')) {
+        const dropdown = document.getElementById("dropdown-menu");
+        if (dropdown && dropdown.classList.contains('show-menu')) {
+            dropdown.classList.remove('show-menu');
+        }
+    }
+    // Existing search container logic
+    if (!event.target.closest('.search-container')) {
         document.getElementById('search-results').style.display = 'none';
     }
 });
 
-window.onload = () => { initImages(); switchTab('wow_retail'); };
+// Browser Back Button Logic
+window.onpopstate = function(event) {
+    if (event.state && event.state.page === 'services') {
+        // Restore service view
+        document.getElementById('landing-page').style.display = 'none';
+        document.getElementById('app-content').style.display = 'block';
+        document.getElementById('games-portal').style.display = 'none';
+        switchTab(event.state.tab);
+    } else {
+        // Restore landing view
+        document.getElementById('app-content').style.display = 'none';
+        document.getElementById('landing-page').style.display = 'block';
+        document.getElementById('games-portal').style.display = 'flex';
+        document.body.className = 'bg-landing';
+    }
+};
+
+function selectGameFromLanding(tab, push = true) {
+    document.getElementById('landing-page').style.display = 'none';
+    document.getElementById('app-content').style.display = 'block';
+    document.getElementById('games-portal').style.display = 'none';
+    switchTab(tab);
+    if (push) {
+        history.pushState({ page: 'services', tab: tab }, '', `#${tab}`);
+    }
+}
+
+function goBackToLanding() {
+    history.back();
+}
+
+     // Actualizamos el window.onload para preparar la vista inicial
+window.onload = () => {
+    initImages(); // Carga tus imágenes de fondo
+
+    // Configuramos los cuadros de los juegos
+    const cards = document.querySelectorAll('.game-card');
+    cards.forEach(card => {
+        const tabName = card.id.replace('tab-', '');
+
+        // Ponemos la imagen de fondo a cada cuadro
+        if(IMAGES_CONFIG.nav_cards[tabName]) {
+            card.style.backgroundImage = `url('${IMAGES_CONFIG.nav_cards[tabName]}')`;
+        }
+
+        // Cuando hagan clic, ejecutar nuestra nueva función
+        card.onclick = () => {
+            const audio = document.getElementById('card-click-sound');
+            if (audio) {
+                audio.currentTime = 0;
+                audio.play().catch(e => console.log("Audio interaction required"));
+            }
+            selectGameFromLanding(tabName);
+        };
+    });
+
+    // Aseguramos que la barra de juegos se vea al principio en la landing
+    document.getElementById('games-portal').style.display = 'flex';
+};
+let userBalance = 0;
+
+window.onscroll = function() {
+    const btn = document.getElementById('scroll-top-btn');
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = "flex";
+    } else {
+        btn.style.display = "none";
+    }
+};
+
+window.scrollToTop = function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+};
+
+window.showToast = function(message, type = 'info') {
+    const container = document.getElementById('toast-container');
+    const toast = document.createElement('div');
+    toast.className = `toast ${type}`;
+    
+    let icon = 'fa-info-circle';
+    if(type === 'success') icon = 'fa-check-circle';
+    if(type === 'error') icon = 'fa-exclamation-circle';
+
+    toast.innerHTML = `<i class="fas ${icon}"></i> <span>${message}</span>`;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease-in forwards';
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+};
+
+// Vigilar si el usuario entra o sale
+onAuthStateChanged(auth, async (user) => {
+    const infoDiv = document.getElementById('user-info');
+    const authBtn = document.getElementById('auth-btn');
+    const emailSpan = document.getElementById('user-email');
+    const balanceSpan = document.getElementById('user-balance');
+
+    if (user) {
+        infoDiv.style.display = 'block';
+        authBtn.innerText = 'LOGOUT';
+        emailSpan.innerText = user.displayName || user.email;
+        
+        // Update Profile Button with Image if available
+        const profileBtn = document.getElementById('btn-profile-header');
+        if (user.photoURL) {
+            profileBtn.innerHTML = `<img src="${user.photoURL}" style="width:24px; height:24px; border-radius:50%; object-fit:cover; border:1px solid var(--primary);">`;
+        } else {
+            profileBtn.innerHTML = `<i class="fas fa-user-cog"></i>`;
+        }
+
+        // Buscar saldo en la base de datos Firestore
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            userBalance = docSnap.data().balance;
+            const points = docSnap.data().loyaltyPoints || 0;
+            balanceSpan.innerHTML = `Balance: $${userBalance.toFixed(2)} <span style="color:#ffd700; margin-left:8px; font-size:0.7rem;" title="Loyalty Points"><i class="fas fa-crown"></i> ${points}</span>`;
+        } else {
+            // Si es usuario nuevo, crearle saldo 0 en la DB
+            userBalance = 0;
+            await setDoc(docRef, { email: user.email, balance: 0, loyaltyPoints: 0 });
+            balanceSpan.innerHTML = `Balance: $0.00 <span style="color:#ffd700; margin-left:8px; font-size:0.7rem;" title="Loyalty Points"><i class="fas fa-crown"></i> 0</span>`;
+        }
+        checkNotifications();
+    } else {
+        infoDiv.style.display = 'none';
+        authBtn.innerText = 'LOGIN';
+    }
+});
+
 </script>
 </body>
 </html>
